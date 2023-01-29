@@ -151,7 +151,7 @@ article img {
 @supports (aspect-ratio: 1) {
   article img {
     max-height: unset;
-    aspect-ratio: 3/2;
+    aspect-ratio: auto;
   }
 }
 
