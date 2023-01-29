@@ -27,5 +27,9 @@
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
     "axios": "*"
+  },
+  "scripts": {
+    "serve": "eleventy --serve",
+    "build": "eleventy"
   }
 }
