@@ -1,0 +1,44 @@
+---
+layout: base.njk
+---
+
+<main>
+  <article>
+    {{ content | safe }}
+    
+  </article>
+
+  <projects>
+    <h2>projects</h2>
+    <ul>
+      {% for project in collections.projects %}
+      <li>
+        <a 
+          {% if currentUrl === project.url %}aria-current="project"{% endif %} 
+          href="{{ project.url }}">
+            {{ project.data.title }}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+
+  </projects>
+
+
+  <projects>
+    <h2>posts</h2>
+    <ul>
+      {% for post in collections.posts.reverse() %}
+      <li>
+        <a 
+          {% if currentUrl === post.url %}aria-current="post"{% endif %} 
+          href="{{ post.url }}">
+            {{ post.data.title }} 
+        </a>
+        <div id="postdate" style="font-size: .7em"> - {{post.data.dumbdate}} </div>
+      </li>
+      {%- endfor %}
+    </ul>
+
+  </projects>
+</main>
