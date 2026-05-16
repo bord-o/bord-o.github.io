@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git subtree push --prefix output origin gh-pages
