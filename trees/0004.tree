@@ -4,47 +4,44 @@
 
 \p{Though HOL provers don't have much interdependence between subgoals, there are limits to how much general execution of tactics can be parallelized.}
 
-\p{For example}
+\p{For example, take the proof of this proposition.}
 
-\pre{\startverb
-a -> (a -> b) -> b
-\stopverb}
+##{
+  a \to (a \to b) \to b
+}
 
-\p{generates a few subgoals}
+\p{The proof follows, as a linear application of tactics.}
 
-\pre{\startverb
-// intro
-a
----
-(a -> b) -> b
-\stopverb}
+##{
+  \frac{
+    a
+  }{
+    (a \to b) \to b
+  }\;\mathsf{intro}
+}
 
-\p{and}
+##{
+  \frac{
+    \begin{array}{c} a \\ a \to b \end{array}
+  }{
+    b
+  }\;\mathsf{intro}
+}
 
-\pre{\startverb
-// intro
-a
-a -> b
----
-b
-\stopverb}
+##{
+  \frac{
+    \begin{array}{c} a \\ a \to b \end{array}
+  }{
+    a
+  }\;\mathsf{apply}
+}
 
-\p{and finally}
+\p{The final goal can be solved directly with the assumption #{a}, finishing the proof.}
 
-\pre{\startverb
-// apply
-a
-a -> b
----
-a
-\stopverb}
+\p{Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing a tactic on the previous subgoal.}
 
-\p{which can be solved.}
+\p{If we knew all of the subgoals ahead of time we could parallelize their execution 'completely', but in the case of a tactic producing a single subgoal like above this is not helpful, as most of actual code in a given tactic is used in formulating the next subproblem anyway.}
 
-\p{Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing the previous subgoal.}
-
-\p{So if we knew all of the subgoals ahead of time we could parallelize their execution, but in the case of a tactic producing a single subgoal like above this is not helpful, as most of the actual work done is before the subgoal effect is performed.}
-
-\p{Meaning that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next n subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like \code{conj} where both sides are often of similar difficulty.}
+\p{What this means is that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next #{n} subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like \code{conj} where both sides are often of similar difficulty.}
 
 \p{I'm quite happy with the ability to switch out a \code{@>>} for a \code{@>>!} and get some parallelism though.}

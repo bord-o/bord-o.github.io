@@ -1,5 +1,6 @@
 \title{docs for my theorem prover}
 \date{2026-05-15}
 \taxon{Note}
+\meta{external}{https://bord-o.github.io/heft/heft/Heft/index.html}
 
-\p{[docs for the main module](https://bord-o.github.io/heft/heft/Heft/index.html)}
+\p{docs for the main module of my theorem prover }

@@ -6,11 +6,11 @@
 
 \p{The trick for dealing with this would have been obvious if I read the docs:}
 
-\pre{\startverb
+\pre\verb<<|
 exception Unwind
 Gc.finalise (fun k ->
   try ignore (discontinue k Unwind) with _ -> ()) k
-\stopverb}
+<<
 
 \p{I could see some real value in this little snippet being a library function, or at least calling a bit more attention to it.}
 

@@ -6,10 +6,12 @@
 
 \p{On one hand the dominant DTT provers (Rocq, Lean) have tons of good documentation, and Lean specifically has invested heavily in making the onboarding experience as frictionless as possible. Still, these provers ask a lot of the user. To begin proving something outside of a trivial tutorial you must:}
 
-\p{1. Be comfortable with functional programming
-2. Understand logic
-3. Understand dependent types
-4. Learn the tactic DSL}
+\ol {
+    \li{Be comfortable with functional programming}
+    \li{Understand logic}
+    \li{Understand dependent types}
+    \li{Learn the tactic DSL}
+}
 
 \p{Lean is by far the best in minimizing the burden of these issues, I think largely because of the meta-programming-based tactics system and availability of quality documentation.}
 
@@ -29,15 +31,17 @@
 
 \p{To build HOL terms with a PPX, I will leverage the fact that the term language's semantics are close enough to a subset of OCaml's AST that I can write my HOL definitions, types, and goals as OCaml directly. We'll see how this works in practice but I think it's a really pragmatic path forward to a potentially beginner-friendly proof assistant. The system will then trade out a lot of the traditional proof assistant onboarding process with "just know OCaml", which I think is a far more reasonable ask. The onboarding process would potentially be:}
 
-\p{1. Install OCaml
-2. \code{dune init proj my_proofs}
-3. Add to \code{dune-project} the dependencies \code{heft heft.ppx heft.theories} and \code{dune pkg lock}
-4. Start writing definitions and goals as valid OCaml with ppx_heft as a preprocessor
-5. Run \code{dune build --watch} in another window to see the proof state update on each save}
+\ol{
+    \li{ Install OCaml}
+    \li{ \code{dune init proj my_proofs}}
+    \li{ Add to \code{dune-project} the dependencies \code{heft heft.ppx heft.theories} and \code{dune pkg lock}}
+    \li{ Start writing definitions and goals as valid OCaml with ppx_heft as a preprocessor}
+    \li{ Run \code{dune build --watch} in another window to see the proof state update on each save}
+}
 
 \p{The end user would see something like:}
 
-\pre{\startverb
+\pre\verb<<|
 type%heft nat =
     | Zero
     | Suc of nat
@@ -51,6 +55,6 @@ let%heft_goal plus_zero_right =
     forall (fun (m:nat) ->
         plus (m:nat) zero = (m:nat)
     )
-\stopverb}
+<<
 
 \p{There are still a few problems to solve here, like how to tell which terms should be variables vs constants for example, since PPX extensions are a purely syntactic transformation, and I don't know how acceptable it is to do things like type inference during the translation. For now I think I can get around this by just requiring all variables to have explicit annotation, matching HOL's internal representation. Also, I still need to think about other edge cases for HOL that could be difficult or confusing to represent as OCaml, subtypes for example.}

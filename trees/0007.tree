@@ -6,7 +6,7 @@
 
 \p{To inform myself a bit I looked at A.H. Lightstone's ["Symbolic Logic and the Real Number System"](https://archive.org/details/symboliclogicrea0000ahli) and found some interesting symmetries in the construction of integers and rationals that I wasn't aware of. Assuming we start with naturals and pairs as they're defined in my system:}
 
-\pre{\startverb
+\pre\verb<<|
 inductive nat :=
     | zero : nat
     | suc : nat -> nat
@@ -14,15 +14,15 @@ inductive nat :=
 vartype a b
 inductive pair :=
     | pair : a -> b -> pair a b
-\stopverb}
+<<
 
 \p{We can build integers as a subtype of pairs of naturals where the right and left represent the positive and negative components, respectively. Here it would be something like:}
 
-\pre{\startverb
+\pre\verb<<|
 variable a b c d : nat
 subtype int := pair a b
     where (eq a zero) \/ (eq b zero)
-\stopverb}
+<<
 
 \p{\em{(pseudocode as I don't have object syntax for subtypes yet)}}
 
@@ -30,12 +30,12 @@ subtype int := pair a b
 
 \p{The symmetry I was referring to is that rationals are defined almost the same way, with a pair, this time representing the numerator and denominator. Here we use an integer numerator to keep the sign, and a natural denominator for simplicity:}
 
-\pre{\startverb
+\pre\verb<<|
 variable a : int
 variable b : nat
 subtype rat := pair a b
     where (nat_lt zero b) ∧ (gcd (abs a) b = suc zero)
-\stopverb}
+<<
 
 \p{\em{(pseudocode as I don't have object syntax for subtypes yet)}}
 
@@ -43,12 +43,12 @@ subtype rat := pair a b
 
 \p{This is more obvious when looking more abstractly at their equivalence relations, with addition vs multiplication being the only difference:}
 
-\pre{\startverb
+\pre\verb<<|
 for integers
 (a, b) === (c, d) when a + d = b + c
 
 for rationals
 (a, b) === (c, d) when a * d = b * c
-\stopverb}
+<<
 
 \p{For my system I will elect to go the more traditional route of the number tower, as I think it will make for a more readable and easily understood formulation at the cost of having some more fiddly definitions for the algebraic laws due to reasoning about these underlying representations directly and respecting normalization at each step. Another benefit to the more traditional approach is that I don't necessarily need to add quotient typing to the system, not that it would be a large addition.}

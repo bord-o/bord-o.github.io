@@ -1,7 +1,7 @@
 \title{Brody Little}
 \meta{author}{false}
 
-\p{I am a software engineer working in the design space of theorem provers, algebraic effects, and software verification}
+\p{I am a software engineer working with theorem provers, algebraic effects, and software verification}
 
 \p{This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.}
 
@@ -23,4 +23,3 @@
 \transclude{0014}
 \transclude{0015}
 \transclude{0016}
-\transclude{0017}

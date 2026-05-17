@@ -6,14 +6,14 @@
 
 \p{From Rocq's documentation:}
 
-\pre{\startverb
+\pre\verb<<|
 A tactic for proof by contradiction. With contradict H,
 
 1    H:~A |- B gives |- A
 2    H:~A |- ~B gives H: B |- A
 3    H: A |- B gives |- ~A
 4    H: A |- ~B gives H: B |- ~A
-\stopverb}
+<<
 
 \p{Translating this to my system, I can have exfalso as \code{have F >> [subgoal] >> false_elim}}
 

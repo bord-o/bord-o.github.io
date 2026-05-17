@@ -4,7 +4,7 @@
 
 \p{I use neovim for development, and after the 0.12 update I was able to clean up my config quite a bit. For my own sanity and for any others that want a clean, minimalist config that includes nearly everything needed to be productive during development I've annotated the config below.}
 
-\pre{\startverb
+\pre\verb<<|
 -- Requires: neovim 0.12+, ripgrep (for telescope live_grep), a nerd font (optional)
 
 -- Basic config
@@ -172,4 +172,4 @@ vim.lsp.enable('tinymist') -- typst language server
 -- Custom macros for dumb shit
 
 vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')
-\stopverb}
+<<
