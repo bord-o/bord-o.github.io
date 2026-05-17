@@ -201,17 +201,15 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
         <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
           <fr:frontmatter>
             <fr:authors />
-            <fr:date>
-              <fr:year>2026</fr:year>
-              <fr:month>5</fr:month>
-              <fr:day>16</fr:day>
-            </fr:date>
-            <fr:uri>https://bord-o.github.io/0001/</fr:uri>
-            <fr:display-uri>0001</fr:display-uri>
-            <fr:route>/0001/</fr:route>
-            <fr:title text="Notes">Notes</fr:title>
+            <fr:uri>https://bord-o.github.io/index/</fr:uri>
+            <fr:display-uri>index</fr:display-uri>
+            <fr:route>/index/</fr:route>
+            <fr:title text="Brody Little">Brody Little</fr:title>
+            <fr:meta name="author">false</fr:meta>
           </fr:frontmatter>
           <fr:mainmatter>
+            <html:p>I am a software engineer working in the design space of theorem provers, algebraic effects, and software verification</html:p>
+            <html:p>This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.</html:p>
             <fr:tree show-metadata="false">
               <fr:frontmatter>
                 <fr:authors />
