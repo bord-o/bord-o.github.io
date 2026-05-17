@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:uri>https://bord-o.github.io/neelkrishnaswami/</fr:uri>
+    <fr:display-uri>neelkrishnaswami</fr:display-uri>
+    <fr:route>/neelkrishnaswami/</fr:route>
+    <fr:title text="Neel Krishnaswami">Neel Krishnaswami</fr:title>
+    <fr:taxon>Person</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter />
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/joshuadunfield/" title="Joshua Dunfield" uri="https://bord-o.github.io/joshuadunfield/" display-uri="joshuadunfield" type="local">Joshua Dunfield</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/neelkrishnaswami/" title="Neel Krishnaswami" uri="https://bord-o.github.io/neelkrishnaswami/" display-uri="neelkrishnaswami" type="local">Neel Krishnaswami</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2013</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/dunfield-krishnaswami-2013/</fr:uri>
+            <fr:display-uri>dunfield-krishnaswami-2013</fr:display-uri>
+            <fr:route>/dunfield-krishnaswami-2013/</fr:route>
+            <fr:title text="Complete and Easy Bidirectional Typechecking for Higher-Rank Polymorphism">Complete and Easy Bidirectional Typechecking for Higher-Rank Polymorphism</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1145/2500365.2500582</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A bidirectional type system for higher-rank polymorphism that is both complete and easy to implement, presented at ICFP 2013.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>
