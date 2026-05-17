@@ -170,11 +170,282 @@ Gc.finalise (fun k ->
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
                 <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
                 <fr:uri>https://bord-o.github.io/0006/</fr:uri>
                 <fr:display-uri>0006</fr:display-uri>
                 <fr:route>/0006/</fr:route>
+                <fr:title text="fuel based general recursion">fuel based general recursion</fr:title>
+                <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
-              <fr:mainmatter />
+              <fr:mainmatter>
+                <html:p>While building a proof-of-concept of fuel-based general recursion, I decided that a merge-sort implementation would be a good stopping point. Merge-sort cannot be written in a structurally recursive way, due the necessity of recursion on a symmetrical split of the list being sorted. In addition to this, the auxiliary function 'merge', used to merge two sorted lists, is also not structurally recursive. So this should be a good test of both a more complex definition and a definition which uses other non-structurally recursive functions in its definition.</html:p>
+                <html:p>While other systems generally set up machinery for proving well-foundedness of a measure function (over the arguments), I was curious if simply defining these functions with a fuel argument could get me the same results. Essentially the goal is to get to an 'unfolding lemma' which allows us to abstract away the fuel based definition by proving that sufficient fuel exists and that using this fuel ensures the function's totality and equality with the body of the fuel-based definition. More concretely for merge, this looks something like the following two proofs.</html:p>
+                <html:pre><![CDATA[let%expect_test "merge fuel sufficient" =
+  let prg =
+    {|
+    variable fuel a0 a0': nat
+    variable xs ys x a1 a1' x' : list nat
+
+    theorem merge_fuel_sufficient :
+        forall λfuel.
+            forall λxs. forall λys.
+                        imp (nat_lt (plus (length xs) (length ys)) fuel)
+                            (exists λx.
+                                (eq (merge_aux fuel xs ys) (some x)))
+    term xs : xs
+    term ys : ys
+    term consa01 :  (cons a0 a1)
+    term consa01' :  (cons a0' a1')
+    term a1 : a1
+    term a1' : a1'
+    term x : x
+    term wit : (cons a0 x')
+    term wit2 :  (cons a0' x')
+
+  |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let ys = Elaborator.term_from_string prg "ys" in
+  let wit = Elaborator.term_from_string prg "wit" in
+  let wit2 = Elaborator.term_from_string prg "wit2" in
+  let a1 = Elaborator.term_from_string prg "a1" in
+  let a1' = Elaborator.term_from_string prg "a1'" in
+  let consa01 = Elaborator.term_from_string prg "consa01" in
+  let consa01' = Elaborator.term_from_string prg "consa01'" in
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    induct >> intros >> simp_asm >> false_elim >> intros
+    >> simp
+    >> with_arbitrary_term xs destruct
+    >> elim_disj_asm >> simp
+    >> with_arbitrary_term ys exists
+    >> refl
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_arbitrary_term ys destruct
+    >> elim_disj_asm >> simp
+    >> with_arbitrary_term consa01 exists
+    >> refl
+    >> with_repeat elim_exists_asm
+    >> simp >> cond >> simp
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_proven [ "length_cons" ] rewrite_asm
+    >> with_proven [ "add_suc_l" ] rewrite_asm
+    >> with_proven [ "lt_suc_suc" ] rewrite_asm
+    >> spec_asm a1 >> spec_asm consa01' >> mp_asm
+    >> elim_exists_asm >> simp
+    >> with_arbitrary_term wit exists
+    >> refl >> simp
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_proven [ "plus_comm" ] rewrite_asm
+    >> with_proven [ "length_cons" ] rewrite_asm
+    >> with_proven [ "add_suc_l" ] rewrite_asm
+    >> with_proven [ "plus_comm" ] rewrite_asm
+    >> with_proven [ "lt_suc_suc" ] rewrite_asm
+    >> spec_asm consa01 >> spec_asm a1' >> mp_asm
+    >> elim_exists_asm >> simp
+    >> with_arbitrary_term wit2 exists
+    >> refl
+  in
+  run_proof ~name:"merge_fuel_sufficient" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀x. ∀xs. ∀ys. nat_lt (plus (length xs) (length ys)) x ==> ∃x. merge_aux x xs ys = some x
+
+    Proof Complete!
+    with fuel: 404
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>where (length xs + length ys) is our 'measure', we say that any fuel greater than our measure results in 'something'</html:em>
+                </html:p>
+                <html:pre><![CDATA[let%expect_test "merge unfolding lemma" =
+  let prg =
+    {|
+  variable fuel : nat
+  variable h y' a0 a0' : nat
+  variable xs ys x t ys' a1 a1' witness : list nat
+
+  theorem merge_unfold:
+    forall λxs. forall λys.
+            (eq (merge xs ys)
+                (list_match xs
+                    (ys)
+                    (λh. λt.
+                        (list_match ys
+                            (cons h t)
+                            (λy'. λys'.
+                                COND (nat_lt h y')
+                                    (cons h (merge t (cons y' ys')))
+                                    (cons y' (merge (cons h t) ys')))))))
+    term xs : xs
+    term ys : ys
+    term suf : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) a1' (cons a0 a1)) (some x))
+    term suf2 : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) (cons a0' a1') a1) (some x))
+
+    |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let suf = Elaborator.term_from_string prg "suf" in
+  let suf2 = Elaborator.term_from_string prg "suf2" in
+  let ys = Elaborator.term_from_string prg "ys" in
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    intros
+    >> with_arbitrary_term xs destruct
+    >> with_arbitrary_term ys destruct
+    >> with_repeat elim_disj_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_first (with_definition [ "merge_aux" ] rewrite)
+    >> with_repeat (with_first (with_assumptions rewrite))
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> cond
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_arbitrary_term suf have
+    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
+    >> simp >> elim_exists_asm
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_proven [ "length_cons" ] rewrite
+    >> with_first (with_assumptions rewrite)
+    >> simp
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_arbitrary_term suf2 have
+    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
+    >> simp
+    >> with_proven [ "plus_suc" ] rewrite
+    >> simp >> elim_exists_asm
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_proven [ "length_cons" ] rewrite
+    >> with_first (with_proven [ "plus_suc" ] rewrite_asm)
+    >> with_first (with_proven [ "plus_comm" ] rewrite)
+    >> with_first (with_proven [ "plus_suc" ] rewrite)
+    >> with_first (with_proven [ "plus_comm" ] rewrite)
+    >> with_first (with_assumptions rewrite)
+    >> simp
+  in
+  run_proof ~name:"merge_unfold" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀xs. ∀ys. merge xs ys = list_match xs ys (λh. λt. list_match ys (cons h t) (λy'. λys'. COND (nat_lt h y') (cons h (merge t (cons y' ys'))) (cons y' (merge (cons h t) ys'))))
+
+    Proof Complete!
+    with fuel: 1197
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>where the list_match expression is exactly the body of the fuel-based definition, essentially lifting us from using merge_aux to using merge directly</html:em>
+                </html:p>
+                <html:p>At this point we could then remove merge_aux from our simplifier and definitions, essentially never using it again and preferring the unfolding lemma instead as if it was defined this way from the start.</html:p>
+                <html:p>With the necessary definitions of <html:code>merge : list nat -&gt; list nat -&gt; list nat</html:code>, <html:code>take : nat -&gt; list nat -&gt; list nat</html:code>, and drop <html:code>drop : nat -&gt; list nat -&gt; list nat</html:code> in place, <html:code>merge_sort_aux</html:code> can be defined as the fuel-based stand in for our eventual <html:code>merge_sort</html:code>.</html:p>
+                <html:pre><![CDATA[    def merge_sort_aux : nat -> list nat -> option (list nat)
+    | zero => λxs. none
+    | suc n => λxs.
+        COND (nat_le (length xs) (suc zero))
+            (some xs)
+            ((λhalf_length.
+                option_match (merge_sort_aux n (take half_length xs))
+                    (none)
+                    (λleft.
+                        option_match (merge_sort_aux n (drop half_length xs))
+                            (none)
+                            (λright. some (merge left right))
+                    )
+            ) (div (length xs) (suc (suc zero))))]]></html:pre>
+                <html:p>
+                  <html:em>a little ugly without let bindings or numerals, but a fairly standard definition that avoids a dedicated <html:code>split</html:code> function</html:em>
+                </html:p>
+                <html:p>I should also note that I ran into some difficulty when trying to compute with merge_sort_aux on concrete data. For instance, proving <html:code>merge_sort_aux 8 [3, 1, 2] = some [1, 2, 3]</html:code> required a very specific ordering of rewrites to avoid explosion of unfolding branches that wouldn't end up being relevant:</html:p>
+                <html:pre><![CDATA[  let proof =
+    rw_def "merge_sort_aux" >> simp ~exclude
+    >> with_repeat @@ rw_def "div"
+    >> with_repeat @@ rw_def "div_aux"
+    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> with_repeat @@ rw_def "div"
+    >> with_repeat @@ rw_def "div_aux"
+    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> rw_def "merge_sort_aux" >> simp ~exclude >> rw_thm "merge_unfold"
+    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
+    >> rw_thm "merge_unfold" >> simp ~exclude >> rw_thm "merge_unfold"
+    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
+    >> rw_thm "merge_unfold" >> simp ~exclude]]></html:pre>
+                <html:p>I believe that this is a common pattern in HOL light, where the simplifier is quite naive like mine, and there is no generic <html:code>compute</html:code> for these types of tests.</html:p>
+                <html:p>Now to prove sufficiency and unfolding for this definition:</html:p>
+                <html:pre><![CDATA[let%expect_test "merge sort sufficient" =
+  let prg =
+    {|
+    variable fuel n0 : nat
+    variable xs x : list nat
+
+    theorem merge_sort_fuel_sufficient:
+        forall λfuel.
+            forall λxs.
+                imp (nat_lt (length xs) fuel)
+                    (exists λx.
+                        (eq (merge_sort_aux fuel xs) (some x)))
+
+    term xs : xs
+    term left :  (take (div (length xs) (suc (suc zero))) xs)
+    term right : (drop (div (length xs) (suc (suc zero))) xs)
+
+    term right_oblig : nat_lt (length (drop (div (length xs) (suc (suc zero))) xs)) n0
+    term left_oblig :  nat_lt (length (take (div (length xs) (suc (suc zero))) xs)) n0
+  |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let left = Elaborator.term_from_string prg "left" in
+  let right = Elaborator.term_from_string prg "right" in
+  (* let left_oblig = Elaborator.term_from_string prg "left_oblig" in *)
+  (* let right_oblig = Elaborator.term_from_string prg "right_oblig" in *)
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    induct >> intros >> simp_asm >> false_elim >> intros
+    >> with_first (with_definition [ "merge_sort_aux" ] rewrite)
+    >> beta >> cond
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
+    >> with_arbitrary_term xs exists
+    >> refl
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
+    >> spec_asm left >> spec_asm right >> sorry
+  in
+  run_proof ~name:"merge_sort_fuel_sufficient" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀x. ∀xs. nat_lt (length xs) x ==> ∃x. merge_sort_aux x xs = some x
+
+    Proof Complete!
+    with fuel: 100
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>I added an exclusion list to the simplifier to help out until I'm sure I can remove these auxiliary functions from the rule set. Eventually I should only need the unfolding lemma, i.e. merge_unfold but not merge or merge_aux</html:em>
+                </html:p>
+                <html:p>This proof is in progress, but requires lemmas around take/drop that I need to backfill. Overall, I think that the fuel-based approach is fine for a smaller number of these types of generally recursive definitions, but requires a meaningfully large proof burden per definition. Long term, well-foundedness is the right move for a ergonomic prover and provides an easier, more automation-friendly obligation.</html:p>
+              </fr:mainmatter>
             </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
