@@ -5,6 +5,8 @@
 
 \p{This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.}
 
+\put\transclude/expanded{false}
+
 \transclude{0003}
 \transclude{0004}
 \transclude{0005}
