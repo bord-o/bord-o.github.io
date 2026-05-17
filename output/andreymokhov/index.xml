@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:uri>https://bord-o.github.io/andreymokhov/</fr:uri>
+    <fr:display-uri>andreymokhov</fr:display-uri>
+    <fr:route>/andreymokhov/</fr:route>
+    <fr:title text="Andrey Mokhov">Andrey Mokhov</fr:title>
+    <fr:taxon>Person</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter />
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/andreymokhov/" title="Andrey Mokhov" uri="https://bord-o.github.io/andreymokhov/" display-uri="andreymokhov" type="local">Andrey Mokhov</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2017</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/mokhov-2017/</fr:uri>
+            <fr:display-uri>mokhov-2017</fr:display-uri>
+            <fr:route>/mokhov-2017/</fr:route>
+            <fr:title text="Algebraic Graphs with Class (Functional Pearl)">Algebraic Graphs with Class (Functional Pearl)</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1145/3122955.3122956</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A functional pearl presenting an algebraic approach to graph construction and transformation, presented at Haskell Symposium 2017.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

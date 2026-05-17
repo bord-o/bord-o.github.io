@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:uri>https://bord-o.github.io/pierreevagistedagand/</fr:uri>
+    <fr:display-uri>pierreevagistedagand</fr:display-uri>
+    <fr:route>/pierreevagistedagand/</fr:route>
+    <fr:title text="Pierre-Évariste Dagand">Pierre-Évariste Dagand</fr:title>
+    <fr:taxon>Person</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter />
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/pierreevagistedagand/" title="Pierre-Évariste Dagand" uri="https://bord-o.github.io/pierreevagistedagand/" display-uri="pierreevagistedagand" type="local">Pierre-Évariste Dagand</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/conormcbride/" title="Conor McBride" uri="https://bord-o.github.io/conormcbride/" display-uri="conormcbride" type="local">Conor McBride</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:uri>https://bord-o.github.io/dagand-mcbride/</fr:uri>
+            <fr:display-uri>dagand-mcbride</fr:display-uri>
+            <fr:route>/dagand-mcbride/</fr:route>
+            <fr:title text="Elaborating Inductive Definitions">Elaborating Inductive Definitions</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>On the elaboration of inductive definitions in dependently typed systems.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

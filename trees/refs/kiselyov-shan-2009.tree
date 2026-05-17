@@ -1,0 +1,7 @@
+\title{Embedded Probabilistic Programming}
+\date{2009}
+\taxon{Reference}
+\author{olegkiselyov}
+\author{chungchiehshan}
+\meta{doi}{10.1007/978-3-642-03034-5_17}
+\p{An approach to embedding probabilistic programming within a host language, presented at DSL 2009.}

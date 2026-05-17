@@ -1,0 +1,7 @@
+\title{Complete and Easy Bidirectional Typechecking for Higher-Rank Polymorphism}
+\date{2013}
+\taxon{Reference}
+\author{joshuadunfield}
+\author{neelkrishnaswami}
+\meta{doi}{10.1145/2500365.2500582}
+\p{A bidirectional type system for higher-rank polymorphism that is both complete and easy to implement, presented at ICFP 2013.}

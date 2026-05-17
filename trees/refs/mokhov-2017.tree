@@ -1,0 +1,6 @@
+\title{Algebraic Graphs with Class (Functional Pearl)}
+\date{2017}
+\taxon{Reference}
+\author{andreymokhov}
+\meta{doi}{10.1145/3122955.3122956}
+\p{A functional pearl presenting an algebraic approach to graph construction and transformation, presented at Haskell Symposium 2017.}
