@@ -44,7 +44,32 @@
         <fr:authors />
         <fr:title text="Contributions">Contributions</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/andrejbauer/" title="Andrej Bauer" uri="https://bord-o.github.io/andrejbauer/" display-uri="andrejbauer" type="local">Andrej Bauer</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/matijapretnar/" title="Matija Pretnar" uri="https://bord-o.github.io/matijapretnar/" display-uri="matijapretnar" type="local">Matija Pretnar</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2015</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/bauer-pretnar-2015/</fr:uri>
+            <fr:display-uri>bauer-pretnar-2015</fr:display-uri>
+            <fr:route>/bauer-pretnar-2015/</fr:route>
+            <fr:title text="Programming with Algebraic Effects and Handlers">Programming with Algebraic Effects and Handlers</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1016/j.jlamp.2014.02.001</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A tutorial on programming with algebraic effects and handlers, published in JLAMP 2015.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
   </fr:backmatter>
 </fr:tree>

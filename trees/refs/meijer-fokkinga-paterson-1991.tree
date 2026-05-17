@@ -1,0 +1,8 @@
+\title{Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire}
+\date{1991}
+\taxon{Reference}
+\author{erikmeijer}
+\author{maartenfokkinga}
+\author{rosspaterson}
+\meta{doi}{10.1007/3540543961_7}
+\p{The classic paper introducing the categorical foundations of recursion schemes for functional programming.}

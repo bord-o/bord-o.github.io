@@ -1,0 +1,27 @@
+\title{negation reasoning in HOL}
+\date{2026-05-15}
+\taxon{Note}
+
+\p{I'm looking at adding some more tactics to improve the ergonomics of my prover. I've added a discriminate tactic for goals with distinct constructor equality (\code{Suc n = Zero}), but I want to improve my contradiction reasoning a bit. Right now I have a contradict_asm which can prove things like #{{\neg P \vdash \bot}} using a subgoal of #{\vdash P}, but Rocq's contradict tactic is much stronger and handles 3 more distinct cases in addition to the one that my tactic does.}
+
+\p{From Rocq's documentation:}
+
+\pre{\startverb
+A tactic for proof by contradiction. With contradict H,
+
+1    H:~A |- B gives |- A
+2    H:~A |- ~B gives H: B |- A
+3    H: A |- B gives |- ~A
+4    H: A |- ~B gives H: B |- ~A
+\stopverb}
+
+\p{Translating this to my system, I can have exfalso as \code{have F >> [subgoal] >> false_elim}}
+
+\p{- Case one is just \code{exfalso >> contradict_asm}
+- Case two is \code{neg_intro} to get #{{\neg A, B \vdash \bot}}, then \code{contradict_asm} to get #{B \vdash A}
+- Case three is just \code{have \neg A}
+- Case four is \code{neg_intro} to get #{{A, B \vdash \bot}}, then \code{have \neg A >> [subgoal] >> neg_elim}}
+
+\p{Essentially if the goal is a negation we call neg_intro to get it in an assumption, say #{A}, then we take a chosen assumption (other than #{A}), say #{B}. If it's a negation, we contradict_asm, otherwise we just assert its negation (#{\neg B}).}
+
+\p{This will help in a variety of cases that are currently pretty tedious with the current negation/false related tactics.}

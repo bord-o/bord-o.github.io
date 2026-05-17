@@ -1,0 +1,11 @@
+\title{On Jon Sterling's 'Is it time for a new proof assistant'}
+\date{2026-05-16}
+\taxon{Note}
+
+\p{Tons to unpack here, I'm not all the way through but this is exactly the kind of engineering I'm interested in.}
+
+\p{I'm really curious about eliminators, and general DTT programming.}
+
+\p{Interesting ideas on avoiding typeclasses as well.}
+
+\p{But what does HoTT really give you here, I'm confused why he needs the envisioned prover to be HoTT.}

@@ -1,0 +1,7 @@
+\title{Principal Type-Schemes for Functional Programs}
+\date{1982}
+\taxon{Reference}
+\author{luisdamas}
+\author{robinmilner}
+\meta{doi}{10.1145/582153.582176}
+\p{The foundational paper on principal type inference for the simply-typed lambda calculus with let-polymorphism, presented at POPL 1982.}

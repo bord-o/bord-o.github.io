@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors>
+      <fr:author>
+        <fr:link href="/xueyingqin/" title="Xueying Qin" uri="https://bord-o.github.io/xueyingqin/" display-uri="xueyingqin" type="local">Xueying Qin</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/liamoconnor/" title="Liam O'Connor" uri="https://bord-o.github.io/liamoconnor/" display-uri="liamoconnor" type="local">Liam O'Connor</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/robvanglabbeek/" title="Rob Van Glabbeek" uri="https://bord-o.github.io/robvanglabbeek/" display-uri="robvanglabbeek" type="local">Rob Van Glabbeek</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/peterhofner/" title="Peter Höfner" uri="https://bord-o.github.io/peterhofner/" display-uri="peterhofner" type="local">Peter Höfner</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/ohadkammar/" title="Ohad Kammar" uri="https://bord-o.github.io/ohadkammar/" display-uri="ohadkammar" type="local">Ohad Kammar</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/michelsteuwer/" title="Michel Steuwer" uri="https://bord-o.github.io/michelsteuwer/" display-uri="michelsteuwer" type="local">Michel Steuwer</fr:link>
+      </fr:author>
+    </fr:authors>
+    <fr:date>
+      <fr:year>2024</fr:year>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024/</fr:uri>
+    <fr:display-uri>qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024</fr:display-uri>
+    <fr:route>/qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024/</fr:route>
+    <fr:title text="Shoggoth: A Formal Foundation for Strategic Rewriting">Shoggoth: A Formal Foundation for Strategic Rewriting</fr:title>
+    <fr:taxon>Reference</fr:taxon>
+    <fr:meta name="doi">10.1145/3633211</fr:meta>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>A formal foundation for strategic rewriting, providing a rigorous semantics for rewrite strategies, published in POPL 2024.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

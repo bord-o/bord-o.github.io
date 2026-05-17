@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:date>
+      <fr:year>2026</fr:year>
+      <fr:month>5</fr:month>
+      <fr:day>15</fr:day>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/0007/</fr:uri>
+    <fr:display-uri>0007</fr:display-uri>
+    <fr:route>/0007/</fr:route>
+    <fr:title text="number system construction in HOL">number system construction in HOL</fr:title>
+    <fr:taxon>Note</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>I took some time to look into the construction of number systems in a HOL environment. It seems that Harrison does something a bit peculiar in HOL-light, rather than building the number tower in a progressive way, moving from naturals -&gt; integers -&gt; rationals -&gt; reals, he instead builds the real numbers as a <fr:link href="https://en.wikipedia.org/wiki/Quotient_type" type="external">quotient type</fr:link> and get the others through sub-typing.</html:p>
+    <html:p>To inform myself a bit I looked at A.H. Lightstone's <fr:link href="https://archive.org/details/symboliclogicrea0000ahli" type="external">"Symbolic Logic and the Real Number System"</fr:link> and found some interesting symmetries in the construction of integers and rationals that I wasn't aware of. Assuming we start with naturals and pairs as they're defined in my system:</html:p>
+    <html:pre><![CDATA[inductive nat :=
+    | zero : nat
+    | suc : nat -> nat
+
+vartype a b
+inductive pair :=
+    | pair : a -> b -> pair a b]]></html:pre>
+    <html:p>We can build integers as a subtype of pairs of naturals where the right and left represent the positive and negative components, respectively. Here it would be something like:</html:p>
+    <html:pre><![CDATA[variable a b c d : nat
+subtype int := pair a b
+    where (eq a zero) \/ (eq b zero)]]></html:pre>
+    <html:p>
+      <html:em>(pseudocode as I don't have object syntax for subtypes yet)</html:em>
+    </html:p>
+    <html:p>Which gives us a canonical representation to distinguish between (5,3) and (6,4), for instance.</html:p>
+    <html:p>The symmetry I was referring to is that rationals are defined almost the same way, with a pair, this time representing the numerator and denominator. Here we use an integer numerator to keep the sign, and a natural denominator for simplicity:</html:p>
+    <html:pre><![CDATA[variable a : int
+variable b : nat
+subtype rat := pair a b
+    where (nat_lt zero b) ∧ (gcd (abs a) b = suc zero)]]></html:pre>
+    <html:p>
+      <html:em>(pseudocode as I don't have object syntax for subtypes yet)</html:em>
+    </html:p>
+    <html:p>Which gives us a canonical representation to distinguish between (2,3) and (6,9), for instance.</html:p>
+    <html:p>This is more obvious when looking more abstractly at their equivalence relations, with addition vs multiplication being the only difference:</html:p>
+    <html:pre><![CDATA[for integers
+(a, b) === (c, d) when a + d = b + c
+
+for rationals
+(a, b) === (c, d) when a * d = b * c]]></html:pre>
+    <html:p>For my system I will elect to go the more traditional route of the number tower, as I think it will make for a more readable and easily understood formulation at the cost of having some more fiddly definitions for the algebraic laws due to reasoning about these underlying representations directly and respecting normalization at each step. Another benefit to the more traditional approach is that I don't necessarily need to add quotient typing to the system, not that it would be a large addition.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2026</fr:year>
+              <fr:month>5</fr:month>
+              <fr:day>16</fr:day>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/0001/</fr:uri>
+            <fr:display-uri>0001</fr:display-uri>
+            <fr:route>/0001/</fr:route>
+            <fr:title text="Notes">Notes</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0003/</fr:uri>
+                <fr:display-uri>0003</fr:display-uri>
+                <fr:route>/0003/</fr:route>
+                <fr:title text="prover continuation cleanup">prover continuation cleanup</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>I found out that ocaml continuations are not really understood by the garbage collector. This means that you have to be very careful to either resume or discontinue everything, which I was not doing. A lot of sites where I didn't resume I just ignored the continuation, but this is a severe mistake that lead to &gt;7Gb reserved memory in some of my heavy proof search or case bashing proofs.</html:p>
+                <html:p>The trick for dealing with this would have been obvious if I read the docs:</html:p>
+                <html:pre><![CDATA[exception Unwind
+Gc.finalise (fun k ->
+  try ignore (discontinue k Unwind) with _ -> ()) k]]></html:pre>
+                <html:p>I could see some real value in this little snippet being a library function, or at least calling a bit more attention to it.</html:p>
+                <html:p>Overall my memory usage went from disgustingly linear to the point of exhaustion on my old laptop, to a mere 60mb constant with healthy minor gc collections.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0004/</fr:uri>
+                <fr:display-uri>0004</fr:display-uri>
+                <fr:route>/0004/</fr:route>
+                <fr:title text="limits of parallelism in theorem provers">limits of parallelism in theorem provers</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Though HOL provers don't have much interdependence between subgoals, there are limits to how much general execution of tactics can be parallelized.</html:p>
+                <html:p>For example</html:p>
+                <html:pre><![CDATA[a -> (a -> b) -> b]]></html:pre>
+                <html:p>generates a few subgoals</html:p>
+                <html:pre><![CDATA[// intro
+a
+---
+(a -> b) -> b]]></html:pre>
+                <html:p>and</html:p>
+                <html:pre><![CDATA[// intro
+a
+a -> b
+---
+b]]></html:pre>
+                <html:p>and finally</html:p>
+                <html:pre><![CDATA[// apply
+a
+a -> b
+---
+a]]></html:pre>
+                <html:p>which can be solved.</html:p>
+                <html:p>Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing the previous subgoal.</html:p>
+                <html:p>So if we knew all of the subgoals ahead of time we could parallelize their execution, but in the case of a tactic producing a single subgoal like above this is not helpful, as most of the actual work done is before the subgoal effect is performed.</html:p>
+                <html:p>Meaning that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next n subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like <html:code>conj</html:code> where both sides are often of similar difficulty.</html:p>
+                <html:p>I'm quite happy with the ability to switch out a <html:code>@&gt;&gt;</html:code> for a <html:code>@&gt;&gt;!</html:code> and get some parallelism though.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0005/</fr:uri>
+                <fr:display-uri>0005</fr:display-uri>
+                <fr:route>/0005/</fr:route>
+                <fr:title text="docs for my theorem prover">docs for my theorem prover</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>
+                  <fr:link href="https://bord-o.github.io/heft/heft/Heft/index.html" type="external">docs for the main module</fr:link>
+                </html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0006/</fr:uri>
+                <fr:display-uri>0006</fr:display-uri>
+                <fr:route>/0006/</fr:route>
+                <fr:title text="fuel based general recursion">fuel based general recursion</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>While building a proof-of-concept of fuel-based general recursion, I decided that a merge-sort implementation would be a good stopping point. Merge-sort cannot be written in a structurally recursive way, due the necessity of recursion on a symmetrical split of the list being sorted. In addition to this, the auxiliary function 'merge', used to merge two sorted lists, is also not structurally recursive. So this should be a good test of both a more complex definition and a definition which uses other non-structurally recursive functions in its definition.</html:p>
+                <html:p>While other systems generally set up machinery for proving well-foundedness of a measure function (over the arguments), I was curious if simply defining these functions with a fuel argument could get me the same results. Essentially the goal is to get to an 'unfolding lemma' which allows us to abstract away the fuel based definition by proving that sufficient fuel exists and that using this fuel ensures the function's totality and equality with the body of the fuel-based definition. More concretely for merge, this looks something like the following two proofs.</html:p>
+                <html:pre><![CDATA[let%expect_test "merge fuel sufficient" =
+  let prg =
+    {|
+    variable fuel a0 a0': nat
+    variable xs ys x a1 a1' x' : list nat
+
+    theorem merge_fuel_sufficient :
+        forall λfuel.
+            forall λxs. forall λys.
+                        imp (nat_lt (plus (length xs) (length ys)) fuel)
+                            (exists λx.
+                                (eq (merge_aux fuel xs ys) (some x)))
+    term xs : xs
+    term ys : ys
+    term consa01 :  (cons a0 a1)
+    term consa01' :  (cons a0' a1')
+    term a1 : a1
+    term a1' : a1'
+    term x : x
+    term wit : (cons a0 x')
+    term wit2 :  (cons a0' x')
+
+  |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let ys = Elaborator.term_from_string prg "ys" in
+  let wit = Elaborator.term_from_string prg "wit" in
+  let wit2 = Elaborator.term_from_string prg "wit2" in
+  let a1 = Elaborator.term_from_string prg "a1" in
+  let a1' = Elaborator.term_from_string prg "a1'" in
+  let consa01 = Elaborator.term_from_string prg "consa01" in
+  let consa01' = Elaborator.term_from_string prg "consa01'" in
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    induct >> intros >> simp_asm >> false_elim >> intros
+    >> simp
+    >> with_arbitrary_term xs destruct
+    >> elim_disj_asm >> simp
+    >> with_arbitrary_term ys exists
+    >> refl
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_arbitrary_term ys destruct
+    >> elim_disj_asm >> simp
+    >> with_arbitrary_term consa01 exists
+    >> refl
+    >> with_repeat elim_exists_asm
+    >> simp >> cond >> simp
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_proven [ "length_cons" ] rewrite_asm
+    >> with_proven [ "add_suc_l" ] rewrite_asm
+    >> with_proven [ "lt_suc_suc" ] rewrite_asm
+    >> spec_asm a1 >> spec_asm consa01' >> mp_asm
+    >> elim_exists_asm >> simp
+    >> with_arbitrary_term wit exists
+    >> refl >> simp
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_first (with_assumptions rewrite_asm)
+    >> with_proven [ "plus_comm" ] rewrite_asm
+    >> with_proven [ "length_cons" ] rewrite_asm
+    >> with_proven [ "add_suc_l" ] rewrite_asm
+    >> with_proven [ "plus_comm" ] rewrite_asm
+    >> with_proven [ "lt_suc_suc" ] rewrite_asm
+    >> spec_asm consa01 >> spec_asm a1' >> mp_asm
+    >> elim_exists_asm >> simp
+    >> with_arbitrary_term wit2 exists
+    >> refl
+  in
+  run_proof ~name:"merge_fuel_sufficient" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀x. ∀xs. ∀ys. nat_lt (plus (length xs) (length ys)) x ==> ∃x. merge_aux x xs ys = some x
+
+    Proof Complete!
+    with fuel: 404
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>where (length xs + length ys) is our 'measure', we say that any fuel greater than our measure results in 'something'</html:em>
+                </html:p>
+                <html:pre><![CDATA[let%expect_test "merge unfolding lemma" =
+  let prg =
+    {|
+  variable fuel : nat
+  variable h y' a0 a0' : nat
+  variable xs ys x t ys' a1 a1' witness : list nat
+
+  theorem merge_unfold:
+    forall λxs. forall λys.
+            (eq (merge xs ys)
+                (list_match xs
+                    (ys)
+                    (λh. λt.
+                        (list_match ys
+                            (cons h t)
+                            (λy'. λys'.
+                                COND (nat_lt h y')
+                                    (cons h (merge t (cons y' ys')))
+                                    (cons y' (merge (cons h t) ys')))))))
+    term xs : xs
+    term ys : ys
+    term suf : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) a1' (cons a0 a1)) (some x))
+    term suf2 : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) (cons a0' a1') a1) (some x))
+
+    |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let suf = Elaborator.term_from_string prg "suf" in
+  let suf2 = Elaborator.term_from_string prg "suf2" in
+  let ys = Elaborator.term_from_string prg "ys" in
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    intros
+    >> with_arbitrary_term xs destruct
+    >> with_arbitrary_term ys destruct
+    >> with_repeat elim_disj_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> simp
+    >> with_repeat elim_exists_asm
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_first (with_definition [ "merge_aux" ] rewrite)
+    >> with_repeat (with_first (with_assumptions rewrite))
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> cond
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_arbitrary_term suf have
+    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
+    >> simp >> elim_exists_asm
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_proven [ "length_cons" ] rewrite
+    >> with_first (with_assumptions rewrite)
+    >> simp
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_arbitrary_term suf2 have
+    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
+    >> simp
+    >> with_proven [ "plus_suc" ] rewrite
+    >> simp >> elim_exists_asm
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge"; "merge_aux" ]
+    >> with_definition [ "merge" ] rewrite
+    >> beta
+    >> with_proven [ "length_cons" ] rewrite
+    >> with_first (with_proven [ "plus_suc" ] rewrite_asm)
+    >> with_first (with_proven [ "plus_comm" ] rewrite)
+    >> with_first (with_proven [ "plus_suc" ] rewrite)
+    >> with_first (with_proven [ "plus_comm" ] rewrite)
+    >> with_first (with_assumptions rewrite)
+    >> simp
+  in
+  run_proof ~name:"merge_unfold" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀xs. ∀ys. merge xs ys = list_match xs ys (λh. λt. list_match ys (cons h t) (λy'. λys'. COND (nat_lt h y') (cons h (merge t (cons y' ys'))) (cons y' (merge (cons h t) ys'))))
+
+    Proof Complete!
+    with fuel: 1197
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>where the list_match expression is exactly the body of the fuel-based definition, essentially lifting us from using merge_aux to using merge directly</html:em>
+                </html:p>
+                <html:p>At this point we could then remove merge_aux from our simplifier and definitions, essentially never using it again and preferring the unfolding lemma instead as if it was defined this way from the start.</html:p>
+                <html:p>With the necessary definitions of <html:code>merge : list nat -&gt; list nat -&gt; list nat</html:code>, <html:code>take : nat -&gt; list nat -&gt; list nat</html:code>, and drop <html:code>drop : nat -&gt; list nat -&gt; list nat</html:code> in place, <html:code>merge_sort_aux</html:code> can be defined as the fuel-based stand in for our eventual <html:code>merge_sort</html:code>.</html:p>
+                <html:pre><![CDATA[    def merge_sort_aux : nat -> list nat -> option (list nat)
+    | zero => λxs. none
+    | suc n => λxs.
+        COND (nat_le (length xs) (suc zero))
+            (some xs)
+            ((λhalf_length.
+                option_match (merge_sort_aux n (take half_length xs))
+                    (none)
+                    (λleft.
+                        option_match (merge_sort_aux n (drop half_length xs))
+                            (none)
+                            (λright. some (merge left right))
+                    )
+            ) (div (length xs) (suc (suc zero))))]]></html:pre>
+                <html:p>
+                  <html:em>a little ugly without let bindings or numerals, but a fairly standard definition that avoids a dedicated <html:code>split</html:code> function</html:em>
+                </html:p>
+                <html:p>I should also note that I ran into some difficulty when trying to compute with merge_sort_aux on concrete data. For instance, proving <html:code>merge_sort_aux 8 [3, 1, 2] = some [1, 2, 3]</html:code> required a very specific ordering of rewrites to avoid explosion of unfolding branches that wouldn't end up being relevant:</html:p>
+                <html:pre><![CDATA[  let proof =
+    rw_def "merge_sort_aux" >> simp ~exclude
+    >> with_repeat @@ rw_def "div"
+    >> with_repeat @@ rw_def "div_aux"
+    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> with_repeat @@ rw_def "div"
+    >> with_repeat @@ rw_def "div_aux"
+    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
+    >> rw_def "merge_sort_aux" >> simp ~exclude >> rw_thm "merge_unfold"
+    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
+    >> rw_thm "merge_unfold" >> simp ~exclude >> rw_thm "merge_unfold"
+    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
+    >> rw_thm "merge_unfold" >> simp ~exclude]]></html:pre>
+                <html:p>I believe that this is a common pattern in HOL light, where the simplifier is quite naive like mine, and there is no generic <html:code>compute</html:code> for these types of tests.</html:p>
+                <html:p>Now to prove sufficiency and unfolding for this definition:</html:p>
+                <html:pre><![CDATA[let%expect_test "merge sort sufficient" =
+  let prg =
+    {|
+    variable fuel n0 : nat
+    variable xs x : list nat
+
+    theorem merge_sort_fuel_sufficient:
+        forall λfuel.
+            forall λxs.
+                imp (nat_lt (length xs) fuel)
+                    (exists λx.
+                        (eq (merge_sort_aux fuel xs) (some x)))
+
+    term xs : xs
+    term left :  (take (div (length xs) (suc (suc zero))) xs)
+    term right : (drop (div (length xs) (suc (suc zero))) xs)
+
+    term right_oblig : nat_lt (length (drop (div (length xs) (suc (suc zero))) xs)) n0
+    term left_oblig :  nat_lt (length (take (div (length xs) (suc (suc zero))) xs)) n0
+  |}
+  in
+
+  let xs = Elaborator.term_from_string prg "xs" in
+  let left = Elaborator.term_from_string prg "left" in
+  let right = Elaborator.term_from_string prg "right" in
+  (* let left_oblig = Elaborator.term_from_string prg "left_oblig" in *)
+  (* let right_oblig = Elaborator.term_from_string prg "right_oblig" in *)
+  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
+  let proof =
+    induct >> intros >> simp_asm >> false_elim >> intros
+    >> with_first (with_definition [ "merge_sort_aux" ] rewrite)
+    >> beta >> cond
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
+    >> with_arbitrary_term xs exists
+    >> refl
+    >> with_first (with_assumptions rewrite)
+    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
+    >> spec_asm left >> spec_asm right >> sorry
+  in
+  run_proof ~name:"merge_sort_fuel_sufficient" ~notrace:true goal proof;
+  [%expect
+    {|
+    ========================================
+    ∀x. ∀xs. nat_lt (length xs) x ==> ∃x. merge_sort_aux x xs = some x
+
+    Proof Complete!
+    with fuel: 100
+    |}]]]></html:pre>
+                <html:p>
+                  <html:em>I added an exclusion list to the simplifier to help out until I'm sure I can remove these auxiliary functions from the rule set. Eventually I should only need the unfolding lemma, i.e. merge_unfold but not merge or merge_aux</html:em>
+                </html:p>
+                <html:p>This proof is in progress, but requires lemmas around take/drop that I need to backfill. Overall, I think that the fuel-based approach is fine for a smaller number of these types of generally recursive definitions, but requires a meaningfully large proof burden per definition. Long term, well-foundedness is the right move for a ergonomic prover and provides an easier, more automation-friendly obligation.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0007/</fr:uri>
+                <fr:display-uri>0007</fr:display-uri>
+                <fr:route>/0007/</fr:route>
+                <fr:title text="number system construction in HOL">number system construction in HOL</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>I took some time to look into the construction of number systems in a HOL environment. It seems that Harrison does something a bit peculiar in HOL-light, rather than building the number tower in a progressive way, moving from naturals -&gt; integers -&gt; rationals -&gt; reals, he instead builds the real numbers as a <fr:link href="https://en.wikipedia.org/wiki/Quotient_type" type="external">quotient type</fr:link> and get the others through sub-typing.</html:p>
+                <html:p>To inform myself a bit I looked at A.H. Lightstone's <fr:link href="https://archive.org/details/symboliclogicrea0000ahli" type="external">"Symbolic Logic and the Real Number System"</fr:link> and found some interesting symmetries in the construction of integers and rationals that I wasn't aware of. Assuming we start with naturals and pairs as they're defined in my system:</html:p>
+                <html:pre><![CDATA[inductive nat :=
+    | zero : nat
+    | suc : nat -> nat
+
+vartype a b
+inductive pair :=
+    | pair : a -> b -> pair a b]]></html:pre>
+                <html:p>We can build integers as a subtype of pairs of naturals where the right and left represent the positive and negative components, respectively. Here it would be something like:</html:p>
+                <html:pre><![CDATA[variable a b c d : nat
+subtype int := pair a b
+    where (eq a zero) \/ (eq b zero)]]></html:pre>
+                <html:p>
+                  <html:em>(pseudocode as I don't have object syntax for subtypes yet)</html:em>
+                </html:p>
+                <html:p>Which gives us a canonical representation to distinguish between (5,3) and (6,4), for instance.</html:p>
+                <html:p>The symmetry I was referring to is that rationals are defined almost the same way, with a pair, this time representing the numerator and denominator. Here we use an integer numerator to keep the sign, and a natural denominator for simplicity:</html:p>
+                <html:pre><![CDATA[variable a : int
+variable b : nat
+subtype rat := pair a b
+    where (nat_lt zero b) ∧ (gcd (abs a) b = suc zero)]]></html:pre>
+                <html:p>
+                  <html:em>(pseudocode as I don't have object syntax for subtypes yet)</html:em>
+                </html:p>
+                <html:p>Which gives us a canonical representation to distinguish between (2,3) and (6,9), for instance.</html:p>
+                <html:p>This is more obvious when looking more abstractly at their equivalence relations, with addition vs multiplication being the only difference:</html:p>
+                <html:pre><![CDATA[for integers
+(a, b) === (c, d) when a + d = b + c
+
+for rationals
+(a, b) === (c, d) when a * d = b * c]]></html:pre>
+                <html:p>For my system I will elect to go the more traditional route of the number tower, as I think it will make for a more readable and easily understood formulation at the cost of having some more fiddly definitions for the algebraic laws due to reasoning about these underlying representations directly and respecting normalization at each step. Another benefit to the more traditional approach is that I don't necessarily need to add quotient typing to the system, not that it would be a large addition.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0008/</fr:uri>
+                <fr:display-uri>0008</fr:display-uri>
+                <fr:route>/0008/</fr:route>
+                <fr:title text="proof assistant usability">proof assistant usability</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>One thing that has bothered me about the state of proof assistants today is that the two main approaches of dependent type theory (DTT) and LCF (HOL) have really significant trade-offs, especially from the perspective of someone that is only beginning their journey through the space. Most of what I'll be discussing here is coming from the perspective of someone who knows how to program, and is interested in leveraging formal verification in some way.</html:p>
+                <html:p>On one hand the dominant DTT provers (Rocq, Lean) have tons of good documentation, and Lean specifically has invested heavily in making the onboarding experience as frictionless as possible. Still, these provers ask a lot of the user. To begin proving something outside of a trivial tutorial you must:</html:p>
+                <html:p>1. Be comfortable with functional programming
+2. Understand logic
+3. Understand dependent types
+4. Learn the tactic DSL</html:p>
+                <html:p>Lean is by far the best in minimizing the burden of these issues, I think largely because of the meta-programming-based tactics system and availability of quality documentation.</html:p>
+                <html:p>The other camp of widely-used proof assistants is the HOL family, including HOL-Light, HOL4, and Isabelle/HOL. These systems take a drastically different approach the core proof assistant's construction, something I might get into another time. The main difference is that these systems don't use dependent types at all, instead embedding a small simply-typed lambda calculus as the 'term language' or sometimes referred to as 'object language' to distinguish from the implementation language (often called the meta-language, hence ML). This term language is far easier to wrap your mind around compared to DTT, but creates a different problem altogether.</html:p>
+                <html:p>Aside from the cultural issues (smaller user-base, less documentation) with HOL systems that have nothing to do with the incredible implementations that have been created, I see the main issue with usability in these systems being this multiple language stratification that I mentioned above. These systems essentially trade out the technical complexity of DTT for the mental overhead of working in a system with sometimes 4 different languages all mangled together.</html:p>
+                <html:p>The most popular HOL prover, Isabelle/HOL, illustrates my point clearly. To use Isabelle you need to learn this 'shell' language, I'm not sure whats it's called, but it serves as the main interface for creating definitions, types, and setting up proofs. Parts of this shell language are actually quoted pieces of the internal HOL term language, creating a lot of friction just to define a function for example. In addition to these two, we also have a 'tactic mode' for doing proofs manually, and another language, Isar, for structuring proofs to read more like traditional proofs. Each of these 4 languages requires it's own learning process, and the fact that they're so tightly integrated means that you can't really get started without learning a bit about all of them.</html:p>
+                <html:p>I believe that a HOL system is the right call for a widely usable proof system that shields the user from a lot of theory that comes with DTT, and the only missing piece in the current systems is a reasonable usability story.</html:p>
+                <html:p>Since my system is based on HOL-Light, I'll go over some of the friction that system has as well. HOL-Light is essentially a stripped-down HOL core, with the kernel famously consisting of only ~700 lines of readable OCaml, the only 'trusted' code in the system as far as I know. Since this is a HOL system we have the same quotation problem, where we often have a need for referencing the term language when defining things, writing proofs, etc. HOL-Light does this with some clever but clunky quoting preprocessing, allowing for quotation of HOL terms with backticks.</html:p>
+                <html:p>HOL-Light handles interactivity by assuming the user will be working on proofs and definitions directly in the OCaml top-level, which is in my experience far less pleasant to use than working in your favorite text editor with LSP-based diagnostics and proof state display.</html:p>
+                <html:p>Until now, I've been using a small domain-specific language (DSL) for writing my HOL definitions, types, and theorems. I have some infrastructure in elaborate.ml for this purpose, as well as a lexer and parser for the language. I've run into a lot of friction using this system, as I don't have quotation like HOL-Light, requiring me to manually construct terms, elaborate them, and then use the OCaml value when specializing an assumption or asserting a intermediate lemma. To get around these issues and retain a text-editor based interactive workflow, I'm exploring OCaml PPXes as my quotation mechanism, combined with leveraging OCaml's speedy compiler to refresh my proof state with <html:code>dune build --watch</html:code> in another window.</html:p>
+                <html:p>To build HOL terms with a PPX, I will leverage the fact that the term language's semantics are close enough to a subset of OCaml's AST that I can write my HOL definitions, types, and goals as OCaml directly. We'll see how this works in practice but I think it's a really pragmatic path forward to a potentially beginner-friendly proof assistant. The system will then trade out a lot of the traditional proof assistant onboarding process with "just know OCaml", which I think is a far more reasonable ask. The onboarding process would potentially be:</html:p>
+                <html:p>1. Install OCaml
+2. <html:code>dune init proj my_proofs</html:code>
+3. Add to <html:code>dune-project</html:code> the dependencies <html:code>heft heft.ppx heft.theories</html:code> and <html:code>dune pkg lock</html:code>
+4. Start writing definitions and goals as valid OCaml with ppx_heft as a preprocessor
+5. Run <html:code>dune build --watch</html:code> in another window to see the proof state update on each save</html:p>
+                <html:p>The end user would see something like:</html:p>
+                <html:pre><![CDATA[type%heft nat =
+    | Zero
+    | Suc of nat
+
+let%heft_primrec plus (m : nat) =
+    match (m:nat) with
+    | Zero -> fun (n:nat) -> (n:nat)
+    | Suc (m':nat) -> fun (n:nat) -> Suc (plus (m':nat) (n:nat))
+
+let%heft_goal plus_zero_right =
+    forall (fun (m:nat) ->
+        plus (m:nat) zero = (m:nat)
+    )]]></html:pre>
+                <html:p>There are still a few problems to solve here, like how to tell which terms should be variables vs constants for example, since PPX extensions are a purely syntactic transformation, and I don't know how acceptable it is to do things like type inference during the translation. For now I think I can get around this by just requiring all variables to have explicit annotation, matching HOL's internal representation. Also, I still need to think about other edge cases for HOL that could be difficult or confusing to represent as OCaml, subtypes for example.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0009/</fr:uri>
+                <fr:display-uri>0009</fr:display-uri>
+                <fr:route>/0009/</fr:route>
+                <fr:title text="using ocaml ppx for HOL elaboration">using ocaml ppx for HOL elaboration</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>On my proof assistant, I've finally made the switch to a PPX-based approach to representing my HOL language, compared to the DSL I was using before. Moving to this approach allowed me to remove around 1000 lines of pretty complex elaboration logic, as well as make my definitions and theorems more easily representable, simply as writing OCaml with some restrictions. The new syntax looks like this.</html:p>
+                <html:pre><![CDATA[(* Defining types*)
+[%%inductive
+type nat =
+    Zero
+    | Suc of nat]
+
+
+(* Non-recursive definitions *)
+let%def pred (n : nat) : nat = match n with Zero -> Zero | Suc m -> m
+
+(* Structurally recursive definitions *)
+let%primrec plus (n : nat) (m : nat) : nat =
+match n with Zero -> m | Suc n' -> Suc (plus n' m)
+
+(* Proofs *)
+let goal =
+  make_goal
+    [%term forall (fun (xs : 'a list) -> length xs = Zero ==> (xs = Nil))]
+in
+run_proof goal
+  begin
+    induct >> intros >> refl >> intros >> simp_asm
+    >> sym_asm
+    >> with_first (with_rules NatTheory.nat_def.distinct rewrite_asm)
+    >> false_elim
+  end;]]></html:pre>
+                <html:p>The PPX takes a restricted set of syntactically valid OCaml code and transforms it into the equivalent HOL terms, with the addition of calling the inductive and function definition machinery at runtime.</html:p>
+                <html:p>This cut down a lot of noise in my system, and I hope it makes the system more approachable, at least to those comfortable with OCaml.</html:p>
+                <html:p>I still have plans for some dedicated proof syntax and for subtype definitions. Something like:</html:p>
+                <html:pre><![CDATA[let%thm length_zero_imp_nil (xs : 'a list) =
+    length xs = Zero ==> (xs = Nil),
+    begin
+      induct >> intros >> refl >> intros >> simp_asm
+      >> sym_asm
+      >> with_first (with_rules NatTheory.nat_def.distinct rewrite_asm)
+      >> false_elim
+    end [@simp] [@quiet]]]></html:pre>
+                <html:p>Or maybe:</html:p>
+                <html:pre><![CDATA[let%thm length_zero_imp_nil (xs : 'a list) =
+    length xs = Zero ==> (xs = Nil)
+and proof =
+    begin
+      induct >> intros >> refl >> intros >> simp_asm
+      >> sym_asm
+      >> with_first (with_rules NatTheory.nat_def.distinct rewrite_asm)
+      >> false_elim
+    end [@simp] [@quiet]]]></html:pre>
+                <html:p>Where the [@simp] annotations are used in the run_proof call.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0010/</fr:uri>
+                <fr:display-uri>0010</fr:display-uri>
+                <fr:route>/0010/</fr:route>
+                <fr:title text="negation reasoning in HOL">negation reasoning in HOL</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>I'm looking at adding some more tactics to improve the ergonomics of my prover. I've added a discriminate tactic for goals with distinct constructor equality (<html:code>Suc n = Zero</html:code>), but I want to improve my contradiction reasoning a bit. Right now I have a contradict_asm which can prove things like <fr:tex display="inline"><![CDATA[{\neg  P \vdash  \bot }]]></fr:tex> using a subgoal of <fr:tex display="inline"><![CDATA[\vdash  P]]></fr:tex>, but Rocq's contradict tactic is much stronger and handles 3 more distinct cases in addition to the one that my tactic does.</html:p>
+                <html:p>From Rocq's documentation:</html:p>
+                <html:pre><![CDATA[A tactic for proof by contradiction. With contradict H,
+
+1    H:~A |- B gives |- A
+2    H:~A |- ~B gives H: B |- A
+3    H: A |- B gives |- ~A
+4    H: A |- ~B gives H: B |- ~A]]></html:pre>
+                <html:p>Translating this to my system, I can have exfalso as <html:code>have F &gt;&gt; [subgoal] &gt;&gt; false_elim</html:code></html:p>
+                <html:p>- Case one is just <html:code>exfalso &gt;&gt; contradict_asm</html:code>
+- Case two is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{\neg  A, B \vdash  \bot }]]></fr:tex>, then <html:code>contradict_asm</html:code> to get <fr:tex display="inline"><![CDATA[B \vdash  A]]></fr:tex>
+- Case three is just <html:code>have \neg  A</html:code>
+- Case four is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{A, B \vdash  \bot }]]></fr:tex>, then <html:code>have \neg  A &gt;&gt; [subgoal] &gt;&gt; neg_elim</html:code></html:p>
+                <html:p>Essentially if the goal is a negation we call neg_intro to get it in an assumption, say <fr:tex display="inline"><![CDATA[A]]></fr:tex>, then we take a chosen assumption (other than <fr:tex display="inline"><![CDATA[A]]></fr:tex>), say <fr:tex display="inline"><![CDATA[B]]></fr:tex>. If it's a negation, we contradict_asm, otherwise we just assert its negation (<fr:tex display="inline"><![CDATA[\neg  B]]></fr:tex>).</html:p>
+                <html:p>This will help in a variety of cases that are currently pretty tedious with the current negation/false related tactics.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>15</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0011/</fr:uri>
+                <fr:display-uri>0011</fr:display-uri>
+                <fr:route>/0011/</fr:route>
+                <fr:title text="my neovim config">my neovim config</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>I use neovim for development, and after the 0.12 update I was able to clean up my config quite a bit. For my own sanity and for any others that want a clean, minimalist config that includes nearly everything needed to be productive during development I've annotated the config below.</html:p>
+                <html:pre><![CDATA[-- Requires: neovim 0.12+, ripgrep (for telescope live_grep), a nerd font (optional)
+
+-- Basic config
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.autoindent = true
+vim.opt.number = true
+vim.opt.clipboard = 'unnamedplus'
+vim.g.mapleader = " "
+vim.g.maplocalleader = '  '
+vim.opt.ruler = true
+vim.opt.cursorline = true
+vim.opt.expandtab = true
+vim.opt.scrolloff = 15
+vim.opt.relativenumber = true
+vim.cmd('dig TS 8866') -- digraph support for ⊢
+vim.opt.laststatus = 2 -- Or 3 for global statusline
+vim.opt.statusline = " %f %m %= %l:%c of %L ♥ "
+
+-- Plugins
+local function gh(repo) return 'https://github.com/' .. repo end
+local function cb(repo) return 'https://codeberg.org/' .. repo end
+
+vim.pack.add({
+    gh('nvim-lua/plenary.nvim'), -- pretty generic dependency for other plugins
+    gh('hrsh7th/nvim-cmp'), -- completion
+    gh('hrsh7th/cmp-nvim-lsp'), -- more completion
+    gh('nvim-treesitter/nvim-treesitter'), -- supports better syntax highlighting
+    gh('nvim-telescope/telescope.nvim'), -- a fuzzy
+    gh('nvim-telescope/telescope-frecency.nvim'), -- a helpful addition for finding files based on both how often and how recently you've opened them
+    gh('p00f/alabaster.nvim'), -- theme
+    cb('andyg/leap.nvim'), -- for jumping to any word on screen by prefix
+    gh('tpope/vim-surround'), -- for wrapping parens, etc
+    gh('tpope/vim-fugitive'), -- simple and clean interface to git for reviewing and modifying diffs
+    gh('ellisonleao/gruvbox.nvim'), -- theme
+    gh('olimorris/onedarkpro.nvim'), -- theme
+    gh('ntk148v/komau.vim'), -- theme
+    gh('airblade/vim-gitgutter'), -- show git changes on the side of the buffer
+    gh('neovim/nvim-lspconfig'), -- lsp is now built in, but this brings all the configs for different langs as well
+    gh('Julian/lean.nvim'), -- lean4 support
+    gh('whonore/Coqtail'), -- rocq support
+    gh('tomtomjhj/vsrocq.nvim'), -- rocq support
+    gh('stevearc/oil.nvim') -- file explorer
+})
+vim.api.nvim_create_user_command("PackUpdate", function()
+    require("vim.pack").update()
+end, { desc = "Update all plugins using vim.pack" })
+
+-- Colorscheme
+vim.api.nvim_create_user_command("ToggleBackground", function()
+    if vim.o.background == 'dark' then vim.o.background = 'light' else vim.o.background = 'dark' end
+end, { desc = "Toggles the vim.opt.background setting" })
+vim.opt.background = 'light'
+vim.cmd("colorscheme komau")
+
+-- Configure plugins
+require('oil').setup()
+require('telescope').load_extension('frecency')
+require('telescope').setup({
+    defaults = {
+        path_display = { "smart" }
+    }
+})
+require('lean').setup({
+    mappings = true,
+})
+
+-- Completion setup (tab to cycle completions, enter to accept them)
+local cmp = require('cmp')
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+    },
+    mapping = {
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+    },
+})
+-- autoformat on save
+local format_on_save = false
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
+    callback = function()
+        if format_on_save then
+            vim.lsp.buf.format()
+        end
+    end,
+})
+
+vim.api.nvim_create_user_command("ToggleFormatOnSave", function()
+    format_on_save = not format_on_save
+    vim.notify("Format on save: " .. (format_on_save and "enabled" or "disabled"))
+end, { desc = "Toggles format on save" })
+vim.keymap.set('n', '<leader>ss', ':ToggleFormatOnSave<CR>')
+
+-- Quickfix
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "dd", function()
+      local qflist = vim.fn.getqflist()
+      local line = vim.fn.line(".") - 1  -- 0-indexed
+      table.remove(qflist, line + 1)
+      vim.fn.setqflist(qflist)
+    end, { buffer = true })
+  end,
+})
+
+-- Main keybindings
+
+-- Fuzzy
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files)        -- SPACE f f finds files in the current directory, minus those in gitignore
+vim.keymap.set('n', '<leader>fg', builtin.live_grep)         -- SPACE f g finds text inside files in the current directory, minus those in gitignore
+vim.keymap.set('n', '<leader>fb', builtin.buffers)           -- SPACE f b finds files currently opened
+vim.keymap.set('n', '<leader>fH', builtin.help_tags)         -- SPACE f H looks through the help pages for neovim and plugins
+vim.keymap.set('n', '<leader>fh', ':Telescope frecency<CR>') -- SPACE f h looks through files sorted by how often and how recently they've been opened
+vim.keymap.set('n', '<leader>fc', builtin.git_commits)       -- SPACE f c looks through git commits and shows the diffs
+vim.keymap.set('n', '<leader>fs', builtin.git_status)        -- SPACE f s looks through changed files (from git status)
+
+-- Git
+vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')  -- SPACE g b shows an inline git blame for the current file
+vim.keymap.set('n', '<leader>gs', ':Git status<CR>') -- SPACE g s shows a quick overview of the git status
+vim.keymap.set('n', '<leader>gg', ':Git<CR>')        -- SPACE g g opens a full git fugitive window for managing changes and more
+vim.keymap.set('n', ']g', ':GitGutterNextHunk<CR>')  -- ] g goes to the next changed piece of code
+vim.keymap.set('n', '[g', ':GitGutterPrevHunk<CR>')  -- [ g goes to the previous changed piece of code
+
+--
+vim.keymap.set('n', '<leader>b', ':ToggleBackground<CR>') -- [ g goes to the previous changed piece of code
+
+
+-- Leap
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)') -- s triggers vim leap, to jump to another part of the screen by character tags
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')   -- S triggers the same but more globally
+
+-- File management
+vim.keymap.set('n', '<leader>o', ':Oil<CR>') -- SPACE o opens interactive file explorer with ability to rename/delete/move files as a buffer
+
+-- Treesitter
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(ev)
+        pcall(vim.treesitter.start, ev.buf)
+    end
+})
+
+-- Specialized languages
+require('rocq')
+require('koka')
+
+-- Normal LSP's
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('ocamllsp')
+-- on_init = function(client)
+--     client.server_capabilities.semanticTokensProvider = nil
+-- end,
+vim.lsp.enable('koka')     -- configured separately above
+vim.lsp.enable('clangd')
+vim.lsp.enable('millet')   -- SML language server
+vim.lsp.enable('tinymist') -- typst language server
+
+-- Custom macros for dumb shit
+
+vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:pre>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0012/</fr:uri>
+                <fr:display-uri>0012</fr:display-uri>
+                <fr:route>/0012/</fr:route>
+                <fr:title text="Algebraic Foundations of Proof Refinement">Algebraic Foundations of Proof Refinement</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Authors: Jon Sterling, Robert Harper</html:p>
+                <html:p>On an algebra for modeling proof refinement over dependent subgoals.</html:p>
+                <html:p>Drilling down into the parallelizable aspects of proof refinement.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0013/</fr:uri>
+                <fr:display-uri>0013</fr:display-uri>
+                <fr:route>/0013/</fr:route>
+                <fr:title text="On Jon Sterling's 'Is it time for a new proof assistant'">On Jon Sterling's 'Is it time for a new proof assistant'</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Tons to unpack here, I'm not all the way through but this is exactly the kind of engineering I'm interested in.</html:p>
+                <html:p>I'm really curious about eliminators, and general DTT programming.</html:p>
+                <html:p>Interesting ideas on avoiding typeclasses as well.</html:p>
+                <html:p>But what does HoTT really give you here, I'm confused why he needs the envisioned prover to be HoTT.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0014/</fr:uri>
+                <fr:display-uri>0014</fr:display-uri>
+                <fr:route>/0014/</fr:route>
+                <fr:title text="what is a proof assistant">what is a proof assistant</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>A computer program that helps prove theorems</html:p>
+                <html:p>what is a theorem?</html:p>
+                <html:p>a proposition that is true inside of a given formal system</html:p>
+                <html:p>"either its raining outside, or its not raining outside"</html:p>
+                <html:p>what is a proposition?</html:p>
+                <html:p>a statement written in a formal language that can be true or false</html:p>
+                <html:p>"its raining outside"</html:p>
+                <html:p>whats a formal system?</html:p>
+                <html:p>a formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well</html:p>
+                <html:p>"plus means ..."</html:p>
+                <html:p>"minus means ..."</html:p>
+                <html:p>what is an axiom?</html:p>
+                <html:p>an axiom is something that you believe is true without a proof</html:p>
+                <html:p>"for any number, that number is equal to itself"</html:p>
+                <html:p>what is a formal language?</html:p>
+                <html:p>a set of symbols and words for very precisely describing something. This can be something like arithmetic (+, -, /), or propositional calculus (<fr:tex display="inline"><![CDATA[{\land }]]></fr:tex>, <fr:tex display="inline"><![CDATA[{\lor }]]></fr:tex>, <fr:tex display="inline"><![CDATA[{\to }]]></fr:tex>). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.</html:p>
+                <html:p>
+                  <fr:tex display="inline"><![CDATA[{a^2 + b^2 = c^2}]]></fr:tex>
+                </html:p>
+                <html:p>what does it mean to "prove"?</html:p>
+                <html:p>to prove something in a formal system, you use the system's rules and axioms, along with other theorem's you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one the simple rules and axioms in your system.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0015/</fr:uri>
+                <fr:display-uri>0015</fr:display-uri>
+                <fr:route>/0015/</fr:route>
+                <fr:title text="what is proof refinement">what is proof refinement</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>todo</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0016/</fr:uri>
+                <fr:display-uri>0016</fr:display-uri>
+                <fr:route>/0016/</fr:route>
+                <fr:title text="what is a proof tactic">what is a proof tactic</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>todo</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>16</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0017/</fr:uri>
+                <fr:display-uri>0017</fr:display-uri>
+                <fr:route>/0017/</fr:route>
+                <fr:title text="a lang or prover based on defining intro and elim rules alone">a lang or prover based on defining intro and elim rules alone</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>based on Gentzen's work, if all proof rules are intro/elim pairs, what would it look like if these were the building blocks themselves rather than the HOL approach where the rules are made concrete in the kernel?</html:p>
+                <html:p>Would this be a platform for meta theory developement?</html:p>
+                <html:p>Is there a way to ensure that the user defined ones remain safe?</html:p>
+                <html:p>Is there a theory where we can safely define intro/elim rules for inductive types directly, rather than encoding it into the lower level logic?</html:p>
+                <html:p>What about when a rule has side conditions like free variables?</html:p>
+                <html:p>Would I still need a lambda calculus or could I encode the logic in a different way</html:p>
+                <html:p>If I took a logic first view, how could I recover computation?</html:p>
+                <html:p>Can every proposition be defined as an intro/elim rule that matches its sequent representation?</html:p>
+                <html:pre><![CDATA[intro mp
+Γ ⊢ a -> b
+---
+Γ, a ⊢ b
+
+elim mp
+Γ ⊢ a
+Γ ⊢ a -> b
+---
+Γ ⊢ b
+
+intro nat
+n : nat
+---
+(∃n'. n = Suc n') ∨ n = Zero]]></html:pre>
+              </fr:mainmatter>
+            </fr:tree>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

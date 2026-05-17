@@ -1,0 +1,40 @@
+\title{what is a proof assistant}
+\date{2026-05-16}
+\taxon{Note}
+
+\p{A computer program that helps prove theorems}
+
+\p{what is a theorem?}
+
+\p{a proposition that is true inside of a given formal system}
+
+\p{"either its raining outside, or its not raining outside"}
+
+\p{what is a proposition?}
+
+\p{a statement written in a formal language that can be true or false}
+
+\p{"its raining outside"}
+
+\p{whats a formal system?}
+
+\p{a formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well}
+
+\p{"plus means ..."}
+\p{"minus means ..."}
+
+\p{what is an axiom?}
+
+\p{an axiom is something that you believe is true without a proof}
+
+\p{"for any number, that number is equal to itself"}
+
+\p{what is a formal language?}
+
+\p{a set of symbols and words for very precisely describing something. This can be something like arithmetic (+, -, /), or propositional calculus (#{{\land}}, #{{\lor}}, #{{\to}}). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.}
+
+\p{#{{a^2 + b^2 = c^2}}}
+
+\p{what does it mean to "prove"?}
+
+\p{to prove something in a formal system, you use the system's rules and axioms, along with other theorem's you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one the simple rules and axioms in your system.}

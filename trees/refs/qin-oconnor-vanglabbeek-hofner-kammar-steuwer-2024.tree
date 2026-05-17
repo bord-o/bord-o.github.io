@@ -1,0 +1,11 @@
+\title{Shoggoth: A Formal Foundation for Strategic Rewriting}
+\date{2024}
+\taxon{Reference}
+\author{xueyingqin}
+\author{liamoconnor}
+\author{robvanglabbeek}
+\author{peterhofner}
+\author{ohadkammar}
+\author{michelsteuwer}
+\meta{doi}{10.1145/3633211}
+\p{A formal foundation for strategic rewriting, providing a rigorous semantics for rewrite strategies, published in POPL 2024.}

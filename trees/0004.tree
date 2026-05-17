@@ -1,0 +1,50 @@
+\title{limits of parallelism in theorem provers}
+\date{2026-05-15}
+\taxon{Note}
+
+\p{Though HOL provers don't have much interdependence between subgoals, there are limits to how much general execution of tactics can be parallelized.}
+
+\p{For example}
+
+\pre{\startverb
+a -> (a -> b) -> b
+\stopverb}
+
+\p{generates a few subgoals}
+
+\pre{\startverb
+// intro
+a
+---
+(a -> b) -> b
+\stopverb}
+
+\p{and}
+
+\pre{\startverb
+// intro
+a
+a -> b
+---
+b
+\stopverb}
+
+\p{and finally}
+
+\pre{\startverb
+// apply
+a
+a -> b
+---
+a
+\stopverb}
+
+\p{which can be solved.}
+
+\p{Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing the previous subgoal.}
+
+\p{So if we knew all of the subgoals ahead of time we could parallelize their execution, but in the case of a tactic producing a single subgoal like above this is not helpful, as most of the actual work done is before the subgoal effect is performed.}
+
+\p{Meaning that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next n subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like \code{conj} where both sides are often of similar difficulty.}
+
+\p{I'm quite happy with the ability to switch out a \code{@>>} for a \code{@>>!} and get some parallelism though.}

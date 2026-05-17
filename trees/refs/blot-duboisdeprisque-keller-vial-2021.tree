@@ -1,0 +1,9 @@
+\title{General Automation in Coq through Modular Transformations}
+\date{2021}
+\taxon{Reference}
+\author{valentinblot}
+\author{louiseduboisdeprisque}
+\author{chantalkeller}
+\author{pierrevial}
+\meta{doi}{10.4204/EPTCS.336.3}
+\p{A modular approach to general proof automation in Coq through composable transformations.}

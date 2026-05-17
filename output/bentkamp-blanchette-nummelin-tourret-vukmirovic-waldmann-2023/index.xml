@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors>
+      <fr:author>
+        <fr:link href="/alexanderbentkamp/" title="Alexander Bentkamp" uri="https://bord-o.github.io/alexanderbentkamp/" display-uri="alexanderbentkamp" type="local">Alexander Bentkamp</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/jasminblanchette/" title="Jasmin Blanchette" uri="https://bord-o.github.io/jasminblanchette/" display-uri="jasminblanchette" type="local">Jasmin Blanchette</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/visanummelin/" title="Visa Nummelin" uri="https://bord-o.github.io/visanummelin/" display-uri="visanummelin" type="local">Visa Nummelin</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/sophietourret/" title="Sophie Tourret" uri="https://bord-o.github.io/sophietourret/" display-uri="sophietourret" type="local">Sophie Tourret</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/petarvukmirovic/" title="Petar Vukmirović" uri="https://bord-o.github.io/petarvukmirovic/" display-uri="petarvukmirovic" type="local">Petar Vukmirović</fr:link>
+      </fr:author>
+      <fr:author>
+        <fr:link href="/uwewaldmann/" title="Uwe Waldmann" uri="https://bord-o.github.io/uwewaldmann/" display-uri="uwewaldmann" type="local">Uwe Waldmann</fr:link>
+      </fr:author>
+    </fr:authors>
+    <fr:date>
+      <fr:year>2023</fr:year>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/bentkamp-blanchette-nummelin-tourret-vukmirovic-waldmann-2023/</fr:uri>
+    <fr:display-uri>bentkamp-blanchette-nummelin-tourret-vukmirovic-waldmann-2023</fr:display-uri>
+    <fr:route>/bentkamp-blanchette-nummelin-tourret-vukmirovic-waldmann-2023/</fr:route>
+    <fr:title text="Mechanical Mathematicians">Mechanical Mathematicians</fr:title>
+    <fr:taxon>Reference</fr:taxon>
+    <fr:meta name="doi">10.1145/3557998</fr:meta>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>An overview of the state of the art in mechanical theorem proving, published in Communications of the ACM 2023.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

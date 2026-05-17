@@ -1,0 +1,6 @@
+\title{IsaCoSy: Synthesis of Inductive Theorems}
+\taxon{Reference}
+\author{moajohansson}
+\author{lucasdixon}
+\author{alanbundy}
+\p{IsaCoSy: a system for automated synthesis of inductive theorems in Isabelle.}
