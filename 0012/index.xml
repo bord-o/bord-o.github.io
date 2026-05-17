@@ -45,7 +45,7 @@
           <fr:mainmatter>
             <html:p>I am a software engineer working in the design space of theorem provers, algebraic effects, and software verification</html:p>
             <html:p>This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.</html:p>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -69,7 +69,7 @@ Gc.finalise (fun k ->
                 <html:p>Overall my memory usage went from disgustingly linear to the point of exhaustion on my old laptop, to a mere 60mb constant with healthy minor gc collections.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -111,7 +111,7 @@ a]]></html:pre>
                 <html:p>I'm quite happy with the ability to switch out a <html:code>@&gt;&gt;</html:code> for a <html:code>@&gt;&gt;!</html:code> and get some parallelism though.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -131,7 +131,7 @@ a]]></html:pre>
                 </html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -411,7 +411,7 @@ a]]></html:pre>
                 <html:p>This proof is in progress, but requires lemmas around take/drop that I need to backfill. Overall, I think that the fuel-based approach is fine for a smaller number of these types of generally recursive definitions, but requires a meaningfully large proof burden per definition. Long term, well-foundedness is the right move for a ergonomic prover and provides an easier, more automation-friendly obligation.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -461,7 +461,7 @@ for rationals
                 <html:p>For my system I will elect to go the more traditional route of the number tower, as I think it will make for a more readable and easily understood formulation at the cost of having some more fiddly definitions for the algebraic laws due to reasoning about these underlying representations directly and respecting normalization at each step. Another benefit to the more traditional approach is that I don't necessarily need to add quotient typing to the system, not that it would be a large addition.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -513,7 +513,7 @@ let%heft_goal plus_zero_right =
                 <html:p>There are still a few problems to solve here, like how to tell which terms should be variables vs constants for example, since PPX extensions are a purely syntactic transformation, and I don't know how acceptable it is to do things like type inference during the translation. For now I think I can get around this by just requiring all variables to have explicit annotation, matching HOL's internal representation. Also, I still need to think about other edge cases for HOL that could be difficult or confusing to represent as OCaml, subtypes for example.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -579,7 +579,7 @@ and proof =
                 <html:p>Where the [@simp] annotations are used in the run_proof call.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -611,7 +611,7 @@ and proof =
                 <html:p>This will help in a variety of cases that are currently pretty tedious with the current negation/false related tactics.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -796,7 +796,7 @@ vim.lsp.enable('tinymist') -- typst language server
 vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:pre>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -816,7 +816,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <html:p>Drilling down into the parallelizable aspects of proof refinement.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -837,7 +837,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <html:p>But what does HoTT really give you here, I'm confused why he needs the envisioned prover to be HoTT.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -875,7 +875,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <html:p>to prove something in a formal system, you use the system's rules and axioms, along with other theorem's you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one the simple rules and axioms in your system.</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -893,7 +893,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <html:p>todo</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
@@ -911,7 +911,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <html:p>todo</html:p>
               </fr:mainmatter>
             </fr:tree>
-            <fr:tree show-metadata="false">
+            <fr:tree show-metadata="false" expanded="false">
               <fr:frontmatter>
                 <fr:authors />
                 <fr:date>
