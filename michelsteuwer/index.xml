@@ -44,7 +44,44 @@
         <fr:authors />
         <fr:title text="Contributions">Contributions</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/xueyingqin/" title="Xueying Qin" uri="https://bord-o.github.io/xueyingqin/" display-uri="xueyingqin" type="local">Xueying Qin</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/liamoconnor/" title="Liam O'Connor" uri="https://bord-o.github.io/liamoconnor/" display-uri="liamoconnor" type="local">Liam O'Connor</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/robvanglabbeek/" title="Rob Van Glabbeek" uri="https://bord-o.github.io/robvanglabbeek/" display-uri="robvanglabbeek" type="local">Rob Van Glabbeek</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/peterhofner/" title="Peter Höfner" uri="https://bord-o.github.io/peterhofner/" display-uri="peterhofner" type="local">Peter Höfner</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/ohadkammar/" title="Ohad Kammar" uri="https://bord-o.github.io/ohadkammar/" display-uri="ohadkammar" type="local">Ohad Kammar</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/michelsteuwer/" title="Michel Steuwer" uri="https://bord-o.github.io/michelsteuwer/" display-uri="michelsteuwer" type="local">Michel Steuwer</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2024</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024/</fr:uri>
+            <fr:display-uri>qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024</fr:display-uri>
+            <fr:route>/qin-oconnor-vanglabbeek-hofner-kammar-steuwer-2024/</fr:route>
+            <fr:title text="Shoggoth: A Formal Foundation for Strategic Rewriting">Shoggoth: A Formal Foundation for Strategic Rewriting</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1145/3633211</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A formal foundation for strategic rewriting, providing a rigorous semantics for rewrite strategies, published in POPL 2024.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
   </fr:backmatter>
 </fr:tree>

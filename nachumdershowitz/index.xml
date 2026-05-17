@@ -51,6 +51,30 @@
               <fr:author>
                 <fr:link href="/nachumdershowitz/" title="Nachum Dershowitz" uri="https://bord-o.github.io/nachumdershowitz/" display-uri="nachumdershowitz" type="local">Nachum Dershowitz</fr:link>
               </fr:author>
+              <fr:author>
+                <fr:link href="/davidplaisted/" title="David A. Plaisted" uri="https://bord-o.github.io/davidplaisted/" display-uri="davidplaisted" type="local">David A. Plaisted</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2001</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/dershowitz-plaisted-2001/</fr:uri>
+            <fr:display-uri>dershowitz-plaisted-2001</fr:display-uri>
+            <fr:route>/dershowitz-plaisted-2001/</fr:route>
+            <fr:title text="Rewriting">Rewriting</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1016/B978-044450813-3/50011-4</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A comprehensive handbook chapter on term rewriting, covering foundations, techniques, and applications.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/nachumdershowitz/" title="Nachum Dershowitz" uri="https://bord-o.github.io/nachumdershowitz/" display-uri="nachumdershowitz" type="local">Nachum Dershowitz</fr:link>
+              </fr:author>
             </fr:authors>
             <fr:date>
               <fr:year>1993</fr:year>

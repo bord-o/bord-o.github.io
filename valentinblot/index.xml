@@ -44,7 +44,38 @@
         <fr:authors />
         <fr:title text="Contributions">Contributions</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/valentinblot/" title="Valentin Blot" uri="https://bord-o.github.io/valentinblot/" display-uri="valentinblot" type="local">Valentin Blot</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/louiseduboisdeprisque/" title="Louise Dubois De Prisque" uri="https://bord-o.github.io/louiseduboisdeprisque/" display-uri="louiseduboisdeprisque" type="local">Louise Dubois De Prisque</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/chantalkeller/" title="Chantal Keller" uri="https://bord-o.github.io/chantalkeller/" display-uri="chantalkeller" type="local">Chantal Keller</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/pierrevial/" title="Pierre Vial" uri="https://bord-o.github.io/pierrevial/" display-uri="pierrevial" type="local">Pierre Vial</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2021</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/blot-duboisdeprisque-keller-vial-2021/</fr:uri>
+            <fr:display-uri>blot-duboisdeprisque-keller-vial-2021</fr:display-uri>
+            <fr:route>/blot-duboisdeprisque-keller-vial-2021/</fr:route>
+            <fr:title text="General Automation in Coq through Modular Transformations">General Automation in Coq through Modular Transformations</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.4204/EPTCS.336.3</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A modular approach to general proof automation in Coq through composable transformations.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
   </fr:backmatter>
 </fr:tree>

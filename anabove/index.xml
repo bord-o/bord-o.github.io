@@ -44,7 +44,32 @@
         <fr:authors />
         <fr:title text="Contributions">Contributions</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/anabove/" title="Ana Bove" uri="https://bord-o.github.io/anabove/" display-uri="anabove" type="local">Ana Bove</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/venanziocapretta/" title="Venanzio Capretta" uri="https://bord-o.github.io/venanziocapretta/" display-uri="venanziocapretta" type="local">Venanzio Capretta</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:date>
+              <fr:year>2005</fr:year>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/bove-capretta-2005/</fr:uri>
+            <fr:display-uri>bove-capretta-2005</fr:display-uri>
+            <fr:route>/bove-capretta-2005/</fr:route>
+            <fr:title text="Modelling General Recursion in Type Theory">Modelling General Recursion in Type Theory</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+            <fr:meta name="doi">10.1017/S0960129505004822</fr:meta>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A method for modeling general recursive functions in type theory while maintaining logical consistency.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
   </fr:backmatter>
 </fr:tree>

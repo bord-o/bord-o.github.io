@@ -44,7 +44,31 @@
         <fr:authors />
         <fr:title text="Contributions">Contributions</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors>
+              <fr:author>
+                <fr:link href="/moajohansson/" title="Moa Johansson" uri="https://bord-o.github.io/moajohansson/" display-uri="moajohansson" type="local">Moa Johansson</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/lucasdixon/" title="Lucas Dixon" uri="https://bord-o.github.io/lucasdixon/" display-uri="lucasdixon" type="local">Lucas Dixon</fr:link>
+              </fr:author>
+              <fr:author>
+                <fr:link href="/alanbundy/" title="Alan Bundy" uri="https://bord-o.github.io/alanbundy/" display-uri="alanbundy" type="local">Alan Bundy</fr:link>
+              </fr:author>
+            </fr:authors>
+            <fr:uri>https://bord-o.github.io/johansson-dixon-bundy/</fr:uri>
+            <fr:display-uri>johansson-dixon-bundy</fr:display-uri>
+            <fr:route>/johansson-dixon-bundy/</fr:route>
+            <fr:title text="IsaCoSy: Synthesis of Inductive Theorems">IsaCoSy: Synthesis of Inductive Theorems</fr:title>
+            <fr:taxon>Reference</fr:taxon>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>IsaCoSy: a system for automated synthesis of inductive theorems in Isabelle.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
   </fr:backmatter>
 </fr:tree>
