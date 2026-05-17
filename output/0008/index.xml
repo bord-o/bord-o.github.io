@@ -11,7 +11,7 @@
     <fr:uri>https://bord-o.github.io/0008/</fr:uri>
     <fr:display-uri>0008</fr:display-uri>
     <fr:route>/0008/</fr:route>
-    <fr:title text="proof assistant usability">proof assistant usability</fr:title>
+    <fr:title text="Proof Assistant Usability">Proof Assistant Usability</fr:title>
     <fr:taxon>Note</fr:taxon>
   </fr:frontmatter>
   <fr:mainmatter>
@@ -88,7 +88,7 @@ let%heft_goal plus_zero_right =
                 <fr:uri>https://bord-o.github.io/0003/</fr:uri>
                 <fr:display-uri>0003</fr:display-uri>
                 <fr:route>/0003/</fr:route>
-                <fr:title text="prover continuation cleanup">prover continuation cleanup</fr:title>
+                <fr:title text="Prover Continuation Cleanup">Prover Continuation Cleanup</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -112,7 +112,7 @@ Gc.finalise (fun k ->
                 <fr:uri>https://bord-o.github.io/0004/</fr:uri>
                 <fr:display-uri>0004</fr:display-uri>
                 <fr:route>/0004/</fr:route>
-                <fr:title text="limits of parallelism in theorem provers">limits of parallelism in theorem provers</fr:title>
+                <fr:title text="Limits of Parallelism in Theorem Provers">Limits of Parallelism in Theorem Provers</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -161,7 +161,7 @@ Gc.finalise (fun k ->
                 <fr:uri>https://bord-o.github.io/0005/</fr:uri>
                 <fr:display-uri>0005</fr:display-uri>
                 <fr:route>/0005/</fr:route>
-                <fr:title text="docs for my theorem prover">docs for my theorem prover</fr:title>
+                <fr:title text="Docs for my Theorem Prover">Docs for my Theorem Prover</fr:title>
                 <fr:taxon>Note</fr:taxon>
                 <fr:meta name="external">https://bord-o.github.io/heft/heft/Heft/index.html</fr:meta>
               </fr:frontmatter>
@@ -180,7 +180,7 @@ Gc.finalise (fun k ->
                 <fr:uri>https://bord-o.github.io/0006/</fr:uri>
                 <fr:display-uri>0006</fr:display-uri>
                 <fr:route>/0006/</fr:route>
-                <fr:title text="fuel based general recursion">fuel based general recursion</fr:title>
+                <fr:title text="Fuel-based General Recursion">Fuel-based General Recursion</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -460,7 +460,7 @@ Gc.finalise (fun k ->
                 <fr:uri>https://bord-o.github.io/0007/</fr:uri>
                 <fr:display-uri>0007</fr:display-uri>
                 <fr:route>/0007/</fr:route>
-                <fr:title text="number system construction in HOL">number system construction in HOL</fr:title>
+                <fr:title text="Number System Construction in HOL">Number System Construction in HOL</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -510,7 +510,7 @@ for rationals
                 <fr:uri>https://bord-o.github.io/0008/</fr:uri>
                 <fr:display-uri>0008</fr:display-uri>
                 <fr:route>/0008/</fr:route>
-                <fr:title text="proof assistant usability">proof assistant usability</fr:title>
+                <fr:title text="Proof Assistant Usability">Proof Assistant Usability</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -562,7 +562,7 @@ let%heft_goal plus_zero_right =
                 <fr:uri>https://bord-o.github.io/0009/</fr:uri>
                 <fr:display-uri>0009</fr:display-uri>
                 <fr:route>/0009/</fr:route>
-                <fr:title text="using ocaml ppx for HOL elaboration">using ocaml ppx for HOL elaboration</fr:title>
+                <fr:title text="Using OCaml PPX for HOL Elaboration">Using OCaml PPX for HOL Elaboration</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -627,7 +627,7 @@ and proof =
                 <fr:uri>https://bord-o.github.io/0010/</fr:uri>
                 <fr:display-uri>0010</fr:display-uri>
                 <fr:route>/0010/</fr:route>
-                <fr:title text="negation reasoning in HOL">negation reasoning in HOL</fr:title>
+                <fr:title text="Negation Reasoning in HOL">Negation Reasoning in HOL</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -659,7 +659,7 @@ and proof =
                 <fr:uri>https://bord-o.github.io/0011/</fr:uri>
                 <fr:display-uri>0011</fr:display-uri>
                 <fr:route>/0011/</fr:route>
-                <fr:title text="my neovim config">my neovim config</fr:title>
+                <fr:title text="My Neovim Config">My Neovim Config</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -885,7 +885,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:uri>https://bord-o.github.io/0014/</fr:uri>
                 <fr:display-uri>0014</fr:display-uri>
                 <fr:route>/0014/</fr:route>
-                <fr:title text="what is a proof assistant">what is a proof assistant</fr:title>
+                <fr:title text="What is a Proof Assistant">What is a Proof Assistant</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -923,7 +923,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:uri>https://bord-o.github.io/0015/</fr:uri>
                 <fr:display-uri>0015</fr:display-uri>
                 <fr:route>/0015/</fr:route>
-                <fr:title text="what is proof refinement">what is proof refinement</fr:title>
+                <fr:title text="What is Proof Refinement">What is Proof Refinement</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
@@ -941,7 +941,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:uri>https://bord-o.github.io/0016/</fr:uri>
                 <fr:display-uri>0016</fr:display-uri>
                 <fr:route>/0016/</fr:route>
-                <fr:title text="what is a proof tactic">what is a proof tactic</fr:title>
+                <fr:title text="What is a Proof Tactic">What is a Proof Tactic</fr:title>
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
