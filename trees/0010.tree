@@ -17,10 +17,12 @@ A tactic for proof by contradiction. With contradict H,
 
 \p{Translating this to my system, I can have exfalso as \code{have F >> [subgoal] >> false_elim}}
 
-\p{- Case one is just \code{exfalso >> contradict_asm}
-- Case two is \code{neg_intro} to get #{{\neg A, B \vdash \bot}}, then \code{contradict_asm} to get #{B \vdash A}
-- Case three is just \code{have \neg A}
-- Case four is \code{neg_intro} to get #{{A, B \vdash \bot}}, then \code{have \neg A >> [subgoal] >> neg_elim}}
+\ol {
+    \li{Case one is just \code{exfalso >> contradict_asm}}
+    \li{Case two is \code{neg_intro} to get #{{\neg A, B \vdash \bot}}, then \code{contradict_asm} to get #{B \vdash A}}
+    \li{Case three is just \code{have \neg A}}
+    \li{Case four is \code{neg_intro} to get #{{A, B \vdash \bot}}, then \code{have \neg A >> [subgoal] >> neg_elim}}
+}
 
 \p{Essentially if the goal is a negation we call neg_intro to get it in an assumption, say #{A}, then we take a chosen assumption (other than #{A}), say #{B}. If it's a negation, we contradict_asm, otherwise we just assert its negation (#{\neg B}).}
 

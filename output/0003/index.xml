@@ -47,7 +47,7 @@ Gc.finalise (fun k ->
             <fr:meta name="author">false</fr:meta>
           </fr:frontmatter>
           <fr:mainmatter>
-            <html:p>I am a software engineer working in the design space of theorem provers, algebraic effects, and software verification</html:p>
+            <html:p>I am a software engineer working with theorem provers, algebraic effects, and software verification</html:p>
             <html:p>This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.</html:p>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
@@ -89,29 +89,36 @@ Gc.finalise (fun k ->
               </fr:frontmatter>
               <fr:mainmatter>
                 <html:p>Though HOL provers don't have much interdependence between subgoals, there are limits to how much general execution of tactics can be parallelized.</html:p>
-                <html:p>For example</html:p>
-                <html:pre><![CDATA[a -> (a -> b) -> b]]></html:pre>
-                <html:p>generates a few subgoals</html:p>
-                <html:pre><![CDATA[// intro
-a
----
-(a -> b) -> b]]></html:pre>
-                <html:p>and</html:p>
-                <html:pre><![CDATA[// intro
-a
-a -> b
----
-b]]></html:pre>
-                <html:p>and finally</html:p>
-                <html:pre><![CDATA[// apply
-a
-a -> b
----
-a]]></html:pre>
-                <html:p>which can be solved.</html:p>
-                <html:p>Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing the previous subgoal.</html:p>
-                <html:p>So if we knew all of the subgoals ahead of time we could parallelize their execution, but in the case of a tactic producing a single subgoal like above this is not helpful, as most of the actual work done is before the subgoal effect is performed.</html:p>
-                <html:p>Meaning that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next n subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like <html:code>conj</html:code> where both sides are often of similar difficulty.</html:p>
+                <html:p>For example, take the proof of this proposition.</html:p>
+                <fr:tex display="block"><![CDATA[
+  a \to  (a \to  b) \to  b
+]]></fr:tex>
+                <html:p>The proof follows, as a linear application of tactics.</html:p>
+                <fr:tex display="block"><![CDATA[
+  \frac {
+    a
+  }{
+    (a \to  b) \to  b
+  }\;\mathsf {intro}
+]]></fr:tex>
+                <fr:tex display="block"><![CDATA[
+  \frac {
+    \begin {array}{c} a \\ a \to  b \end {array}
+  }{
+    b
+  }\;\mathsf {intro}
+]]></fr:tex>
+                <fr:tex display="block"><![CDATA[
+  \frac {
+    \begin {array}{c} a \\ a \to  b \end {array}
+  }{
+    a
+  }\;\mathsf {apply}
+]]></fr:tex>
+                <html:p>The final goal can be solved directly with the assumption <fr:tex display="inline"><![CDATA[a]]></fr:tex>, finishing the proof.</html:p>
+                <html:p>Though these are three problems that aren't inherently dependent on each other, one can only know about the next problem by executing a tactic on the previous subgoal.</html:p>
+                <html:p>If we knew all of the subgoals ahead of time we could parallelize their execution 'completely', but in the case of a tactic producing a single subgoal like above this is not helpful, as most of actual code in a given tactic is used in formulating the next subproblem anyway.</html:p>
+                <html:p>What this means is that although I can't write a generic tactic engine that is parallel, I can parallelize the situations where its cheap to figure out the next <fr:tex display="inline"><![CDATA[n]]></fr:tex> subgoals compared cost of solving those subgoals. I did this with a parallel combinator using OCaml domainslib, which works well and give near perfect speedups when the effort needed on the subgoals is evenly spread between them. This mostly helps with case-bashing proofs and situations like <html:code>conj</html:code> where both sides are often of similar difficulty.</html:p>
                 <html:p>I'm quite happy with the ability to switch out a <html:code>@&gt;&gt;</html:code> for a <html:code>@&gt;&gt;!</html:code> and get some parallelism though.</html:p>
               </fr:mainmatter>
             </fr:tree>
@@ -128,292 +135,20 @@ a]]></html:pre>
                 <fr:route>/0005/</fr:route>
                 <fr:title text="docs for my theorem prover">docs for my theorem prover</fr:title>
                 <fr:taxon>Note</fr:taxon>
+                <fr:meta name="external">https://bord-o.github.io/heft/heft/Heft/index.html</fr:meta>
               </fr:frontmatter>
               <fr:mainmatter>
-                <html:p>
-                  <fr:link href="https://bord-o.github.io/heft/heft/Heft/index.html" type="external">docs for the main module</fr:link>
-                </html:p>
+                <html:p>docs for the main module of my theorem prover </html:p>
               </fr:mainmatter>
             </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
                 <fr:authors />
-                <fr:date>
-                  <fr:year>2026</fr:year>
-                  <fr:month>5</fr:month>
-                  <fr:day>15</fr:day>
-                </fr:date>
                 <fr:uri>https://bord-o.github.io/0006/</fr:uri>
                 <fr:display-uri>0006</fr:display-uri>
                 <fr:route>/0006/</fr:route>
-                <fr:title text="fuel based general recursion">fuel based general recursion</fr:title>
-                <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>While building a proof-of-concept of fuel-based general recursion, I decided that a merge-sort implementation would be a good stopping point. Merge-sort cannot be written in a structurally recursive way, due the necessity of recursion on a symmetrical split of the list being sorted. In addition to this, the auxiliary function 'merge', used to merge two sorted lists, is also not structurally recursive. So this should be a good test of both a more complex definition and a definition which uses other non-structurally recursive functions in its definition.</html:p>
-                <html:p>While other systems generally set up machinery for proving well-foundedness of a measure function (over the arguments), I was curious if simply defining these functions with a fuel argument could get me the same results. Essentially the goal is to get to an 'unfolding lemma' which allows us to abstract away the fuel based definition by proving that sufficient fuel exists and that using this fuel ensures the function's totality and equality with the body of the fuel-based definition. More concretely for merge, this looks something like the following two proofs.</html:p>
-                <html:pre><![CDATA[let%expect_test "merge fuel sufficient" =
-  let prg =
-    {|
-    variable fuel a0 a0': nat
-    variable xs ys x a1 a1' x' : list nat
-
-    theorem merge_fuel_sufficient :
-        forall λfuel.
-            forall λxs. forall λys.
-                        imp (nat_lt (plus (length xs) (length ys)) fuel)
-                            (exists λx.
-                                (eq (merge_aux fuel xs ys) (some x)))
-    term xs : xs
-    term ys : ys
-    term consa01 :  (cons a0 a1)
-    term consa01' :  (cons a0' a1')
-    term a1 : a1
-    term a1' : a1'
-    term x : x
-    term wit : (cons a0 x')
-    term wit2 :  (cons a0' x')
-
-  |}
-  in
-
-  let xs = Elaborator.term_from_string prg "xs" in
-  let ys = Elaborator.term_from_string prg "ys" in
-  let wit = Elaborator.term_from_string prg "wit" in
-  let wit2 = Elaborator.term_from_string prg "wit2" in
-  let a1 = Elaborator.term_from_string prg "a1" in
-  let a1' = Elaborator.term_from_string prg "a1'" in
-  let consa01 = Elaborator.term_from_string prg "consa01" in
-  let consa01' = Elaborator.term_from_string prg "consa01'" in
-  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
-  let proof =
-    induct >> intros >> simp_asm >> false_elim >> intros
-    >> simp
-    >> with_arbitrary_term xs destruct
-    >> elim_disj_asm >> simp
-    >> with_arbitrary_term ys exists
-    >> refl
-    >> with_repeat elim_exists_asm
-    >> simp
-    >> with_arbitrary_term ys destruct
-    >> elim_disj_asm >> simp
-    >> with_arbitrary_term consa01 exists
-    >> refl
-    >> with_repeat elim_exists_asm
-    >> simp >> cond >> simp
-    >> with_first (with_assumptions rewrite_asm)
-    >> with_first (with_assumptions rewrite_asm)
-    >> with_proven [ "length_cons" ] rewrite_asm
-    >> with_proven [ "add_suc_l" ] rewrite_asm
-    >> with_proven [ "lt_suc_suc" ] rewrite_asm
-    >> spec_asm a1 >> spec_asm consa01' >> mp_asm
-    >> elim_exists_asm >> simp
-    >> with_arbitrary_term wit exists
-    >> refl >> simp
-    >> with_first (with_assumptions rewrite_asm)
-    >> with_first (with_assumptions rewrite_asm)
-    >> with_proven [ "plus_comm" ] rewrite_asm
-    >> with_proven [ "length_cons" ] rewrite_asm
-    >> with_proven [ "add_suc_l" ] rewrite_asm
-    >> with_proven [ "plus_comm" ] rewrite_asm
-    >> with_proven [ "lt_suc_suc" ] rewrite_asm
-    >> spec_asm consa01 >> spec_asm a1' >> mp_asm
-    >> elim_exists_asm >> simp
-    >> with_arbitrary_term wit2 exists
-    >> refl
-  in
-  run_proof ~name:"merge_fuel_sufficient" ~notrace:true goal proof;
-  [%expect
-    {|
-    ========================================
-    ∀x. ∀xs. ∀ys. nat_lt (plus (length xs) (length ys)) x ==> ∃x. merge_aux x xs ys = some x
-
-    Proof Complete!
-    with fuel: 404
-    |}]]]></html:pre>
-                <html:p>
-                  <html:em>where (length xs + length ys) is our 'measure', we say that any fuel greater than our measure results in 'something'</html:em>
-                </html:p>
-                <html:pre><![CDATA[let%expect_test "merge unfolding lemma" =
-  let prg =
-    {|
-  variable fuel : nat
-  variable h y' a0 a0' : nat
-  variable xs ys x t ys' a1 a1' witness : list nat
-
-  theorem merge_unfold:
-    forall λxs. forall λys.
-            (eq (merge xs ys)
-                (list_match xs
-                    (ys)
-                    (λh. λt.
-                        (list_match ys
-                            (cons h t)
-                            (λy'. λys'.
-                                COND (nat_lt h y')
-                                    (cons h (merge t (cons y' ys')))
-                                    (cons y' (merge (cons h t) ys')))))))
-    term xs : xs
-    term ys : ys
-    term suf : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) a1' (cons a0 a1)) (some x))
-    term suf2 : exists (λx. eq  (merge_aux (suc (plus (length a1') (suc (length a1)))) (cons a0' a1') a1) (some x))
-
-    |}
-  in
-
-  let xs = Elaborator.term_from_string prg "xs" in
-  let suf = Elaborator.term_from_string prg "suf" in
-  let suf2 = Elaborator.term_from_string prg "suf2" in
-  let ys = Elaborator.term_from_string prg "ys" in
-  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
-  let proof =
-    intros
-    >> with_arbitrary_term xs destruct
-    >> with_arbitrary_term ys destruct
-    >> with_repeat elim_disj_asm
-    >> simp
-    >> with_repeat elim_exists_asm
-    >> simp
-    >> with_repeat elim_exists_asm
-    >> simp
-    >> with_repeat elim_exists_asm
-    >> with_definition [ "merge" ] rewrite
-    >> beta
-    >> with_first (with_definition [ "merge_aux" ] rewrite)
-    >> with_repeat (with_first (with_assumptions rewrite))
-    >> simp ~exclude:[ "merge"; "merge_aux" ]
-    >> cond
-    >> simp ~exclude:[ "merge"; "merge_aux" ]
-    >> with_arbitrary_term suf have
-    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
-    >> simp >> elim_exists_asm
-    >> with_first (with_assumptions rewrite)
-    >> simp ~exclude:[ "merge"; "merge_aux" ]
-    >> with_definition [ "merge" ] rewrite
-    >> beta
-    >> with_proven [ "length_cons" ] rewrite
-    >> with_first (with_assumptions rewrite)
-    >> simp
-    >> simp ~exclude:[ "merge"; "merge_aux" ]
-    >> with_arbitrary_term suf2 have
-    >> with_proven [ "merge_fuel_sufficient" ] apply_thm
-    >> simp
-    >> with_proven [ "plus_suc" ] rewrite
-    >> simp >> elim_exists_asm
-    >> with_first (with_assumptions rewrite)
-    >> simp ~exclude:[ "merge"; "merge_aux" ]
-    >> with_definition [ "merge" ] rewrite
-    >> beta
-    >> with_proven [ "length_cons" ] rewrite
-    >> with_first (with_proven [ "plus_suc" ] rewrite_asm)
-    >> with_first (with_proven [ "plus_comm" ] rewrite)
-    >> with_first (with_proven [ "plus_suc" ] rewrite)
-    >> with_first (with_proven [ "plus_comm" ] rewrite)
-    >> with_first (with_assumptions rewrite)
-    >> simp
-  in
-  run_proof ~name:"merge_unfold" ~notrace:true goal proof;
-  [%expect
-    {|
-    ========================================
-    ∀xs. ∀ys. merge xs ys = list_match xs ys (λh. λt. list_match ys (cons h t) (λy'. λys'. COND (nat_lt h y') (cons h (merge t (cons y' ys'))) (cons y' (merge (cons h t) ys'))))
-
-    Proof Complete!
-    with fuel: 1197
-    |}]]]></html:pre>
-                <html:p>
-                  <html:em>where the list_match expression is exactly the body of the fuel-based definition, essentially lifting us from using merge_aux to using merge directly</html:em>
-                </html:p>
-                <html:p>At this point we could then remove merge_aux from our simplifier and definitions, essentially never using it again and preferring the unfolding lemma instead as if it was defined this way from the start.</html:p>
-                <html:p>With the necessary definitions of <html:code>merge : list nat -&gt; list nat -&gt; list nat</html:code>, <html:code>take : nat -&gt; list nat -&gt; list nat</html:code>, and drop <html:code>drop : nat -&gt; list nat -&gt; list nat</html:code> in place, <html:code>merge_sort_aux</html:code> can be defined as the fuel-based stand in for our eventual <html:code>merge_sort</html:code>.</html:p>
-                <html:pre><![CDATA[    def merge_sort_aux : nat -> list nat -> option (list nat)
-    | zero => λxs. none
-    | suc n => λxs.
-        COND (nat_le (length xs) (suc zero))
-            (some xs)
-            ((λhalf_length.
-                option_match (merge_sort_aux n (take half_length xs))
-                    (none)
-                    (λleft.
-                        option_match (merge_sort_aux n (drop half_length xs))
-                            (none)
-                            (λright. some (merge left right))
-                    )
-            ) (div (length xs) (suc (suc zero))))]]></html:pre>
-                <html:p>
-                  <html:em>a little ugly without let bindings or numerals, but a fairly standard definition that avoids a dedicated <html:code>split</html:code> function</html:em>
-                </html:p>
-                <html:p>I should also note that I ran into some difficulty when trying to compute with merge_sort_aux on concrete data. For instance, proving <html:code>merge_sort_aux 8 [3, 1, 2] = some [1, 2, 3]</html:code> required a very specific ordering of rewrites to avoid explosion of unfolding branches that wouldn't end up being relevant:</html:p>
-                <html:pre><![CDATA[  let proof =
-    rw_def "merge_sort_aux" >> simp ~exclude
-    >> with_repeat @@ rw_def "div"
-    >> with_repeat @@ rw_def "div_aux"
-    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
-    >> rw_def "merge_sort_aux" >> simp ~exclude
-    >> with_repeat @@ rw_def "div"
-    >> with_repeat @@ rw_def "div_aux"
-    >> simp ~exclude >> rw_def "merge_sort_aux" >> simp ~exclude
-    >> rw_def "merge_sort_aux" >> simp ~exclude >> rw_thm "merge_unfold"
-    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
-    >> rw_thm "merge_unfold" >> simp ~exclude >> rw_thm "merge_unfold"
-    >> simp ~exclude >> rw_thm "merge_unfold" >> simp ~exclude
-    >> rw_thm "merge_unfold" >> simp ~exclude]]></html:pre>
-                <html:p>I believe that this is a common pattern in HOL light, where the simplifier is quite naive like mine, and there is no generic <html:code>compute</html:code> for these types of tests.</html:p>
-                <html:p>Now to prove sufficiency and unfolding for this definition:</html:p>
-                <html:pre><![CDATA[let%expect_test "merge sort sufficient" =
-  let prg =
-    {|
-    variable fuel n0 : nat
-    variable xs x : list nat
-
-    theorem merge_sort_fuel_sufficient:
-        forall λfuel.
-            forall λxs.
-                imp (nat_lt (length xs) fuel)
-                    (exists λx.
-                        (eq (merge_sort_aux fuel xs) (some x)))
-
-    term xs : xs
-    term left :  (take (div (length xs) (suc (suc zero))) xs)
-    term right : (drop (div (length xs) (suc (suc zero))) xs)
-
-    term right_oblig : nat_lt (length (drop (div (length xs) (suc (suc zero))) xs)) n0
-    term left_oblig :  nat_lt (length (take (div (length xs) (suc (suc zero))) xs)) n0
-  |}
-  in
-
-  let xs = Elaborator.term_from_string prg "xs" in
-  let left = Elaborator.term_from_string prg "left" in
-  let right = Elaborator.term_from_string prg "right" in
-  (* let left_oblig = Elaborator.term_from_string prg "left_oblig" in *)
-  (* let right_oblig = Elaborator.term_from_string prg "right_oblig" in *)
-  let goal = ([], List.hd (Elaborator.goals_from_string prg)) in
-  let proof =
-    induct >> intros >> simp_asm >> false_elim >> intros
-    >> with_first (with_definition [ "merge_sort_aux" ] rewrite)
-    >> beta >> cond
-    >> with_first (with_assumptions rewrite)
-    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
-    >> with_arbitrary_term xs exists
-    >> refl
-    >> with_first (with_assumptions rewrite)
-    >> simp ~exclude:[ "merge_sort_aux"; "take"; "drop"; "div"; "merge" ]
-    >> spec_asm left >> spec_asm right >> sorry
-  in
-  run_proof ~name:"merge_sort_fuel_sufficient" ~notrace:true goal proof;
-  [%expect
-    {|
-    ========================================
-    ∀x. ∀xs. nat_lt (length xs) x ==> ∃x. merge_sort_aux x xs = some x
-
-    Proof Complete!
-    with fuel: 100
-    |}]]]></html:pre>
-                <html:p>
-                  <html:em>I added an exclusion list to the simplifier to help out until I'm sure I can remove these auxiliary functions from the rule set. Eventually I should only need the unfolding lemma, i.e. merge_unfold but not merge or merge_aux</html:em>
-                </html:p>
-                <html:p>This proof is in progress, but requires lemmas around take/drop that I need to backfill. Overall, I think that the fuel-based approach is fine for a smaller number of these types of generally recursive definitions, but requires a meaningfully large proof burden per definition. Long term, well-foundedness is the right move for a ergonomic prover and provides an easier, more automation-friendly obligation.</html:p>
-              </fr:mainmatter>
+              <fr:mainmatter />
             </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
@@ -482,10 +217,10 @@ for rationals
               <fr:mainmatter>
                 <html:p>One thing that has bothered me about the state of proof assistants today is that the two main approaches of dependent type theory (DTT) and LCF (HOL) have really significant trade-offs, especially from the perspective of someone that is only beginning their journey through the space. Most of what I'll be discussing here is coming from the perspective of someone who knows how to program, and is interested in leveraging formal verification in some way.</html:p>
                 <html:p>On one hand the dominant DTT provers (Rocq, Lean) have tons of good documentation, and Lean specifically has invested heavily in making the onboarding experience as frictionless as possible. Still, these provers ask a lot of the user. To begin proving something outside of a trivial tutorial you must:</html:p>
-                <html:p>1. Be comfortable with functional programming
-2. Understand logic
-3. Understand dependent types
-4. Learn the tactic DSL</html:p>
+                <html:ol><html:li>Be comfortable with functional programming</html:li>
+    <html:li>Understand logic</html:li>
+    <html:li>Understand dependent types</html:li>
+    <html:li>Learn the tactic DSL</html:li></html:ol>
                 <html:p>Lean is by far the best in minimizing the burden of these issues, I think largely because of the meta-programming-based tactics system and availability of quality documentation.</html:p>
                 <html:p>The other camp of widely-used proof assistants is the HOL family, including HOL-Light, HOL4, and Isabelle/HOL. These systems take a drastically different approach the core proof assistant's construction, something I might get into another time. The main difference is that these systems don't use dependent types at all, instead embedding a small simply-typed lambda calculus as the 'term language' or sometimes referred to as 'object language' to distinguish from the implementation language (often called the meta-language, hence ML). This term language is far easier to wrap your mind around compared to DTT, but creates a different problem altogether.</html:p>
                 <html:p>Aside from the cultural issues (smaller user-base, less documentation) with HOL systems that have nothing to do with the incredible implementations that have been created, I see the main issue with usability in these systems being this multiple language stratification that I mentioned above. These systems essentially trade out the technical complexity of DTT for the mental overhead of working in a system with sometimes 4 different languages all mangled together.</html:p>
@@ -495,11 +230,11 @@ for rationals
                 <html:p>HOL-Light handles interactivity by assuming the user will be working on proofs and definitions directly in the OCaml top-level, which is in my experience far less pleasant to use than working in your favorite text editor with LSP-based diagnostics and proof state display.</html:p>
                 <html:p>Until now, I've been using a small domain-specific language (DSL) for writing my HOL definitions, types, and theorems. I have some infrastructure in elaborate.ml for this purpose, as well as a lexer and parser for the language. I've run into a lot of friction using this system, as I don't have quotation like HOL-Light, requiring me to manually construct terms, elaborate them, and then use the OCaml value when specializing an assumption or asserting a intermediate lemma. To get around these issues and retain a text-editor based interactive workflow, I'm exploring OCaml PPXes as my quotation mechanism, combined with leveraging OCaml's speedy compiler to refresh my proof state with <html:code>dune build --watch</html:code> in another window.</html:p>
                 <html:p>To build HOL terms with a PPX, I will leverage the fact that the term language's semantics are close enough to a subset of OCaml's AST that I can write my HOL definitions, types, and goals as OCaml directly. We'll see how this works in practice but I think it's a really pragmatic path forward to a potentially beginner-friendly proof assistant. The system will then trade out a lot of the traditional proof assistant onboarding process with "just know OCaml", which I think is a far more reasonable ask. The onboarding process would potentially be:</html:p>
-                <html:p>1. Install OCaml
-2. <html:code>dune init proj my_proofs</html:code>
-3. Add to <html:code>dune-project</html:code> the dependencies <html:code>heft heft.ppx heft.theories</html:code> and <html:code>dune pkg lock</html:code>
-4. Start writing definitions and goals as valid OCaml with ppx_heft as a preprocessor
-5. Run <html:code>dune build --watch</html:code> in another window to see the proof state update on each save</html:p>
+                <html:ol><html:li> Install OCaml</html:li>
+    <html:li><html:code>dune init proj my_proofs</html:code></html:li>
+    <html:li> Add to <html:code>dune-project</html:code> the dependencies <html:code>heft heft.ppx heft.theories</html:code> and <html:code>dune pkg lock</html:code></html:li>
+    <html:li> Start writing definitions and goals as valid OCaml with ppx_heft as a preprocessor</html:li>
+    <html:li> Run <html:code>dune build --watch</html:code> in another window to see the proof state update on each save</html:li></html:ol>
                 <html:p>The end user would see something like:</html:p>
                 <html:pre><![CDATA[type%heft nat =
     | Zero
@@ -538,7 +273,6 @@ let%heft_goal plus_zero_right =
 type nat =
     Zero
     | Suc of nat]
-
 
 (* Non-recursive definitions *)
 let%def pred (n : nat) : nat = match n with Zero -> Zero | Suc m -> m
@@ -607,10 +341,10 @@ and proof =
 3    H: A |- B gives |- ~A
 4    H: A |- ~B gives H: B |- ~A]]></html:pre>
                 <html:p>Translating this to my system, I can have exfalso as <html:code>have F &gt;&gt; [subgoal] &gt;&gt; false_elim</html:code></html:p>
-                <html:p>- Case one is just <html:code>exfalso &gt;&gt; contradict_asm</html:code>
-- Case two is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{\neg  A, B \vdash  \bot }]]></fr:tex>, then <html:code>contradict_asm</html:code> to get <fr:tex display="inline"><![CDATA[B \vdash  A]]></fr:tex>
-- Case three is just <html:code>have \neg  A</html:code>
-- Case four is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{A, B \vdash  \bot }]]></fr:tex>, then <html:code>have \neg  A &gt;&gt; [subgoal] &gt;&gt; neg_elim</html:code></html:p>
+                <html:ol><html:li>Case one is just <html:code>exfalso &gt;&gt; contradict_asm</html:code></html:li>
+    <html:li>Case two is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{\neg  A, B \vdash  \bot }]]></fr:tex>, then <html:code>contradict_asm</html:code> to get <fr:tex display="inline"><![CDATA[B \vdash  A]]></fr:tex></html:li>
+    <html:li>Case three is just <html:code>have \neg  A</html:code></html:li>
+    <html:li>Case four is <html:code>neg_intro</html:code> to get <fr:tex display="inline"><![CDATA[{A, B \vdash  \bot }]]></fr:tex>, then <html:code>have \neg  A &gt;&gt; [subgoal] &gt;&gt; neg_elim</html:code></html:li></html:ol>
                 <html:p>Essentially if the goal is a negation we call neg_intro to get it in an assumption, say <fr:tex display="inline"><![CDATA[A]]></fr:tex>, then we take a chosen assumption (other than <fr:tex display="inline"><![CDATA[A]]></fr:tex>), say <fr:tex display="inline"><![CDATA[B]]></fr:tex>. If it's a negation, we contradict_asm, otherwise we just assert its negation (<fr:tex display="inline"><![CDATA[\neg  B]]></fr:tex>).</html:p>
                 <html:p>This will help in a variety of cases that are currently pretty tedious with the current negation/false related tactics.</html:p>
               </fr:mainmatter>
@@ -913,46 +647,6 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
               </fr:frontmatter>
               <fr:mainmatter>
                 <html:p>todo</html:p>
-              </fr:mainmatter>
-            </fr:tree>
-            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
-              <fr:frontmatter>
-                <fr:authors />
-                <fr:date>
-                  <fr:year>2026</fr:year>
-                  <fr:month>5</fr:month>
-                  <fr:day>16</fr:day>
-                </fr:date>
-                <fr:uri>https://bord-o.github.io/0017/</fr:uri>
-                <fr:display-uri>0017</fr:display-uri>
-                <fr:route>/0017/</fr:route>
-                <fr:title text="a lang or prover based on defining intro and elim rules alone">a lang or prover based on defining intro and elim rules alone</fr:title>
-                <fr:taxon>Note</fr:taxon>
-              </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>based on Gentzen's work, if all proof rules are intro/elim pairs, what would it look like if these were the building blocks themselves rather than the HOL approach where the rules are made concrete in the kernel?</html:p>
-                <html:p>Would this be a platform for meta theory developement?</html:p>
-                <html:p>Is there a way to ensure that the user defined ones remain safe?</html:p>
-                <html:p>Is there a theory where we can safely define intro/elim rules for inductive types directly, rather than encoding it into the lower level logic?</html:p>
-                <html:p>What about when a rule has side conditions like free variables?</html:p>
-                <html:p>Would I still need a lambda calculus or could I encode the logic in a different way</html:p>
-                <html:p>If I took a logic first view, how could I recover computation?</html:p>
-                <html:p>Can every proposition be defined as an intro/elim rule that matches its sequent representation?</html:p>
-                <html:pre><![CDATA[intro mp
-Γ ⊢ a -> b
----
-Γ, a ⊢ b
-
-elim mp
-Γ ⊢ a
-Γ ⊢ a -> b
----
-Γ ⊢ b
-
-intro nat
-n : nat
----
-(∃n'. n = Suc n') ∨ n = Zero]]></html:pre>
               </fr:mainmatter>
             </fr:tree>
           </fr:mainmatter>
