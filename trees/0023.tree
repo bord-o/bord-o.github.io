@@ -1,0 +1,39 @@
+\title{What is a proof}
+\taxon{Note}
+
+\p{To prove something in a formal system, you use the system's rules and axioms, along with other theorems you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one of the simple rules and axioms in your system.}
+
+\p{An example of a proof in the formal system of a basic arithmetic would be as follows.}
+
+\subtree{
+    \title{The formal system}
+    \p{Our arithmetic system has only three constructs:} 
+    \ul{
+        \li{The number #{0}.}
+        \li{A function #{S(n)} which means "the number after n".}
+        \li{Equality (#{=}) meaning that two numbers are the same.}
+    }
+    \p{We can write numerals like #{1, 2, 3} by repeated using the "next number" operator. e.g. #{3} would be #{S(S(S 0))}}
+}
+
+\subtree{
+    \title{Defining addition}
+    \p{We can define #{+} using two rules:}
+    \ol{
+        \li{#{n + 0 = n} }
+        \li{#{n + S(m) = S(n+m)}}
+    }
+}
+
+\subtree{
+    \title{A simple proof}
+    \p{The goal is to prove #{1 + 1 = 2}}
+    \p{To begin, lets simplify these numbers to their exact form, meaning the goal is to prove that #{ S(0) + S(0) = S(S(0)) }}
+    \ol{
+        \li{First, we apply our second rule of addition to obtain #{S(S(0) + 0) = S(S(0))}.}
+        \li{Then, we apply our first rule of addition to obtain #{S(S(0)) = S(S(0))}, noticing that the inner expression is added to #{0}.}
+        \li{Finally, we can establish that this is true, because we have an equality where both sides are the same number.}
+    }
+}
+
+\p{Though a simple example, this already shows some of the challenges with building proofs. One needs to notice patterns in their goal, know which definitions are relevant, and provide enough detail to move between steps in the proof.}

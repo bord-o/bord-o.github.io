@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:uri>https://bord-o.github.io/0019/</fr:uri>
+    <fr:display-uri>0019</fr:display-uri>
+    <fr:route>/0019/</fr:route>
+    <fr:title text="What is a proposition">What is a proposition</fr:title>
+    <fr:taxon>Note</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>A statement written in a formal language that can be true or false.</html:p>
+    <html:p>e.g. "its raining outside"</html:p>
+    <html:p>Note that this phrase doesn't have a truth value yet. It's truth is determined by the definitions and rules of the formal system that it is described within.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:uri>https://bord-o.github.io/0018/</fr:uri>
+            <fr:display-uri>0018</fr:display-uri>
+            <fr:route>/0018/</fr:route>
+            <fr:title text="What is a theorem">What is a theorem</fr:title>
+            <fr:taxon>Note</fr:taxon>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>A proposition that is true inside of a given formal system.</html:p>
+            <html:p>"either its raining outside, or its not raining outside"</html:p>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:uri>https://bord-o.github.io/0019/</fr:uri>
+                <fr:display-uri>0019</fr:display-uri>
+                <fr:route>/0019/</fr:route>
+                <fr:title text="What is a proposition">What is a proposition</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>A statement written in a formal language that can be true or false.</html:p>
+                <html:p>e.g. "its raining outside"</html:p>
+                <html:p>Note that this phrase doesn't have a truth value yet. It's truth is determined by the definitions and rules of the formal system that it is described within.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:uri>https://bord-o.github.io/0020/</fr:uri>
+                <fr:display-uri>0020</fr:display-uri>
+                <fr:route>/0020/</fr:route>
+                <fr:title text="What is a formal system">What is a formal system</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>A formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well.</html:p>
+                <html:p>A formal system could be the system of simple arithmetic, say <fr:tex display="inline"><![CDATA[\set {0, 1, +}]]></fr:tex>, along with some rules about how plus works, say <fr:tex display="inline"><![CDATA[\forall  n. n + 0 = n]]></fr:tex> (any number plus zero is that number).</html:p>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:uri>https://bord-o.github.io/0021/</fr:uri>
+                    <fr:display-uri>0021</fr:display-uri>
+                    <fr:route>/0021/</fr:route>
+                    <fr:title text="What is an axiom">What is an axiom</fr:title>
+                    <fr:taxon>Note</fr:taxon>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>An axiom is something that you believe is true without a proof.</html:p>
+                    <html:p><fr:tex display="inline"><![CDATA[\forall  n. n = n]]></fr:tex> (for any number, that number is equal to itself).</html:p>
+                  </fr:mainmatter>
+                </fr:tree>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:uri>https://bord-o.github.io/0022/</fr:uri>
+                    <fr:display-uri>0022</fr:display-uri>
+                    <fr:route>/0022/</fr:route>
+                    <fr:title text="What is a formal language">What is a formal language</fr:title>
+                    <fr:taxon>Note</fr:taxon>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>A set of symbols and words for very precisely describing something. This can be something like arithmetic (<fr:tex display="inline"><![CDATA[+, -, /]]></fr:tex>), or propositional calculus (<fr:tex display="inline"><![CDATA[\land ]]></fr:tex>, <fr:tex display="inline"><![CDATA[\lor ]]></fr:tex>, <fr:tex display="inline"><![CDATA[\to ]]></fr:tex>). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.</html:p>
+                    <html:p>e.g. A language of simple arithmetic, where we have variables, <fr:tex display="inline"><![CDATA[a, b, c]]></fr:tex>, a binary operator <fr:tex display="inline"><![CDATA[+]]></fr:tex>, and parenthesis to group expressions. This would allow me to write things like <fr:tex display="inline"><![CDATA[(a + b) + c]]></fr:tex>, but not <fr:tex display="inline"><![CDATA[a + (+ b)]]></fr:tex></html:p>
+                  </fr:mainmatter>
+                </fr:tree>
+              </fr:mainmatter>
+            </fr:tree>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

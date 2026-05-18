@@ -2,4 +2,9 @@
 \date{2026-05-16}
 \taxon{Note}
 
-\p{todo}
+\p{A proof tactic acts as a "step" in a proof built with an interactive theorem prover.}
+
+\p{To understand a tactic, one must understand the difference between forward and backward reasoning as it pertains to proof assistants.}
+
+\p{TODO: forward reasoning}
+\p{TODO: backward reasoning}

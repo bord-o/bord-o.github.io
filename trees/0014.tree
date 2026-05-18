@@ -2,39 +2,11 @@
 \date{2026-05-16}
 \taxon{Note}
 
-\p{A computer program that helps prove theorems}
+\p{To best explain what a proof assistant is (not why its valuable), I will start with basic definitions and try to break it down into simple terms.}
 
-\p{what is a theorem?}
+\p{Ultimately, a proof assistant is a computer program that helps humans prove theorems.}
 
-\p{a proposition that is true inside of a given formal system}
+\transclude{0018}
+\transclude{0023}
 
-\p{"either its raining outside, or its not raining outside"}
-
-\p{what is a proposition?}
-
-\p{a statement written in a formal language that can be true or false}
-
-\p{"its raining outside"}
-
-\p{whats a formal system?}
-
-\p{a formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well}
-
-\p{"plus means ..."}
-\p{"minus means ..."}
-
-\p{what is an axiom?}
-
-\p{an axiom is something that you believe is true without a proof}
-
-\p{"for any number, that number is equal to itself"}
-
-\p{what is a formal language?}
-
-\p{a set of symbols and words for very precisely describing something. This can be something like arithmetic (+, -, /), or propositional calculus (#{{\land}}, #{{\lor}}, #{{\to}}). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.}
-
-\p{#{{a^2 + b^2 = c^2}}}
-
-\p{what does it mean to "prove"?}
-
-\p{to prove something in a formal system, you use the system's rules and axioms, along with other theorem's you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one the simple rules and axioms in your system.}
+\p{A proof assistant, sometimes called a "theorem prover" or just "prover" is distinguishable from other tools in the field by its level of interactivity. An automated theorem prover is at one end of the spectrum, where if a theorem is provable by the system then it will happen without user intervention. On the other side, there are interactive provers where each minute step must be described to the computer by a human, and the machine essentially just "checks" if the proof is valid. Many of the most interesting systems (Rocq, Lean, Isabelle/HOL) lie in between, and have strong automatic systems to help people the most boring and mechanical parts of a proof, while retiaining the ability to precisely spell out the difficult parts. }

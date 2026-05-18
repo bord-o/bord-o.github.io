@@ -1,0 +1,6 @@
+\title{What is a formal language}
+\taxon{Note}
+
+\p{A set of symbols and words for very precisely describing something. This can be something like arithmetic (#{+, -, /}), or propositional calculus (#{\land}, #{\lor}, #{\to}). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.}
+
+\p{e.g. A language of simple arithmetic, where we have variables, #{a, b, c}, a binary operator #{+}, and parenthesis to group expressions. This would allow me to write things like #{(a + b) + c}, but not #{a + (+ b)}}

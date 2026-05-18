@@ -2,4 +2,6 @@
 \date{2026-05-16}
 \taxon{Note}
 
-\p{todo}
+\p{Proof refinement is a term describing the act of "breaking down" a proof into smaller more obvious sub-problems. You can think of this as [problem decomposition](https://en.wikipedia.org/wiki/Decomposition_(computer_science)) applied to proof.}
+
+\p{This is the primary model of proving in interactive theorem provers, generally by using tactics to break a single "goal" down into smaller/simpler "subgoals".}

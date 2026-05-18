@@ -1,0 +1,9 @@
+\title{What is a formal system}
+\taxon{Note}
+
+\p{A formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well.}
+
+\p{A formal system could be the system of simple arithmetic, say #{\set{0, 1, +}}, along with some rules about how plus works, say #{\forall n. n + 0 = n} (any number plus zero is that number).}
+
+\transclude{0021}
+\transclude{0022}
