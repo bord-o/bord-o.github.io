@@ -889,27 +889,132 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
-                <html:p>A computer program that helps prove theorems</html:p>
-                <html:p>what is a theorem?</html:p>
-                <html:p>a proposition that is true inside of a given formal system</html:p>
-                <html:p>"either its raining outside, or its not raining outside"</html:p>
-                <html:p>what is a proposition?</html:p>
-                <html:p>a statement written in a formal language that can be true or false</html:p>
-                <html:p>"its raining outside"</html:p>
-                <html:p>whats a formal system?</html:p>
-                <html:p>a formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well</html:p>
-                <html:p>"plus means ..."</html:p>
-                <html:p>"minus means ..."</html:p>
-                <html:p>what is an axiom?</html:p>
-                <html:p>an axiom is something that you believe is true without a proof</html:p>
-                <html:p>"for any number, that number is equal to itself"</html:p>
-                <html:p>what is a formal language?</html:p>
-                <html:p>a set of symbols and words for very precisely describing something. This can be something like arithmetic (+, -, /), or propositional calculus (<fr:tex display="inline"><![CDATA[{\land }]]></fr:tex>, <fr:tex display="inline"><![CDATA[{\lor }]]></fr:tex>, <fr:tex display="inline"><![CDATA[{\to }]]></fr:tex>). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.</html:p>
-                <html:p>
-                  <fr:tex display="inline"><![CDATA[{a^2 + b^2 = c^2}]]></fr:tex>
-                </html:p>
-                <html:p>what does it mean to "prove"?</html:p>
-                <html:p>to prove something in a formal system, you use the system's rules and axioms, along with other theorem's you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one the simple rules and axioms in your system.</html:p>
+                <html:p>To best explain what a proof assistant is (not why its valuable), I will start with basic definitions and try to break it down into simple terms.</html:p>
+                <html:p>Ultimately, a proof assistant is a computer program that helps humans prove theorems.</html:p>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:uri>https://bord-o.github.io/0018/</fr:uri>
+                    <fr:display-uri>0018</fr:display-uri>
+                    <fr:route>/0018/</fr:route>
+                    <fr:title text="What is a theorem">What is a theorem</fr:title>
+                    <fr:taxon>Note</fr:taxon>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>A proposition that is true inside of a given formal system.</html:p>
+                    <html:p>"either its raining outside, or its not raining outside"</html:p>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:uri>https://bord-o.github.io/0019/</fr:uri>
+                        <fr:display-uri>0019</fr:display-uri>
+                        <fr:route>/0019/</fr:route>
+                        <fr:title text="What is a proposition">What is a proposition</fr:title>
+                        <fr:taxon>Note</fr:taxon>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>A statement written in a formal language that can be true or false.</html:p>
+                        <html:p>e.g. "its raining outside"</html:p>
+                        <html:p>Note that this phrase doesn't have a truth value yet. It's truth is determined by the definitions and rules of the formal system that it is described within.</html:p>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:uri>https://bord-o.github.io/0020/</fr:uri>
+                        <fr:display-uri>0020</fr:display-uri>
+                        <fr:route>/0020/</fr:route>
+                        <fr:title text="What is a formal system">What is a formal system</fr:title>
+                        <fr:taxon>Note</fr:taxon>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>A formal language, combined with rules that dictate what sorts of propositions are true and false within its context. Usually a formal system is designed in such a way that False is not a theorem. Formal systems usually include axioms as well.</html:p>
+                        <html:p>A formal system could be the system of simple arithmetic, say <fr:tex display="inline"><![CDATA[\set {0, 1, +}]]></fr:tex>, along with some rules about how plus works, say <fr:tex display="inline"><![CDATA[\forall  n. n + 0 = n]]></fr:tex> (any number plus zero is that number).</html:p>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:uri>https://bord-o.github.io/0021/</fr:uri>
+                            <fr:display-uri>0021</fr:display-uri>
+                            <fr:route>/0021/</fr:route>
+                            <fr:title text="What is an axiom">What is an axiom</fr:title>
+                            <fr:taxon>Note</fr:taxon>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>An axiom is something that you believe is true without a proof.</html:p>
+                            <html:p><fr:tex display="inline"><![CDATA[\forall  n. n = n]]></fr:tex> (for any number, that number is equal to itself).</html:p>
+                          </fr:mainmatter>
+                        </fr:tree>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:uri>https://bord-o.github.io/0022/</fr:uri>
+                            <fr:display-uri>0022</fr:display-uri>
+                            <fr:route>/0022/</fr:route>
+                            <fr:title text="What is a formal language">What is a formal language</fr:title>
+                            <fr:taxon>Note</fr:taxon>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>A set of symbols and words for very precisely describing something. This can be something like arithmetic (<fr:tex display="inline"><![CDATA[+, -, /]]></fr:tex>), or propositional calculus (<fr:tex display="inline"><![CDATA[\land ]]></fr:tex>, <fr:tex display="inline"><![CDATA[\lor ]]></fr:tex>, <fr:tex display="inline"><![CDATA[\to ]]></fr:tex>). Where in written language, the same words can mean different things based on the words and punctuation around them, in a formal language the same symbols/words mean the same thing every time they are used.</html:p>
+                            <html:p>e.g. A language of simple arithmetic, where we have variables, <fr:tex display="inline"><![CDATA[a, b, c]]></fr:tex>, a binary operator <fr:tex display="inline"><![CDATA[+]]></fr:tex>, and parenthesis to group expressions. This would allow me to write things like <fr:tex display="inline"><![CDATA[(a + b) + c]]></fr:tex>, but not <fr:tex display="inline"><![CDATA[a + (+ b)]]></fr:tex></html:p>
+                          </fr:mainmatter>
+                        </fr:tree>
+                      </fr:mainmatter>
+                    </fr:tree>
+                  </fr:mainmatter>
+                </fr:tree>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:uri>https://bord-o.github.io/0023/</fr:uri>
+                    <fr:display-uri>0023</fr:display-uri>
+                    <fr:route>/0023/</fr:route>
+                    <fr:title text="What is a proof">What is a proof</fr:title>
+                    <fr:taxon>Note</fr:taxon>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>To prove something in a formal system, you use the system's rules and axioms, along with other theorems you have already proved, to simplify the thing you're trying to prove to the point where it is obviously true by way of one of the simple rules and axioms in your system.</html:p>
+                    <html:p>An example of a proof in the formal system of a basic arithmetic would be as follows.</html:p>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:title text="The formal system">The formal system</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>Our arithmetic system has only three constructs:</html:p>
+                        <html:ul><html:li>The number <fr:tex display="inline"><![CDATA[0]]></fr:tex>.</html:li>
+        <html:li>A function <fr:tex display="inline"><![CDATA[S(n)]]></fr:tex> which means "the number after n".</html:li>
+        <html:li>Equality (<fr:tex display="inline"><![CDATA[=]]></fr:tex>) meaning that two numbers are the same.</html:li></html:ul>
+                        <html:p>We can write numerals like <fr:tex display="inline"><![CDATA[1, 2, 3]]></fr:tex> by repeated using the "next number" operator. e.g. <fr:tex display="inline"><![CDATA[3]]></fr:tex> would be <fr:tex display="inline"><![CDATA[S(S(S 0))]]></fr:tex></html:p>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:title text="Defining addition">Defining addition</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>We can define <fr:tex display="inline"><![CDATA[+]]></fr:tex> using two rules:</html:p>
+                        <html:ol><html:li><fr:tex display="inline"><![CDATA[n + 0 = n]]></fr:tex></html:li>
+        <html:li><fr:tex display="inline"><![CDATA[n + S(m) = S(n+m)]]></fr:tex></html:li></html:ol>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:title text="A simple proof">A simple proof</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>The goal is to prove <fr:tex display="inline"><![CDATA[1 + 1 = 2]]></fr:tex></html:p>
+                        <html:p>To begin, lets simplify these numbers to their exact form, meaning the goal is to prove that <fr:tex display="inline"><![CDATA[ S(0) + S(0) = S(S(0)) ]]></fr:tex></html:p>
+                        <html:ol><html:li>First, we apply our second rule of addition to obtain <fr:tex display="inline"><![CDATA[S(S(0) + 0) = S(S(0))]]></fr:tex>.</html:li>
+        <html:li>Then, we apply our first rule of addition to obtain <fr:tex display="inline"><![CDATA[S(S(0)) = S(S(0))]]></fr:tex>, noticing that the inner expression is added to <fr:tex display="inline"><![CDATA[0]]></fr:tex>.</html:li>
+        <html:li>Finally, we can establish that this is true, because we have an equality where both sides are the same number.</html:li></html:ol>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <html:p>Though a simple example, this already shows some of the challenges with building proofs. One needs to notice patterns in their goal, know which definitions are relevant, and provide enough detail to move between steps in the proof.</html:p>
+                  </fr:mainmatter>
+                </fr:tree>
+                <html:p>A proof assistant, sometimes called a "theorem prover" or just "prover" is distinguishable from other tools in the field by its level of interactivity. An automated theorem prover is at one end of the spectrum, where if a theorem is provable by the system then it will happen without user intervention. On the other side, there are interactive provers where each minute step must be described to the computer by a human, and the machine essentially just "checks" if the proof is valid. Many of the most interesting systems (Rocq, Lean, Isabelle/HOL) lie in between, and have strong automatic systems to help people the most boring and mechanical parts of a proof, while retiaining the ability to precisely spell out the difficult parts. </html:p>
               </fr:mainmatter>
             </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
@@ -927,7 +1032,8 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
-                <html:p>todo</html:p>
+                <html:p>Proof refinement is a term describing the act of "breaking down" a proof into smaller more obvious sub-problems. You can think of this as <fr:link href="https://en.wikipedia.org/wiki/Decomposition_(computer_science)" type="external">problem decomposition</fr:link> applied to proof.</html:p>
+                <html:p>This is the primary model of proving in interactive theorem provers, generally by using tactics to break a single "goal" down into smaller/simpler "subgoals".</html:p>
               </fr:mainmatter>
             </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
@@ -945,7 +1051,10 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:taxon>Note</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
-                <html:p>todo</html:p>
+                <html:p>A proof tactic acts as a "step" in a proof built with an interactive theorem prover.</html:p>
+                <html:p>To understand a tactic, one must understand the difference between forward and backward reasoning as it pertains to proof assistants.</html:p>
+                <html:p>TODO: forward reasoning</html:p>
+                <html:p>TODO: backward reasoning</html:p>
               </fr:mainmatter>
             </fr:tree>
           </fr:mainmatter>
