@@ -831,7 +831,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:display-uri>0012</fr:display-uri>
                 <fr:route>/0012/</fr:route>
                 <fr:title text="Algebraic Foundations of Proof Refinement">Algebraic Foundations of Proof Refinement</fr:title>
-                <fr:taxon>Note</fr:taxon>
+                <fr:taxon>Commentary</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
                 <html:p>Authors: Jon Sterling, Robert Harper</html:p>
@@ -851,7 +851,7 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                 <fr:display-uri>0013</fr:display-uri>
                 <fr:route>/0013/</fr:route>
                 <fr:title text="On Jon Sterling's 'Is it time for a new proof assistant'">On Jon Sterling's 'Is it time for a new proof assistant'</fr:title>
-                <fr:taxon>Note</fr:taxon>
+                <fr:taxon>Commentary</fr:taxon>
               </fr:frontmatter>
               <fr:mainmatter>
                 <html:p>Tons to unpack here, I'm not all the way through but this is exactly the kind of engineering I'm interested in.</html:p>
