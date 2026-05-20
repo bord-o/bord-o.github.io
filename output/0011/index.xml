@@ -209,7 +209,72 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
           </fr:frontmatter>
           <fr:mainmatter>
             <html:p>I am a software engineer working with theorem provers, algebraic effects, and software verification</html:p>
-            <html:p>This site was made with Forester, a tool I'm using to organize ideas and keep track of references. Search with CTRL+K.</html:p>
+            <html:p>This site was made with Forester, Search with CTRL+K.</html:p>
+            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
+                  <fr:month>5</fr:month>
+                  <fr:day>19</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/0026/</fr:uri>
+                <fr:display-uri>0026</fr:display-uri>
+                <fr:route>/0026/</fr:route>
+                <fr:title text="What's Next for the Heft Prover">What's Next for the Heft Prover</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting <html:code>rewrite.ml</html:code>, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.</html:p>
+                <html:p>Instead of working on the rewriting system, I could move on to some annoyances I've had around induction and variable name capture, but again these don't really block any proofs currently, and are more of an annoyance. I would love to remove the inductive theorem generation from the trusted base and make my induction more general, but thats a long ways out and the payoff is not worth the significant investment right now.</html:p>
+                <html:p>So where does this leave us? If my goal is to really know the in's and out's of the effectful architecture, then I should rather spend my time experimenting with interesting ways of implementing different tactics, combinators, and search, and taking good notes on these experiments. Maybe a more formal description of the architecture would be more worthwhile, giving me sound semantics for the rules around correct use in the system, rules that have been implicit so far. On the other hand, maybe I'm closer to writing a paper than I realize, and maybe the existing work is already a decent contribution.</html:p>
+                <html:p>Lets go through the project from the ground up and see what we have.</html:p>
+                <html:p>Heft is a theorem prover that leverages algebraic effects to implicitely model the control flow of proof refinement. A small set of straightforward effects give a surprisingly flexable, performant, and extendable base to write tactics, search procedures, combinators (tacticals), and interactive elements. Heft integrates closely with the OCaml ecosystem, leveraging OCaml PPX for term construction and management of runtime theory dependencies.</html:p>
+                <html:p>The question is whether this work will be framed as a case study or as a more targeted technical contribution. The case for a case study would be that it would be easier to write, and that I could take advantage of both the wins and losses by documenting both. For a more techincal contribution, it would carry more weight academically, but would require some more research into proof refinement and the rules that make things sound.</html:p>
+                <html:p>A case report seems like a better fit for the amount of work and experience I have, this would probably get me good exposure while not risking overclaiming.</html:p>
+                <html:p>I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.</html:p>
+                <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0027/</fr:uri><fr:display-uri>0027</fr:display-uri><fr:route>/0027/</fr:route><fr:title text="Abstract">Abstract</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+    <html:li><html:p>Introduction</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0028/</fr:uri><fr:display-uri>0028</fr:display-uri><fr:route>/0028/</fr:route><fr:title text="Problem Description">Problem Description</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0029/</fr:uri><fr:display-uri>0029</fr:display-uri><fr:route>/0029/</fr:route><fr:title text="Contributions">Contributions</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0030/</fr:uri><fr:display-uri>0030</fr:display-uri><fr:route>/0030/</fr:route><fr:title text="First Look at Results">First Look at Results</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Background</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0031/</fr:uri><fr:display-uri>0031</fr:display-uri><fr:route>/0031/</fr:route><fr:title text="LCF Architecture Overview">LCF Architecture Overview</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0032/</fr:uri><fr:display-uri>0032</fr:display-uri><fr:route>/0032/</fr:route><fr:title text="Algebraic Effects Overview">Algebraic Effects Overview</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0033/</fr:uri><fr:display-uri>0033</fr:display-uri><fr:route>/0033/</fr:route><fr:title text="Existing Approaches to Tactic Engines and Search">Existing Approaches to Tactic Engines and Search</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Algebraic Effects for Proof Refinement</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0034/</fr:uri><fr:display-uri>0034</fr:display-uri><fr:route>/0034/</fr:route><fr:title text="The Effects and What They Mean">The Effects and What They Mean</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0035/</fr:uri><fr:display-uri>0035</fr:display-uri><fr:route>/0035/</fr:route><fr:title text="Effects in Key Tactics and Combinators">Effects in Key Tactics and Combinators</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0036/</fr:uri><fr:display-uri>0036</fr:display-uri><fr:route>/0036/</fr:route><fr:title text="Comparison with Tactic Implementation in Other Provers">Comparison with Tactic Implementation in Other Provers</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Effect Handlers as Strategy</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0037/</fr:uri><fr:display-uri>0037</fr:display-uri><fr:route>/0037/</fr:route><fr:title text="Strategy Control via Handlers and Combinators">Strategy Control via Handlers and Combinators</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0038/</fr:uri><fr:display-uri>0038</fr:display-uri><fr:route>/0038/</fr:route><fr:title text="Handler Stack Nesting in a Simple Proof">Handler Stack Nesting in a Simple Proof</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter><html:p>todo</html:p></fr:mainmatter></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0039/</fr:uri><fr:display-uri>0039</fr:display-uri><fr:route>/0039/</fr:route><fr:title text="Search Implementation">Search Implementation</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Proofs in Practice</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0040/</fr:uri><fr:display-uri>0040</fr:display-uri><fr:route>/0040/</fr:route><fr:title text="Example of a Basic Proof">Example of a Basic Proof</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0041/</fr:uri><fr:display-uri>0041</fr:display-uri><fr:route>/0041/</fr:route><fr:title text="Comparison of One Proof Across Search Handlers">Comparison of One Proof Across Search Handlers</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Lessons Learned</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0042/</fr:uri><fr:display-uri>0042</fr:display-uri><fr:route>/0042/</fr:route><fr:title text="Performance Under Algebraic Effects">Performance Under Algebraic Effects</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0043/</fr:uri><fr:display-uri>0043</fr:display-uri><fr:route>/0043/</fr:route><fr:title text="Understanding Proof Behavior Under Search">Understanding Proof Behavior Under Search</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0044/</fr:uri><fr:display-uri>0044</fr:display-uri><fr:route>/0044/</fr:route><fr:title text="Effects Aren't Tracked">Effects Aren't Tracked</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0045/</fr:uri><fr:display-uri>0045</fr:display-uri><fr:route>/0045/</fr:route><fr:title text="Interface Uniformity">Interface Uniformity</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0046/</fr:uri><fr:display-uri>0046</fr:display-uri><fr:route>/0046/</fr:route><fr:title text="Tracing">Tracing</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0047/</fr:uri><fr:display-uri>0047</fr:display-uri><fr:route>/0047/</fr:route><fr:title text="Choice Gives Rich Information for Best-First Queue">Choice Gives Rich Information for Best-First Queue</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Related Work</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0048/</fr:uri><fr:display-uri>0048</fr:display-uri><fr:route>/0048/</fr:route><fr:title text="HOL Light">HOL Light</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0049/</fr:uri><fr:display-uri>0049</fr:display-uri><fr:route>/0049/</fr:route><fr:title text="Ltac2">Ltac2</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0050/</fr:uri><fr:display-uri>0050</fr:display-uri><fr:route>/0050/</fr:route><fr:title text="Mtac2">Mtac2</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0051/</fr:uri><fr:display-uri>0051</fr:display-uri><fr:route>/0051/</fr:route><fr:title text="Lean4 Monadic Tactics">Lean4 Monadic Tactics</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0052/</fr:uri><fr:display-uri>0052</fr:display-uri><fr:route>/0052/</fr:route><fr:title text="Lean4 Aesop">Lean4 Aesop</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0053/</fr:uri><fr:display-uri>0053</fr:display-uri><fr:route>/0053/</fr:route><fr:title text="Algebraic Effects">Algebraic Effects</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0054/</fr:uri><fr:display-uri>0054</fr:display-uri><fr:route>/0054/</fr:route><fr:title text="Search as Effects">Search as Effects</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0055/</fr:uri><fr:display-uri>0055</fr:display-uri><fr:route>/0055/</fr:route><fr:title text="Proof Refinement Theory">Proof Refinement Theory</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li>
+    <html:li><html:p>Conclusions and Further Work</html:p>
+        <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0056/</fr:uri><fr:display-uri>0056</fr:display-uri><fr:route>/0056/</fr:route><fr:title text="When Are Effectful Tactics Good">When Are Effectful Tactics Good</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0057/</fr:uri><fr:display-uri>0057</fr:display-uri><fr:route>/0057/</fr:route><fr:title text="Tracked Effects for Sound Effect Composition">Tracked Effects for Sound Effect Composition</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+            <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0058/</fr:uri><fr:display-uri>0058</fr:display-uri><fr:route>/0058/</fr:route><fr:title text="Formalizing Effect Semantics for Proof Refinement">Formalizing Effect Semantics for Proof Refinement</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li></html:ul>
+              </fr:mainmatter>
+            </fr:tree>
             <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
               <fr:frontmatter>
                 <fr:authors />
@@ -974,47 +1039,6 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
                   <fr:month>5</fr:month>
                   <fr:day>16</fr:day>
                 </fr:date>
-                <fr:uri>https://bord-o.github.io/0012/</fr:uri>
-                <fr:display-uri>0012</fr:display-uri>
-                <fr:route>/0012/</fr:route>
-                <fr:title text="Algebraic Foundations of Proof Refinement">Algebraic Foundations of Proof Refinement</fr:title>
-                <fr:taxon>Commentary</fr:taxon>
-              </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>Authors: Jon Sterling, Robert Harper</html:p>
-                <html:p>On an algebra for modeling proof refinement over dependent subgoals.</html:p>
-                <html:p>Drilling down into the parallelizable aspects of proof refinement.</html:p>
-              </fr:mainmatter>
-            </fr:tree>
-            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
-              <fr:frontmatter>
-                <fr:authors />
-                <fr:date>
-                  <fr:year>2026</fr:year>
-                  <fr:month>5</fr:month>
-                  <fr:day>16</fr:day>
-                </fr:date>
-                <fr:uri>https://bord-o.github.io/0013/</fr:uri>
-                <fr:display-uri>0013</fr:display-uri>
-                <fr:route>/0013/</fr:route>
-                <fr:title text="On Jon Sterling's 'Is it time for a new proof assistant'">On Jon Sterling's 'Is it time for a new proof assistant'</fr:title>
-                <fr:taxon>Commentary</fr:taxon>
-              </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>Tons to unpack here, I'm not all the way through but this is exactly the kind of engineering I'm interested in.</html:p>
-                <html:p>I'm really curious about eliminators, and general DTT programming.</html:p>
-                <html:p>Interesting ideas on avoiding typeclasses as well.</html:p>
-                <html:p>But what does HoTT really give you here, I'm confused why he needs the envisioned prover to be HoTT.</html:p>
-              </fr:mainmatter>
-            </fr:tree>
-            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
-              <fr:frontmatter>
-                <fr:authors />
-                <fr:date>
-                  <fr:year>2026</fr:year>
-                  <fr:month>5</fr:month>
-                  <fr:day>16</fr:day>
-                </fr:date>
                 <fr:uri>https://bord-o.github.io/0014/</fr:uri>
                 <fr:display-uri>0014</fr:display-uri>
                 <fr:route>/0014/</fr:route>
@@ -1167,27 +1191,6 @@ vim.keymap.set('n', '<leader>cc', 'olet goal = make_goal [%term ] in')]]></html:
               <fr:mainmatter>
                 <html:p>Proof refinement is a term describing the act of "breaking down" a proof into smaller more obvious sub-problems. You can think of this as <fr:link href="https://en.wikipedia.org/wiki/Decomposition_(computer_science)" type="external">problem decomposition</fr:link> applied to proof.</html:p>
                 <html:p>This is the primary model of proving in interactive theorem provers, generally by using tactics to break a single "goal" down into smaller/simpler "subgoals".</html:p>
-              </fr:mainmatter>
-            </fr:tree>
-            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
-              <fr:frontmatter>
-                <fr:authors />
-                <fr:date>
-                  <fr:year>2026</fr:year>
-                  <fr:month>5</fr:month>
-                  <fr:day>16</fr:day>
-                </fr:date>
-                <fr:uri>https://bord-o.github.io/0016/</fr:uri>
-                <fr:display-uri>0016</fr:display-uri>
-                <fr:route>/0016/</fr:route>
-                <fr:title text="What is a Proof Tactic">What is a Proof Tactic</fr:title>
-                <fr:taxon>Note</fr:taxon>
-              </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>A proof tactic acts as a "step" in a proof built with an interactive theorem prover.</html:p>
-                <html:p>To understand a tactic, one must understand the difference between forward and backward reasoning as it pertains to proof assistants.</html:p>
-                <html:p>TODO: forward reasoning</html:p>
-                <html:p>TODO: backward reasoning</html:p>
               </fr:mainmatter>
             </fr:tree>
           </fr:mainmatter>
