@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:date>
+      <fr:year>2026</fr:year>
+      <fr:month>5</fr:month>
+      <fr:day>18</fr:day>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/0024/</fr:uri>
+    <fr:display-uri>0024</fr:display-uri>
+    <fr:route>/0024/</fr:route>
+    <fr:title text="Andrej Bauer Faux Type Theory">Andrej Bauer Faux Type Theory</fr:title>
+    <fr:taxon>Commentary</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>First interesting point from this is about how local bindings and applied lambdas differ. Since I have been working in simply typed lambda calculus for my prover, I have just assumed that all <fr:tex display="inline"><![CDATA[\text {let}\; x = y \;\text {in}\; z]]></fr:tex> expressions could just be represented as <fr:tex display="inline"><![CDATA[(\lambda  x. z) y]]></fr:tex>, where we simply use lambda binding to get the expression we want. I figured that this pattern held in all lambda calculi but as it turns out, it does not hold in dependently typed settings. The reason is that when type checking the lambda's z expression, we don't know the type of x yet, but in the local binding version we know the type of x upfront before checking z.</html:p>
+    <html:p>What is type in type (<fr:tex display="inline"><![CDATA[\Gamma  \vdash  Type : Type]]></fr:tex>)? I know that it makes the theory inconsistent as a logic, but apparently it makes implementation easier and supports general recursion, because the divergent computation could inhabit any type.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:date>
+      <fr:year>2026</fr:year>
+      <fr:month>5</fr:month>
+      <fr:day>18</fr:day>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/0025/</fr:uri>
+    <fr:display-uri>0025</fr:display-uri>
+    <fr:route>/0025/</fr:route>
+    <fr:title text="Heft Benchmarks">Heft Benchmarks</fr:title>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>Here I will just keep a running log of benchmarks.</html:p>
+    <html:p>Commit:350026f3d1c96ec73bdcc09427aef366a1b1ea0a</html:p>
+    <html:pre><![CDATA[bordo@brick:~/Git/heft $ hyperfine '_build/default/bin/main.exe'
+Benchmark 1: _build/default/bin/main.exe
+  Time (mean ± σ):     571.5 ms ±   4.7 ms    [User: 571.5 ms, System: 29.8 ms]
+  Range (min … max):   565.8 ms … 580.1 ms    10 runs]]></html:pre>
+    <html:pre><![CDATA[bordo@brick:~/Git/heft $ ./bsd_prof.sh
+Password:
+9.95935%   main.exe`camlHeft__Rewrite.term_match_750                        49
+9.7561%   main.exe`compare_val                                             48
+5.89431%   main.exe`camlHeft__Rewrite.rewrite_at_root_inner_850               29
+4.87805%   main.exe`caml_perform                                            24
+2.64228%   main.exe`camlHeft__Kernel.type_of_term_1442                      13
+2.43902%   main.exe`pool_sweep                                              12
+2.43902%   main.exe`caml_stash_backtrace                                    12
+2.43902%   main.exe`caml_scan_stack                                         12
+2.03252%   main.exe`caml_find_frame_descr                                   10
+2.03252%   main.exe`caml_continuation_use_noexc                             10
+1.82927%   main.exe`multicont_clone_continuation                             9
+1.62602%   main.exe`do_some_marking                                          8
+1.62602%   main.exe`camlHeft__Kernel.alpha_compare_1674                      8
+1.62602%   libc.so.7`memcpy                                                  8
+1.42276%   main.exe`oldify_one                                               7
+1.42276%   main.exe`camlHeft__Kernel.mk_comb_1755                            7
+1.42276%   main.exe`camlHeft__Kernel.fun_4479                                7
+1.21951%   main.exe`caml_shared_try_alloc                                    6
+1.21951%   main.exe`caml_apply3                                              6
+1.21951%   main.exe`camlHeft__Kernel.fun_3894                                6
+1.01626%   main.exe`multicont_drop_continuation                              5
+1.01626%   main.exe`caml_string_equal                                        5
+1.01626%   main.exe`caml_modify                                              5
+1.01626%   main.exe`caml_alloc_stack                                         5
+1.01626%   main.exe`alloc_size_class_stack_noexc                             5
+1.01626%   libc.so.7`malloc                                                  5
+0.813008%   main.exe`caml_string_notequal                                     4
+0.813008%   main.exe`caml_runstack                                            4
+0.813008%   main.exe`caml_continuation_replace                                4
+0.813008%   main.exe`caml_call_realloc_stack                                  4]]></html:pre>
+    <html:p>I want to do a little experiment with hash consing before getting into my rewriter rewrite.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

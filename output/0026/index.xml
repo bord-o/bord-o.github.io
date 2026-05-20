@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:date>
+      <fr:year>2026</fr:year>
+      <fr:month>5</fr:month>
+      <fr:day>19</fr:day>
+    </fr:date>
+    <fr:uri>https://bord-o.github.io/0026/</fr:uri>
+    <fr:display-uri>0026</fr:display-uri>
+    <fr:route>/0026/</fr:route>
+    <fr:title text="What's Next for the Heft Prover">What's Next for the Heft Prover</fr:title>
+    <fr:taxon>Note</fr:taxon>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting <html:code>rewrite.ml</html:code>, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.</html:p>
+    <html:p>Instead of working on the rewriting system, I could move on to some annoyances I've had around induction and variable name capture, but again these don't really block any proofs currently, and are more of an annoyance. I would love to remove the inductive theorem generation from the trusted base and make my induction more general, but thats a long ways out and the payoff is not worth the significant investment right now.</html:p>
+    <html:p>So where does this leave us? If my goal is to really know the in's and out's of the effectful architecture, then I should rather spend my time experimenting with interesting ways of implementing different tactics, combinators, and search, and taking good notes on these experiments. Maybe a more formal description of the architecture would be more worthwhile, giving me sound semantics for the rules around correct use in the system, rules that have been implicit so far. On the other hand, maybe I'm closer to writing a paper than I realize, and maybe the existing work is already a decent contribution.</html:p>
+    <html:p>Lets go through the project from the ground up and see what we have.</html:p>
+    <html:p>Heft is a theorem prover that leverages algebraic effects to implicitely model the control flow of proof refinement. A small set of straightforward effects give a surprisingly flexable, performant, and extendable base to write tactics, search procedures, combinators (tacticals), and interactive elements. Heft integrates closely with the OCaml ecosystem, leveraging OCaml PPX for term construction and management of runtime theory dependencies.</html:p>
+    <html:p>The question is whether this work will be framed as a case study or as a more targeted technical contribution. The case for a case study would be that it would be easier to write, and that I could take advantage of both the wins and losses by documenting both. For a more techincal contribution, it would carry more weight academically, but would require some more research into proof refinement and the rules that make things sound.</html:p>
+    <html:p>A case report seems like a better fit for the amount of work and experience I have, this would probably get me good exposure while not risking overclaiming.</html:p>
+    <html:p>I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.</html:p>
+    <html:ul><html:li>Abstract</html:li>
+    <html:li><html:p>Introduction</html:p>
+        <html:ul><html:li>Problem description</html:li>
+            <html:li>Contributions</html:li>
+            <html:li>First look at results</html:li></html:ul></html:li>
+    <html:li><html:p>Background</html:p>
+        <html:ul><html:li>LCF Architecture overview (reference John, note divergence on inductive/exhaustiveness theorems for brevity)</html:li>
+            <html:li>Algebraic Effects overview</html:li>
+            <html:li>Existing approaches to tactic engines and search</html:li></html:ul></html:li>
+    <html:li><html:p>Algebraic Effects for Proof Refinement</html:p>
+        <html:ul><html:li>Showcase the effects and what they mean</html:li>
+            <html:li>Examples of effects in key tactics and combinators (TODO: look into shallow handlers for some combinators rather than depth indexing)</html:li>
+            <html:li>Comparison with tactic implementation in other provers</html:li></html:ul></html:li>
+    <html:li><html:p>Effect Handlers as Strategy</html:p>
+        <html:ul><html:li>Which aspects count as "strategy" and how are they controlled with handlers/combinators</html:li>
+            <html:li>Diagram: handler stack nesting in a simple proof</html:li>
+            <html:li>Search implementation (TODO: rewrite step function to be correct and performant)</html:li></html:ul></html:li>
+    <html:li><html:p>Proofs in Practice</html:p>
+        <html:ul><html:li>Example of basic proof</html:li>
+            <html:li>Comparison of one proof across search handlers</html:li></html:ul></html:li>
+    <html:li><html:p>Lessons Learned</html:p>
+        <html:ul><html:li>Performance under algebraic effects (continuation cleanup)</html:li>
+            <html:li>Understanding proof behavior (especially under search)</html:li>
+            <html:li>Effects aren't tracked</html:li>
+            <html:li>Interface uniformity</html:li>
+            <html:li>Tracing</html:li>
+            <html:li>Choice gives rich information for best-first queue</html:li></html:ul></html:li>
+    <html:li><html:p>Related Work</html:p>
+        <html:ul><html:li>HOL Light</html:li>
+            <html:li>Ltac2</html:li>
+            <html:li>Mtac2</html:li>
+            <html:li>Lean4 monadic tactics</html:li>
+            <html:li>Lean4 aesop</html:li>
+            <html:li>Algebraic effects</html:li>
+            <html:li>Search as effects</html:li>
+            <html:li>Proof refinement theory?</html:li></html:ul></html:li>
+    <html:li><html:p>Conclusions and Further Work</html:p>
+        <html:ul><html:li>Summary, when are effectful tactics good. Are they worth pursuing in general</html:li>
+            <html:li>Tracked effects for sound effect composition</html:li>
+            <html:li>Formalize effect semantics for proof refinement</html:li></html:ul></html:li></html:ul>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

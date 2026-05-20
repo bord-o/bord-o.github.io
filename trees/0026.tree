@@ -1,0 +1,95 @@
+\date{2026-05-19T22:41:33Z}
+\taxon{Note}
+\title{What's Next for the Heft Prover}
+
+\p{I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting \code{rewrite.ml}, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.}
+
+\p{Instead of working on the rewriting system, I could move on to some annoyances I've had around induction and variable name capture, but again these don't really block any proofs currently, and are more of an annoyance. I would love to remove the inductive theorem generation from the trusted base and make my induction more general, but thats a long ways out and the payoff is not worth the significant investment right now.}
+
+\p{So where does this leave us? If my goal is to really know the in's and out's of the effectful architecture, then I should rather spend my time experimenting with interesting ways of implementing different tactics, combinators, and search, and taking good notes on these experiments. Maybe a more formal description of the architecture would be more worthwhile, giving me sound semantics for the rules around correct use in the system, rules that have been implicit so far. On the other hand, maybe I'm closer to writing a paper than I realize, and maybe the existing work is already a decent contribution.}
+
+\p{Lets go through the project from the ground up and see what we have.}
+
+\p{Heft is a theorem prover that leverages algebraic effects to implicitely model the control flow of proof refinement. A small set of straightforward effects give a surprisingly flexable, performant, and extendable base to write tactics, search procedures, combinators (tacticals), and interactive elements. Heft integrates closely with the OCaml ecosystem, leveraging OCaml PPX for term construction and management of runtime theory dependencies.}
+
+\p{The question is whether this work will be framed as a case study or as a more targeted technical contribution. The case for a case study would be that it would be easier to write, and that I could take advantage of both the wins and losses by documenting both. For a more techincal contribution, it would carry more weight academically, but would require some more research into proof refinement and the rules that make things sound.}
+
+\p{A case report seems like a better fit for the amount of work and experience I have, this would probably get me good exposure while not risking overclaiming.}
+
+\p{I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.}
+
+\ul{
+    \li{Abstract}
+    \li{
+        \p{Introduction}
+        \ul{
+            \li{Problem description}
+            \li{Contributions}
+            \li{First look at results}
+        }
+    }
+    \li{
+        \p{Background}
+        \ul{
+            \li{LCF Architecture overview (reference John, note divergence on inductive/exhaustiveness theorems for brevity)}
+            \li{Algebraic Effects overview}
+            \li{Existing approaches to tactic engines and search}
+        }
+    }
+    \li{
+        \p{Algebraic Effects for Proof Refinement}
+        \ul{
+            \li{Showcase the effects and what they mean}
+            \li{Examples of effects in key tactics and combinators (TODO: look into shallow handlers for some combinators rather than depth indexing)}
+            \li{Comparison with tactic implementation in other provers}
+        }
+    }
+    \li{
+        \p{Effect Handlers as Strategy}
+        \ul{
+            \li{Which aspects count as "strategy" and how are they controlled with handlers/combinators}
+            \li{Diagram: handler stack nesting in a simple proof}
+            \li{Search implementation (TODO: rewrite step function to be correct and performant)}
+        }
+    }
+    \li{
+        \p{Proofs in Practice}
+        \ul{
+            \li{Example of basic proof}
+            \li{Comparison of one proof across search handlers}
+        }
+    }
+    \li{
+        \p{Lessons Learned}
+        \ul{
+            \li{Performance under algebraic effects (continuation cleanup)}
+            \li{Understanding proof behavior (especially under search)}
+            \li{Effects aren't tracked}
+            \li{Interface uniformity}
+            \li{Tracing}
+            \li{Choice gives rich information for best-first queue}
+        }
+    }
+    \li{
+        \p{Related Work}
+        \ul{
+            \li{HOL Light}
+            \li{Ltac2}
+            \li{Mtac2}
+            \li{Lean4 monadic tactics}
+            \li{Lean4 aesop}
+            \li{Algebraic effects}
+            \li{Search as effects}
+            \li{Proof refinement theory?}
+        }
+    }
+    \li{
+        \p{Conclusions and Further Work}
+        \ul{
+            \li{Summary, when are effectful tactics good. Are they worth pursuing in general}
+            \li{Tracked effects for sound effect composition}
+            \li{Formalize effect semantics for proof refinement}
+        }
+
+    }
+}

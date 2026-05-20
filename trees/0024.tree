@@ -1,0 +1,7 @@
+\date{2026-05-18T18:33:30Z}
+\taxon{Commentary}
+\title{Andrej Bauer Faux Type Theory}
+
+\p{First interesting point from this is about how local bindings and applied lambdas differ. Since I have been working in simply typed lambda calculus for my prover, I have just assumed that all #{\text{let}\; x = y \;\text{in}\; z} expressions could just be represented as #{(\lambda x. z) y}, where we simply use lambda binding to get the expression we want. I figured that this pattern held in all lambda calculi but as it turns out, it does not hold in dependently typed settings. The reason is that when type checking the lambda's z expression, we don't know the type of x yet, but in the local binding version we know the type of x upfront before checking z.}
+
+\p{What is type in type (#{\Gamma \vdash Type : Type})? I know that it makes the theory inconsistent as a logic, but apparently it makes implementation easier and supports general recursion, because the divergent computation could inhabit any type.}
