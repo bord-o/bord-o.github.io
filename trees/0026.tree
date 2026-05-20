@@ -1,6 +1,7 @@
 \date{2026-05-19T22:41:33Z}
 \taxon{Note}
 \title{What's Next for the Heft Prover}
+\tag{heft}
 
 \p{I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting \code{rewrite.ml}, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.}
 
@@ -18,77 +19,78 @@
 
 \p{I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.}
 
+\put\transclude/expanded{false}
 \ul{
-    \li{Abstract}
+    \li{\transclude{0027}}
     \li{
         \p{Introduction}
         \ul{
-            \li{Problem description}
-            \li{Contributions}
-            \li{First look at results}
+            \li{\transclude{0028}}
+            \li{\transclude{0029}}
+            \li{\transclude{0030}}
         }
     }
     \li{
         \p{Background}
         \ul{
-            \li{LCF Architecture overview (reference John, note divergence on inductive/exhaustiveness theorems for brevity)}
-            \li{Algebraic Effects overview}
-            \li{Existing approaches to tactic engines and search}
+            \li{\transclude{0031}}
+            \li{\transclude{0032}}
+            \li{\transclude{0033}}
         }
     }
     \li{
         \p{Algebraic Effects for Proof Refinement}
         \ul{
-            \li{Showcase the effects and what they mean}
-            \li{Examples of effects in key tactics and combinators (TODO: look into shallow handlers for some combinators rather than depth indexing)}
-            \li{Comparison with tactic implementation in other provers}
+            \li{\transclude{0034}}
+            \li{\transclude{0035}}
+            \li{\transclude{0036}}
         }
     }
     \li{
         \p{Effect Handlers as Strategy}
         \ul{
-            \li{Which aspects count as "strategy" and how are they controlled with handlers/combinators}
-            \li{Diagram: handler stack nesting in a simple proof}
-            \li{Search implementation (TODO: rewrite step function to be correct and performant)}
+            \li{\transclude{0037}}
+            \li{\transclude{0038}}
+            \li{\transclude{0039}}
         }
     }
     \li{
         \p{Proofs in Practice}
         \ul{
-            \li{Example of basic proof}
-            \li{Comparison of one proof across search handlers}
+            \li{\transclude{0040}}
+            \li{\transclude{0041}}
         }
     }
     \li{
         \p{Lessons Learned}
         \ul{
-            \li{Performance under algebraic effects (continuation cleanup)}
-            \li{Understanding proof behavior (especially under search)}
-            \li{Effects aren't tracked}
-            \li{Interface uniformity}
-            \li{Tracing}
-            \li{Choice gives rich information for best-first queue}
+            \li{\transclude{0042}}
+            \li{\transclude{0043}}
+            \li{\transclude{0044}}
+            \li{\transclude{0045}}
+            \li{\transclude{0046}}
+            \li{\transclude{0047}}
         }
     }
     \li{
         \p{Related Work}
         \ul{
-            \li{HOL Light}
-            \li{Ltac2}
-            \li{Mtac2}
-            \li{Lean4 monadic tactics}
-            \li{Lean4 aesop}
-            \li{Algebraic effects}
-            \li{Search as effects}
-            \li{Proof refinement theory?}
+            \li{\transclude{0048}}
+            \li{\transclude{0049}}
+            \li{\transclude{0050}}
+            \li{\transclude{0051}}
+            \li{\transclude{0052}}
+            \li{\transclude{0053}}
+            \li{\transclude{0054}}
+            \li{\transclude{0055}}
         }
     }
     \li{
         \p{Conclusions and Further Work}
         \ul{
-            \li{Summary, when are effectful tactics good. Are they worth pursuing in general}
-            \li{Tracked effects for sound effect composition}
-            \li{Formalize effect semantics for proof refinement}
+            \li{\transclude{0056}}
+            \li{\transclude{0057}}
+            \li{\transclude{0058}}
         }
 
     }
