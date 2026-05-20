@@ -8,22 +8,51 @@
       <fr:month>5</fr:month>
       <fr:day>19</fr:day>
     </fr:date>
-    <fr:uri>https://bord-o.github.io/0026/</fr:uri>
-    <fr:display-uri>0026</fr:display-uri>
-    <fr:route>/0026/</fr:route>
-    <fr:title text="What's Next for the Heft Prover">What's Next for the Heft Prover</fr:title>
+    <fr:uri>https://bord-o.github.io/0048/</fr:uri>
+    <fr:display-uri>0048</fr:display-uri>
+    <fr:route>/0048/</fr:route>
+    <fr:title text="HOL Light">HOL Light</fr:title>
     <fr:taxon>Note</fr:taxon>
   </fr:frontmatter>
-  <fr:mainmatter>
-    <html:p>I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting <html:code>rewrite.ml</html:code>, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.</html:p>
-    <html:p>Instead of working on the rewriting system, I could move on to some annoyances I've had around induction and variable name capture, but again these don't really block any proofs currently, and are more of an annoyance. I would love to remove the inductive theorem generation from the trusted base and make my induction more general, but thats a long ways out and the payoff is not worth the significant investment right now.</html:p>
-    <html:p>So where does this leave us? If my goal is to really know the in's and out's of the effectful architecture, then I should rather spend my time experimenting with interesting ways of implementing different tactics, combinators, and search, and taking good notes on these experiments. Maybe a more formal description of the architecture would be more worthwhile, giving me sound semantics for the rules around correct use in the system, rules that have been implicit so far. On the other hand, maybe I'm closer to writing a paper than I realize, and maybe the existing work is already a decent contribution.</html:p>
-    <html:p>Lets go through the project from the ground up and see what we have.</html:p>
-    <html:p>Heft is a theorem prover that leverages algebraic effects to implicitely model the control flow of proof refinement. A small set of straightforward effects give a surprisingly flexable, performant, and extendable base to write tactics, search procedures, combinators (tacticals), and interactive elements. Heft integrates closely with the OCaml ecosystem, leveraging OCaml PPX for term construction and management of runtime theory dependencies.</html:p>
-    <html:p>The question is whether this work will be framed as a case study or as a more targeted technical contribution. The case for a case study would be that it would be easier to write, and that I could take advantage of both the wins and losses by documenting both. For a more techincal contribution, it would carry more weight academically, but would require some more research into proof refinement and the rules that make things sound.</html:p>
-    <html:p>A case report seems like a better fit for the amount of work and experience I have, this would probably get me good exposure while not risking overclaiming.</html:p>
-    <html:p>I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.</html:p>
-    <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0027/</fr:uri><fr:display-uri>0027</fr:display-uri><fr:route>/0027/</fr:route><fr:title text="Abstract">Abstract</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
+  <fr:mainmatter />
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2026</fr:year>
+              <fr:month>5</fr:month>
+              <fr:day>19</fr:day>
+            </fr:date>
+            <fr:uri>https://bord-o.github.io/0026/</fr:uri>
+            <fr:display-uri>0026</fr:display-uri>
+            <fr:route>/0026/</fr:route>
+            <fr:title text="What's Next for the Heft Prover">What's Next for the Heft Prover</fr:title>
+            <fr:taxon>Note</fr:taxon>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>I'm at a bit of a crossroads in the implementation of my HOL prover. Things are in quite a good state at the moment, and I can prove lots of things as is, right now the proofs are quite comparable to their counterparts in Coq. I was originally planning on spending the next chunk of work rewriting <html:code>rewrite.ml</html:code>, but now I'm having second thoughs. The rewriting system isn't very fast and doesn't have higher order matching, but honestly for the time being I'm not sure how much that matters. I'm not trying to build the fastest prover after all, I'm just trying to learn all I can about the application of algebraic effects to a tactic system, and though rewriting that exposed rewrite locations as choices would be interesting, I think this would be of limited use due to how severely large the space of potential rewrites are.</html:p>
+            <html:p>Instead of working on the rewriting system, I could move on to some annoyances I've had around induction and variable name capture, but again these don't really block any proofs currently, and are more of an annoyance. I would love to remove the inductive theorem generation from the trusted base and make my induction more general, but thats a long ways out and the payoff is not worth the significant investment right now.</html:p>
+            <html:p>So where does this leave us? If my goal is to really know the in's and out's of the effectful architecture, then I should rather spend my time experimenting with interesting ways of implementing different tactics, combinators, and search, and taking good notes on these experiments. Maybe a more formal description of the architecture would be more worthwhile, giving me sound semantics for the rules around correct use in the system, rules that have been implicit so far. On the other hand, maybe I'm closer to writing a paper than I realize, and maybe the existing work is already a decent contribution.</html:p>
+            <html:p>Lets go through the project from the ground up and see what we have.</html:p>
+            <html:p>Heft is a theorem prover that leverages algebraic effects to implicitely model the control flow of proof refinement. A small set of straightforward effects give a surprisingly flexable, performant, and extendable base to write tactics, search procedures, combinators (tacticals), and interactive elements. Heft integrates closely with the OCaml ecosystem, leveraging OCaml PPX for term construction and management of runtime theory dependencies.</html:p>
+            <html:p>The question is whether this work will be framed as a case study or as a more targeted technical contribution. The case for a case study would be that it would be easier to write, and that I could take advantage of both the wins and losses by documenting both. For a more techincal contribution, it would carry more weight academically, but would require some more research into proof refinement and the rules that make things sound.</html:p>
+            <html:p>A case report seems like a better fit for the amount of work and experience I have, this would probably get me good exposure while not risking overclaiming.</html:p>
+            <html:p>I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.</html:p>
+            <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0027/</fr:uri><fr:display-uri>0027</fr:display-uri><fr:route>/0027/</fr:route><fr:title text="Abstract">Abstract</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
     <html:li><html:p>Introduction</html:p>
         <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0028/</fr:uri><fr:display-uri>0028</fr:display-uri><fr:route>/0028/</fr:route><fr:title text="Problem Description">Problem Description</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
             <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0029/</fr:uri><fr:display-uri>0029</fr:display-uri><fr:route>/0029/</fr:route><fr:title text="Contributions">Contributions</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
@@ -63,21 +92,9 @@
         <html:ul><html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0056/</fr:uri><fr:display-uri>0056</fr:display-uri><fr:route>/0056/</fr:route><fr:title text="When Are Effectful Tactics Good">When Are Effectful Tactics Good</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
             <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0057/</fr:uri><fr:display-uri>0057</fr:display-uri><fr:route>/0057/</fr:route><fr:title text="Tracked Effects for Sound Effect Composition">Tracked Effects for Sound Effect Composition</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li>
             <html:li><fr:tree show-metadata="false" expanded="false"><fr:frontmatter><fr:authors /><fr:date><fr:year>2026</fr:year><fr:month>5</fr:month><fr:day>19</fr:day></fr:date><fr:uri>https://bord-o.github.io/0058/</fr:uri><fr:display-uri>0058</fr:display-uri><fr:route>/0058/</fr:route><fr:title text="Formalizing Effect Semantics for Proof Refinement">Formalizing Effect Semantics for Proof Refinement</fr:title><fr:taxon>Note</fr:taxon></fr:frontmatter><fr:mainmatter /></fr:tree></html:li></html:ul></html:li></html:ul>
-  </fr:mainmatter>
-  <fr:backmatter>
-    <fr:tree show-metadata="false" hidden-when-empty="true">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:title text="References">References</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter />
-    </fr:tree>
-    <fr:tree show-metadata="false" hidden-when-empty="true">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:title text="Context">Context</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter />
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
     <fr:tree show-metadata="false" hidden-when-empty="true">
       <fr:frontmatter>
