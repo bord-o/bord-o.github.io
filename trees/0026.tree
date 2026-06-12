@@ -19,7 +19,7 @@
 
 \p{I think a good approach to making meaningful progress on this would be to set up an outline, and write a tree for each leave of the outline. This will at least give me an informal draft that I can start with when writing the first draft.}
 
-\put\transclude/expanded{false}
+
 \ul{
     \li{\transclude{0027}}
     \li{
