@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Tracing}
 \tag{heft}
+
+\p{TODO: some examples and compare with coq/lean. Argue for the value of introspection}

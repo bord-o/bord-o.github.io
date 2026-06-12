@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Formalizing Effect Semantics for Proof Refinement}
 \tag{heft}
+
+\p{TODO: can the language of effects make proof refinement theory easier to reason about?}

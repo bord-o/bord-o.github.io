@@ -15,7 +15,7 @@ A tactic for proof by contradiction. With contradict H,
 4    H: A |- ~B gives H: B |- ~A
 <<
 
-\p{Translating this to my system, I can have exfalso as \code{have F >> [subgoal] >> false_elim}}
+\p{Translating this to Heft, I can have exfalso as \code{have F >> [subgoal] >> false_elim}}
 
 \ol {
     \li{Case one is just \code{exfalso >> contradict_asm}}

@@ -2,3 +2,9 @@
 \taxon{Note}
 \title{Understanding Proof Behavior Under Search}
 \tag{heft}
+
+\p{To be clear, some bugs with search were quite hard to nail down, in large part due to the use of effects. Reasoning about multiple continuations is not something that most programmers are familiar with, so it can be a bit of a learning curve.}
+
+\p{On the bright side, once an implementation compiled, it was usually close to correct.}
+
+\p{TODO}

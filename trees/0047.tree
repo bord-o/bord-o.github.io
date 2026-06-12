@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Choice Gives Rich Information for Best-First Queue}
 \tag{heft}
+
+\p{TODO: Show an over-the-top rich type of the best first implementation. A good place for machine learning as well when combined with tracing}

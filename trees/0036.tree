@@ -2,3 +2,7 @@
 \taxon{Note}
 \title{Comparison with Tactic Implementation in Other Provers}
 \tag{heft}
+
+\p{Here we will discuss how this implementation stacks up to the major proof assistants.}
+
+\p{TODO}

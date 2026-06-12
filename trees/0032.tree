@@ -2,3 +2,20 @@
 \taxon{Note}
 \title{Algebraic Effects Overview}
 \tag{heft}
+
+\p{Algebraic effects lie at the core of Heft's approach to proof refinement and deserve some context. Heft takes full advantage of OCaml's implementation of effects, which has some serious limitations currently, but still provides the critical features needed for the system to demonstrate how effects fit into proof refinement.}
+
+\subtree{
+    \title{What is an effect?}
+    \p{TODO}
+}
+
+\subtree{
+    \title{What is algebraic about this?}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Limitations of effects in ocaml 5.4.1}
+    \p{TODO}
+}

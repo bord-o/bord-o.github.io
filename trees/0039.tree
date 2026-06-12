@@ -2,3 +2,9 @@
 \taxon{Note}
 \title{Search Implementation}
 \tag{heft}
+
+\p{Here we will take a look at the intuitive DFS implementation within Heft, as well as a more experimental best-first approach, and see how different proofs perform under both handlers.}
+
+\p{Whats nice about search in Heft is that search is a handler that will automatically search the 'choose-space' of the proof. This essentially means that search is not only search over tactics, but could be a search over all the existential instantiations of an existing proof with a given handler, or say, a search of cartesian product of all the potential rule applications at multiple different parts of a proof at once.}
+
+\p{TODO}

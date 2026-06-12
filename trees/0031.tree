@@ -2,3 +2,23 @@
 \taxon{Note}
 \title{LCF Architecture Overview}
 \tag{heft}
+
+\p{The LCF architecture is a way of writing theorem provers with a proven history of implementations and a focus on maintaining trust with arbitrary scaling. Heft follows this architecture as well.}
+
+
+\subtree{
+    \title{Core characteristics of LCF}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Proof Refinement in LCF}
+    \p{TODO}
+}
+
+
+\subtree{
+    \title{Critical review of Heft with respect to this architecture}
+    \p{TODO}
+}
+

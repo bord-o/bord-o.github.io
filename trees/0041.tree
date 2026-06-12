@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Comparison of One Proof Across Search Handlers}
 \tag{heft}
+
+\p{TODO: This example should be chosen well. Likely we should have more than one proof so we can show that one only succeed under the best-first handler, but one succeeds in both cases, but with different proofs.}

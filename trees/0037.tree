@@ -2,3 +2,15 @@
 \taxon{Note}
 \title{Strategy Control via Handlers and Combinators}
 \tag{heft}
+
+\p{Now we move on to some clear benefits of this refinement approach. We will look at some examples where tactics are able to run under different handlers to suit multiple use cases.}
+
+\subtree{
+    \title{Sequencing combinators}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Switching handlers}
+    \p{TODO}
+}

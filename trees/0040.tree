@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Example of a Basic Proof}
 \tag{heft}
+
+\p{TODO: I'll likely want to look through the literature for a canonical example. Likely we can just do list append or something, along with a proof of bound on length.}

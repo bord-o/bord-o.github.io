@@ -2,3 +2,10 @@
 \taxon{Note}
 \title{Performance Under Algebraic Effects}
 \tag{heft}
+
+\p{Overall, performance is close to HOL-light, with kernel operations being nearly the same as HOL light, and the tactics system adding a small overhead that does increase with deep searches, but under normal circumstances is very acceptable.}
+
+\p{TODO: missing the resumption cleanup, and the implications}
+\p{TODO: traces of the overall overhead of effects related operations on the prover under different types of proofs}
+\p{TODO: Maybe a more nuanced analysis with respect to cache locality vs the normal monadic or justification thunk based approaches}
+

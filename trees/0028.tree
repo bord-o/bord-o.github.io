@@ -2,3 +2,6 @@
 \taxon{Note}
 \title{Problem Description}
 \tag{heft}
+
+\p{The implementation of a tactic based proof refinement system is a control-flow problem. There is a clear delineation within most tactics, the code that executes before requesting child subgoals, and the code afterwards, which takes the proofs of those subgoals and uses them to justify the original goal of the tactic. Normally(TODO: expand what normally means and link to provers that use this approach) this "justification" code exists in the form of a callback or thunk, which completes a proof by chaining together these justifications.}
+

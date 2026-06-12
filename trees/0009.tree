@@ -34,7 +34,7 @@ run_proof goal
 
 \p{The PPX takes a restricted set of syntactically valid OCaml code and transforms it into the equivalent HOL terms, with the addition of calling the inductive and function definition machinery at runtime.}
 
-\p{This cut down a lot of noise in my system, and I hope it makes the system more approachable, at least to those comfortable with OCaml.}
+\p{This cut down a lot of noise in Heft, and I hope it makes the system more approachable, at least to those comfortable with OCaml.}
 
 \p{I still have plans for some dedicated proof syntax and for subtype definitions. Something like:}
 

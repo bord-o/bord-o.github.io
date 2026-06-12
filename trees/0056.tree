@@ -2,3 +2,7 @@
 \taxon{Note}
 \title{When Are Effectful Tactics Good}
 \tag{heft}
+
+\p{TODO: composability, readibility, ease of writing tactics}
+
+\p{TODO: confusing errors, loops if contract isn't respected, type signature isn't honest if you don't know about effects}

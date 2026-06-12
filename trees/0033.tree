@@ -2,3 +2,31 @@
 \taxon{Note}
 \title{Existing Approaches to Tactic Engines and Search}
 \tag{heft}
+
+\p{There are many existing approaches to implementing theorem prover 'user space' (tactics and simple built-in automation), and I will lay out some of the prevailing approaches now.}
+
+\subtree{
+    \title{Tactics in HOL-Light}
+    \p{The clean justification approach}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Tactics in Coq}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Tactics in Lean}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Tactics in Isabelle}
+    \p{TODO}
+}
+
+\subtree{
+    \title{Built-in automation in modern proof assistants}
+    \p{TODO}
+}

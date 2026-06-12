@@ -2,3 +2,7 @@
 \taxon{Note}
 \title{Interface Uniformity}
 \tag{heft}
+
+\p{This is a great benefit to Heft's refinement approach. Most tactics take no arguments, so the behavior of all tactics is augmented in the same way, by handlers. Using these handlers with tactics reduces the human memory needed for supplying specific tactic DSL syntax, and in general I have found this approach to be quite ergonomic.}
+
+\p{TODO: examples}

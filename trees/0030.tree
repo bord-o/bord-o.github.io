@@ -2,3 +2,16 @@
 \taxon{Note}
 \title{First Look at Results}
 \tag{heft}
+
+\p{Overall the results show a convenient interface for writing tactics and tacticals that compose well with automation and cross cutting concerns like tracing, resource limiting, lemma/rule availablility, and search.}
+
+\subtree{
+    \title{Convenience}
+    \p{TODO: source of a tactic compared with the source in another assistant, what is made explicit/implicit in Heft vs others}
+}
+
+\subtree{
+    \title{Compositions}
+    \p{TODO: source examples of main combinator types like control, rules, tracing, and search}
+
+}

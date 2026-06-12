@@ -2,3 +2,9 @@
 \taxon{Note}
 \title{Contributions}
 \tag{heft}
+
+\ul{
+    \li{Proof refinement as language of effects}
+    \li{Extremely composable tactics and combinators}
+    \li{Inspecting the runtime costs of algebraic effects in a real prover}
+}

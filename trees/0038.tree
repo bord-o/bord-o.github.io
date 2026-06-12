@@ -3,4 +3,6 @@
 \title{Handler Stack Nesting in a Simple Proof}
 \tag{heft}
 
-\p{todo}
+\p{Here we'll take a look at an acutal proof and essentially 'inline' the handlers at an arbitrary point in the proof to get a clear understanding of handler nesting depth, handler semantics, and how sequencing combinators work}
+
+\p{TODO}

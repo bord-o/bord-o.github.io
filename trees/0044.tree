@@ -2,3 +2,7 @@
 \taxon{Note}
 \title{Effects Aren't Tracked}
 \tag{heft}
+
+\p{As mentioned previously, the OCaml type system is not aware of effects, so ensuring effects are handled is a programmer responsibility. This isn't a huge issue and during the entire development of Heft I only had 'Effect not handled' exceptions a handful of times. Typed effects would be helpful for correctness though, as when nesting handlers and tactics, it would be good to see which effects 'leak' out, as there are rules that must be respected to maintain correct behavior of the system.}
+
+\p{TODO}

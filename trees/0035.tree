@@ -2,3 +2,7 @@
 \taxon{Note}
 \title{Effects in Key Tactics and Combinators}
 \tag{heft}
+
+\p{Here we will look into how the core effects are used and composed to get working tactics that stay flexible across interpretations of the effects.}
+
+\p{TODO (which tactics to look at; do I cover all effects or just the core ones for refinement?)}

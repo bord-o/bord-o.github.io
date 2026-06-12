@@ -23,7 +23,7 @@
 
 \p{I believe that a HOL system is the right call for a widely usable proof system that shields the user from a lot of theory that comes with DTT, and the only missing piece in the current systems is a reasonable usability story.}
 
-\p{Since my system is based on HOL-Light, I'll go over some of the friction that system has as well. HOL-Light is essentially a stripped-down HOL core, with the kernel famously consisting of only ~700 lines of readable OCaml, the only 'trusted' code in the system as far as I know. Since this is a HOL system we have the same quotation problem, where we often have a need for referencing the term language when defining things, writing proofs, etc. HOL-Light does this with some clever but clunky quoting preprocessing, allowing for quotation of HOL terms with backticks.}
+\p{Since Heft is based on HOL-Light, I'll go over some of the friction that system has as well. HOL-Light is essentially a stripped-down HOL core, with the kernel famously consisting of only ~700 lines of readable OCaml, the only 'trusted' code in the system as far as I know. Since this is a HOL system we have the same quotation problem, where we often have a need for referencing the term language when defining things, writing proofs, etc. HOL-Light does this with some clever but clunky quoting preprocessing, allowing for quotation of HOL terms with backticks.}
 
 \p{HOL-Light handles interactivity by assuming the user will be working on proofs and definitions directly in the OCaml top-level, which is in my experience far less pleasant to use than working in your favorite text editor with LSP-based diagnostics and proof state display.}
 

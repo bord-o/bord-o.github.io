@@ -2,3 +2,5 @@
 \taxon{Note}
 \title{Tracked Effects for Sound Effect Composition}
 \tag{heft}
+
+\p{TODO: this needs to happen, it would make the contracts of the system enforcable at compile time, giving us a typed tactic DSL}

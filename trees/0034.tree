@@ -2,3 +2,55 @@
 \taxon{Note}
 \title{The Effects and What They Mean}
 \tag{heft}
+
+\p{Heft has a small set of effects that provide all of the extensibility needed for proof refinement. This small set of operations gives the ability for normal proof refinement, backtracking search, resource limits, tracing, and tactic metadata tracking.}
+
+\subtree{
+    \title{The essential effects for proof refinement}
+
+    \subtree{
+        \title{Subgoal}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Choose}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Fail}
+        \p{TODO}
+    }
+}
+
+\subtree{
+    \title{Other useful effects}
+
+    \subtree{
+        \title{Trace}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Quiet}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Register}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Rules}
+        \p{TODO}
+    }
+
+    \subtree{
+        \title{Name}
+        \p{TODO}
+    }
+
+}
+
