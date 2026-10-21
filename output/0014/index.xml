@@ -173,6 +173,307 @@
                 <fr:authors />
                 <fr:date>
                   <fr:year>2026</fr:year>
+                  <fr:month>6</fr:month>
+                  <fr:day>13</fr:day>
+                </fr:date>
+                <fr:uri>https://bord-o.github.io/005A/</fr:uri>
+                <fr:display-uri>005A</fr:display-uri>
+                <fr:route>/005A/</fr:route>
+                <fr:title text="Implementing Handler Calculus">Implementing Handler Calculus</fr:title>
+                <fr:taxon>Note</fr:taxon>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>While I was doing some literature review for my theorem prover, I came across a paper that answers a question I've had in my mind for months. This question is "is it possible for a language to use effect handlers as a primitive rather than functions?", and now I have my answer. The Handler Calculus paper outlines what this language looks like and makes the observation that the nonrecursive handler variant corresponds with System F. I think it would be interesting to give this some syntax and build a little interpreter for it, and if possible look at what polymorphism would do to the semantics. Who knows, maybe something like this could make the basis for a proof assistant.</html:p>
+                <html:p>Here I'll keep some notes as I give the paper a deeper reading, going through the rules precisely.</html:p>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:date>
+                      <fr:year>2026</fr:year>
+                      <fr:month>6</fr:month>
+                      <fr:day>13</fr:day>
+                    </fr:date>
+                    <fr:title text="The syntax">The syntax</fr:title>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="Kinds">Kinds</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <fr:tex display="block"><![CDATA[K ::= Val \mid  Comp \mid  Eff]]></fr:tex>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="Types">Types</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Values">Values</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>Essentially we have base types and we have arrow types over computations</html:p>
+                            <fr:tex display="block"><![CDATA[A,B ::= 0 \mid  C \Rightarrow  D]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Computations">Computations</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>Here we have an effect type <fr:tex display="inline"><![CDATA[E]]></fr:tex> which is tagged onto the type <fr:tex display="inline"><![CDATA[A]]></fr:tex></html:p>
+                            <fr:tex display="block"><![CDATA[C,D ::= [E]A]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Effects">Effects</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>An effect type <fr:tex display="inline"><![CDATA[op]]></fr:tex> includes an arrow type over values</html:p>
+                            <fr:tex display="block"><![CDATA[E ::= (op_{i}: \bar {A_{i}} \rightarrow  B_{i})_{i}]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="Typing Contexts">Typing Contexts</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>The empty context, or the context extended with <fr:tex display="inline"><![CDATA[x]]></fr:tex> of type <fr:tex display="inline"><![CDATA[A]]></fr:tex></html:p>
+                        <fr:tex display="block"><![CDATA[\Gamma  ::= \cdot  \mid  \Gamma , x : A]]></fr:tex>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="Terms">Terms</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Values">Values</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p>Either a variable or a handler.</html:p>
+                            <fr:tex display="block"><![CDATA[V, W ::= x \mid  H]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Computations">Computations</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p />
+                            <fr:tex display="block"><![CDATA[\begin {aligned}
+                M,N ::={}& \mathsf {absurd}\ V \\
+                &\mid  \mathsf {return}\ V \\
+                &\mid  \mathsf {let}\ x = M\ \mathsf {in}\ N \\
+                &\mid  op(\bar {V}) \\
+                &\mid  \mathsf {handle}\ M \mathsf {with}\ H
+                \end {aligned}]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                        <fr:tree show-metadata="false">
+                          <fr:frontmatter>
+                            <fr:authors />
+                            <fr:date>
+                              <fr:year>2026</fr:year>
+                              <fr:month>6</fr:month>
+                              <fr:day>13</fr:day>
+                            </fr:date>
+                            <fr:title text="Effects">Effects</fr:title>
+                          </fr:frontmatter>
+                          <fr:mainmatter>
+                            <html:p />
+                            <fr:tex display="block"><![CDATA[]]></fr:tex>
+                          </fr:mainmatter>
+                        </fr:tree>
+                      </fr:mainmatter>
+                    </fr:tree>
+                  </fr:mainmatter>
+                </fr:tree>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:date>
+                      <fr:year>2026</fr:year>
+                      <fr:month>6</fr:month>
+                      <fr:day>13</fr:day>
+                    </fr:date>
+                    <fr:title text="The typing rules">The typing rules</fr:title>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Var">T-Var</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p>This is essentially the same as lambda variables, if a term has a type in a context, then that term has that type.</html:p>
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Absurd">T-Absurd</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Return">T-Return</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Let">T-Let</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Op">T-Op</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Handle">T-Handle</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                    <fr:tree show-metadata="false">
+                      <fr:frontmatter>
+                        <fr:authors />
+                        <fr:date>
+                          <fr:year>2026</fr:year>
+                          <fr:month>6</fr:month>
+                          <fr:day>13</fr:day>
+                        </fr:date>
+                        <fr:title text="T-Handler">T-Handler</fr:title>
+                      </fr:frontmatter>
+                      <fr:mainmatter>
+                        <html:p />
+                      </fr:mainmatter>
+                    </fr:tree>
+                  </fr:mainmatter>
+                </fr:tree>
+                <html:p>The more I read this the more interesting it becomes. It seems that effects are a nice abstraction over binding environments, functions, capabilities, and many language features that one expects. I wonder if this could be a good basis for an effectful language. The encoding of datatypes and sums/pairs is particularly straightforward.</html:p>
+                <html:p>It seems the only case where binding needs to be observed is in the handlers.</html:p>
+                <html:p>I've found that it's helpful to read the constructs of this paper as if they are OCaml effects syntax, so the return clauses are just the catchall value case of an effect match, and any operation corresponds to an <fr:tex display="inline"><![CDATA[effect op]]></fr:tex> clause in the pattern match.</html:p>
+                <html:p>One interesting thing about the calculus is that effect forwarding isn't automatic, so if we have nested handlers H1 and H2, and I want to perform an effect in the outer most handler (H1) while within both of them, then I need to manually forward the effect through in H2. This closely relates with row polymorphism of effects.</html:p>
+                <html:p>A note on writing languages from these papers, if you see a lowercase letter, its likely to be treated as a binder, thus a meta-name not a syntactic construct. This follows naturally from how syntax is laid out, but was confusing for me.</html:p>
+                <html:p>Another confusing bit of notation from the paper is the notation for a 'hole' while building contexts. I thought that this section "Pure evaluation contexts
+<fr:tex display="inline"><![CDATA[F ::= [] \mid \ \mathsf {let}\ 𝑥 = \mathsf {Fin}\ \mathbf {N}\ ]]></fr:tex>" was mentioning an empty context with [] but it was really saying that F is sort of parameterized by a 'hole'. This means that F could be whatever it is bound with or it could be wrapped in let bindings, but never existing on the right side of one.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false" expanded="false" toc="false" numbered="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2026</fr:year>
                   <fr:month>5</fr:month>
                   <fr:day>19</fr:day>
                 </fr:date>
