@@ -1,0 +1,554 @@
+/* ------------------------------------------------------------------ *
+ *  Slipshow theme: "modus operandi" (light)
+ *
+ *  A light Slipshow theme in the style of the Modus Operandi theme for
+ *  GNU Emacs by Protesilaos Stavrou.  Colour values are taken from the
+ *  official palette (CC0 / public domain):
+ *
+ *      https://protesilaos.com/emacs/modus-themes-colors
+ *
+ *  Semantic mappings (code syntax, headings, links, ...) follow the
+ *  "named colours + semantic mappings" table of the same page.
+ *
+ *  Note: a custom Slipshow theme replaces the builtin theme entirely,
+ *  so this file is self-contained (it does not rely on the embedded
+ *  fonts of the default theme; it uses system font stacks instead).
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* Base colours */
+  --modus-bg-main: #ffffff;
+  --modus-bg-dim: #f2f2f2;
+  --modus-bg-active: #c4c4c4;
+  --modus-bg-inactive: #e0e0e0;
+  --modus-fg-main: #000000;
+  --modus-fg-dim: #595959;
+  --modus-fg-alt: #193668;
+  --modus-border: #9f9f9f;
+
+  /* Accents */
+  --modus-red: #a60000;
+  --modus-red-cooler: #a0132f;
+  --modus-red-faint: #7f0000;
+  --modus-green: #006800;
+  --modus-green-faint: #2a5045;
+  --modus-yellow: #6f5500;
+  --modus-yellow-faint: #624416;
+  --modus-blue: #0031a9;
+  --modus-blue-warmer: #3548cf;
+  --modus-blue-cooler: #0000b0;
+  --modus-blue-faint: #003497;
+  --modus-magenta: #721045;
+  --modus-magenta-warmer: #8f0075;
+  --modus-magenta-cooler: #531ab6;
+  --modus-magenta-faint: #7c318f;
+  --modus-cyan: #005e8b;
+  --modus-cyan-cooler: #005f5f;
+  --modus-cyan-faint: #005077;
+
+  /* "Prominent" backgrounds (paired with fg-main, as in Modus) */
+  --modus-bg-red-intense: #ff8f88;
+  --modus-bg-green-intense: #8adf80;
+  --modus-bg-yellow-intense: #f3d000;
+  --modus-bg-blue-intense: #bfc9ff;
+  --modus-bg-magenta-intense: #dfa0f0;
+  --modus-bg-cyan-intense: #a4d5f9;
+
+  /* Nuanced (very subtle) backgrounds */
+  --modus-bg-red-nuanced: #ffe8e8;
+  --modus-bg-green-nuanced: #e0f6e0;
+  --modus-bg-yellow-nuanced: #f8f0d0;
+  --modus-bg-blue-nuanced: #ecedff;
+  --modus-bg-magenta-nuanced: #f8e6f5;
+  --modus-bg-cyan-nuanced: #e0f2fa;
+
+  /* Diff / region */
+  --modus-fg-added: #006700;
+  --modus-fg-removed: #aa2222;
+  --modus-bg-region: #bdbdbd;
+}
+
+/*************************************/
+/*    Page, universe, window         */
+/*************************************/
+
+html,
+body {
+  /* The engine defaults to a black letterbox area */
+  background-color: var(--modus-bg-dim);
+  color: var(--modus-fg-main);
+}
+
+#slipshow-open-window {
+  /* The background seen outside of the universe */
+  background-color: var(--modus-bg-main);
+}
+
+#slipshow-universe {
+  background-color: var(--modus-bg-main);
+  color: var(--modus-fg-main);
+}
+
+#slipshow-counter {
+  /* The page counter widget: colours only, engine keeps the layout */
+  background-color: var(--modus-bg-dim);
+  border: 1px solid var(--modus-border);
+  color: var(--modus-fg-dim);
+}
+
+::selection {
+  background: var(--modus-bg-region);
+  color: var(--modus-fg-main);
+}
+
+/*************************************/
+/*    Typography                     */
+/*************************************/
+
+body {
+  font: 30px "Liberation Sans", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+
+.slip-body,
+.slide-body {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 110px;
+  margin-right: 110px;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-body {
+  font-size: 1.4em;
+}
+
+/* Headings follow the Modus "fg-heading-N" palette:
+   h1 = fg-main, h2 = fg-heading-0 (cyan-cooler), h3 = fg-heading-3
+   (fg-alt), h4 = fg-heading-4 (magenta), h5 = fg-heading-5
+   (green-faint), h6 = fg-heading-6 (red-faint). */
+h1:not(#slipshow-toc h1) {
+  text-align: center;
+  color: var(--modus-fg-main);
+}
+
+h2 {
+  color: var(--modus-cyan-cooler);
+}
+
+h3 {
+  color: var(--modus-fg-alt);
+}
+
+h4 {
+  color: var(--modus-magenta);
+}
+
+h5 {
+  color: var(--modus-green-faint);
+}
+
+h6 {
+  color: var(--modus-red-faint);
+}
+
+.slide-title {
+  flex: 0 1 auto;
+  font: 1.8em "Liberation Sans", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  background: var(--modus-bg-blue-nuanced);
+  border-bottom: 4px solid var(--modus-blue);
+  margin-left: -1px;
+  margin-top: -1px;
+  color: var(--modus-fg-main);
+  padding: 10px;
+  padding-left: 60px;
+  width: calc(var(--page-width) - 60px - 10px + 1px);
+}
+
+.slide-body > h1:first-child:not(#slipshow-toc h1) {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  margin-top: 0;
+  padding-top: 20px;
+  padding-left: 60px;
+  color: var(--modus-fg-main);
+  right: -2px;
+  text-align: left;
+  background: var(--modus-bg-blue-nuanced);
+  border-bottom: 4px solid var(--modus-blue);
+  font: 51.84px "Liberation Sans", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+a:link,
+a:hover {
+  color: var(--modus-blue-warmer);
+  text-decoration-color: var(--modus-blue-warmer);
+}
+
+a:visited {
+  color: var(--modus-magenta);
+  text-decoration-color: var(--modus-magenta);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--modus-border);
+}
+
+/*************************************/
+/*    Inline and block code          */
+/*************************************/
+
+pre,
+code,
+kbd,
+samp {
+  font-family: "Liberation Mono", "SF Mono", Menlo, Consolas,
+    "DejaVu Sans Mono", monospace;
+}
+
+/* I've had problems with another font being used, so now I fix the line
+   height. */
+pre {
+  line-height: 1.35;
+}
+
+pre {
+  background-color: var(--modus-bg-dim); /* bg-prose-block-contents */
+  border: 1px solid var(--modus-border);
+  border-radius: 4px;
+}
+
+code {
+  background-color: var(--modus-bg-dim);
+  color: var(--modus-cyan-cooler); /* fg-prose-code */
+}
+
+pre code {
+  background-color: transparent;
+  color: var(--modus-fg-main);
+}
+
+/*************************************/
+/*    Blocks                         */
+/*************************************/
+
+.block,
+.theorem,
+.lemma,
+.definition,
+.example,
+.my-theorem,
+.corollary,
+.remark {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--modus-border);
+  background-color: var(--modus-bg-blue-nuanced);
+}
+
+.block:before,
+.theorem:before,
+.lemma:before,
+.definition:before,
+.example:before,
+.my-theorem:before,
+.corollary:before,
+.remark:before {
+  font-weight: bold;
+  display: block;
+  margin-top: -30px;
+  margin-left: -30px;
+  border-radius: 5px 5px 0 0;
+  margin-right: -30px;
+  margin-bottom: 15px;
+  padding: 6px;
+  padding-left: 30px;
+  color: var(--modus-fg-main);
+  font-style: normal;
+}
+
+/* Generic blocks: blue accents */
+.block[title]:before {
+  content: "" attr(title) "";
+  background-color: var(--modus-bg-blue-intense);
+}
+
+/*************************************/
+/*    Theorems                       */
+/*************************************/
+
+.theorem {
+  font-style: italic;
+  background-color: var(--modus-bg-red-nuanced);
+}
+.theorem:before {
+  text-align: left;
+  content: "Theorem";
+  background-color: var(--modus-bg-red-intense);
+}
+.theorem[title]:before {
+  content: "Theorem (" attr(title) ") ";
+}
+
+/*************************************/
+/*    My theorems                    */
+/*************************************/
+
+.my-theorem {
+  font-style: italic;
+  background-color: var(--modus-bg-yellow-nuanced);
+}
+.my-theorem:before {
+  text-align: left;
+  content: "Theorem";
+  background-color: var(--modus-bg-yellow-intense);
+}
+.my-theorem[title]:before {
+  content: "Theorem (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Lemmas                         */
+/*************************************/
+
+.lemma {
+  font-style: italic;
+  background-color: var(--modus-bg-yellow-nuanced);
+}
+.lemma:before {
+  content: "Lemma";
+  background-color: var(--modus-bg-yellow-intense);
+}
+.lemma[title]:before {
+  content: "Lemma (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Proof                          */
+/*************************************/
+
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+}
+.proof:before {
+  content: "Proof.";
+  font-style: italic;
+  margin-right: 1ch;
+  color: var(--modus-fg-dim);
+}
+.proof:after {
+  content: "\25FC";
+  float: right;
+  color: var(--modus-fg-dim);
+}
+
+/*************************************/
+/*    Definitions                    */
+/*************************************/
+
+.definition {
+  font-style: normal;
+  background-color: var(--modus-bg-blue-nuanced);
+}
+.definition:before {
+  content: "Definition.";
+  background-color: var(--modus-bg-blue-intense);
+}
+.definition[title]:before {
+  content: "Definition (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Examples                       */
+/*************************************/
+
+.example {
+  font-style: normal;
+  background-color: var(--modus-bg-green-nuanced);
+}
+.example:before {
+  content: "Example.";
+  background-color: var(--modus-bg-green-intense);
+}
+.example[title]:before {
+  content: "Example (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Remarks                        */
+/*************************************/
+
+.remark {
+  font-style: normal;
+  background-color: var(--modus-bg-cyan-nuanced);
+}
+.remark:before {
+  content: "Remark.";
+  background-color: var(--modus-bg-cyan-intense);
+}
+.remark[title]:before {
+  content: "Remark (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Corollaries                    */
+/*************************************/
+
+.corollary {
+  font-style: normal;
+  background-color: var(--modus-bg-magenta-nuanced);
+}
+.corollary:before {
+  content: "Corollary.";
+  background-color: var(--modus-bg-magenta-intense);
+}
+.corollary[title]:before {
+  content: "Corollary (" attr(title) ") ";
+}
+
+/*************************************/
+/*    Tables                         */
+/*************************************/
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: var(--modus-bg-dim);
+}
+
+th,
+td {
+  border: 1px solid var(--modus-border);
+  padding: 6px 10px;
+  text-align: left;
+}
+
+/*************************************/
+/*    Syntax highlighting            */
+/*************************************/
+
+/* The highlight.js stylesheet is injected after the theme, so these
+   rules use higher-specificity selectors (prefixed with `code.hljs`) to
+   win over it.  Colours follow the Modus semantic mapping: comment =
+   fg-dim, keyword = magenta-cooler, string = blue-warmer, constant =
+   blue-cooler, fnname = magenta, builtin = magenta-warmer, type =
+   cyan-cooler, variable/property = cyan, preprocessor = red-cooler. */
+pre code.hljs {
+  background-color: var(--modus-bg-dim);
+  color: var(--modus-fg-main);
+}
+
+code.hljs {
+  color: var(--modus-fg-main);
+}
+
+code.hljs .hljs-comment,
+code.hljs .hljs-quote,
+code.hljs .hljs-doctag {
+  color: var(--modus-fg-dim); /* comment */
+  font-weight: normal;
+  font-style: normal;
+}
+
+code.hljs .hljs-keyword,
+code.hljs .hljs-meta .hljs-keyword,
+code.hljs .hljs-selector-tag,
+code.hljs .hljs-selector-class,
+code.hljs .hljs-selector-id,
+code.hljs .hljs-selector-pseudo {
+  color: var(--modus-magenta-cooler); /* keyword */
+  font-weight: normal;
+}
+
+code.hljs .hljs-string,
+code.hljs .hljs-meta .hljs-string,
+code.hljs .hljs-regexp,
+code.hljs .hljs-template-tag {
+  color: var(--modus-blue-warmer); /* string */
+}
+
+code.hljs .hljs-number,
+code.hljs .hljs-literal,
+code.hljs .hljs-symbol,
+code.hljs .hljs-bullet {
+  color: var(--modus-blue-cooler); /* constant */
+}
+
+code.hljs .hljs-title,
+code.hljs .hljs-title.function_,
+code.hljs .hljs-section,
+code.hljs .hljs-name {
+  color: var(--modus-magenta); /* fnname */
+  font-weight: normal;
+}
+
+code.hljs .hljs-built_in,
+code.hljs .hljs-class .hljs-title {
+  color: var(--modus-magenta-warmer); /* builtin */
+}
+
+code.hljs .hljs-type,
+code.hljs .hljs-attribute {
+  color: var(--modus-cyan-cooler); /* type */
+}
+
+code.hljs .hljs-variable,
+code.hljs .hljs-template-variable,
+code.hljs .hljs-property,
+code.hljs .hljs-attr,
+code.hljs .hljs-params {
+  color: var(--modus-cyan); /* variable / property */
+}
+
+code.hljs .hljs-meta,
+code.hljs .hljs-meta .hljs-keyword {
+  color: var(--modus-red-cooler); /* preprocessor */
+}
+
+code.hljs .hljs-operator,
+code.hljs .hljs-punctuation,
+code.hljs .hljs-tag,
+code.hljs .hljs-tag .hljs-attr,
+code.hljs .hljs-tag .hljs-name,
+code.hljs .hljs-bracket,
+code.hljs .hljs-code {
+  color: var(--modus-fg-main); /* operator / punctuation / delimiter */
+}
+
+code.hljs .hljs-link {
+  color: var(--modus-blue-warmer);
+  text-decoration: underline;
+}
+
+code.hljs .hljs-addition {
+  color: var(--modus-fg-added);
+}
+
+code.hljs .hljs-deletion {
+  color: var(--modus-fg-removed);
+}
+
+code.hljs .hljs-emphasis {
+  font-style: italic;
+}
+
+code.hljs .hljs-strong {
+  font-weight: bold;
+}
