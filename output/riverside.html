@@ -1389,7 +1389,6 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;div class=&quot;slip&quot;&gt;
 &lt;div class=&quot;slip-body&quot;&gt;
 &lt;div src=riverside.md include&gt;
-&lt;div&gt;
 &lt;style&gt;
 .cols { display: flex; gap: 40px; align-items: flex-start; }
 .cols &gt; * { flex: 1; min-width: 0; }
@@ -1411,9 +1410,6 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 .lang-table tbody tr:nth-child(6) {
   background: #f8f0d0;
 }
-.code-lg pre code { font-size: 1.15em !important; }
-
-
 &lt;/style&gt;
 &lt;div id=&quot;title&quot; center-at-unpause&gt;
 &lt;h1 class=&quot;center&quot;&gt;&lt;span&gt;Building Heft&lt;/span&gt;&lt;/h1&gt;
@@ -1444,11 +1440,11 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;span&gt;Lean 4:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; one language, but dependent types up front: universes, &lt;/span&gt;&lt;code&gt;Prop&lt;/code&gt;&lt;span&gt; vs &lt;/span&gt;&lt;code&gt;Bool&lt;/code&gt;&lt;span&gt;, elaboration&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;span&gt;Lean 4:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; one language, but a sharp learning curve. A basic understanding of dependent types, universes, &lt;/span&gt;&lt;code&gt;Prop&lt;/code&gt;&lt;span&gt; vs &lt;/span&gt;&lt;code&gt;Bool&lt;/code&gt;&lt;span&gt;, elaboration, and type classes up front&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;span&gt;Either way:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; the code you prove things about is not the code you run&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;span&gt;Either way:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; there is a distinction between writing code to run it and writing code to reason about it&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p id=&quot;the-question&quot; class=&quot;block&quot; title=&quot;The question&quot;&gt;&lt;span&gt;Is the stratified, multi-language experience of HOL provers an inevitable consequence of the LCF architecture? Or can a HOL prover integrate cleanly into an existing language ecosystem?&lt;/span&gt;&lt;/p&gt;
@@ -1463,7 +1459,7 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;ul&gt;
 &lt;li&gt;&lt;span&gt;Larger, more complex trusted base&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;The elaborator does a lot, so errors can be opaque&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;Universes, &lt;/span&gt;&lt;code&gt;Prop&lt;/code&gt;&lt;span&gt; vs &lt;/span&gt;&lt;code&gt;Bool&lt;/code&gt;&lt;span&gt;, type families: &lt;/span&gt;&lt;strong&gt;&lt;span&gt;front-loaded&lt;/span&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Need to learn a large amount of theory &lt;/span&gt;&lt;strong&gt;&lt;span&gt;up front&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; in order to be productive&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&quot;block&quot; title=&quot;Higher-order logic&quot;&gt;
@@ -1477,15 +1473,19 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;h2 id=&quot;lcf&quot; up-at-unpause=lcf pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#lcf&quot;&gt;&lt;/a&gt;&lt;span&gt;LCF in one slide&lt;/span&gt;&lt;/h2&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;thm&lt;/code&gt;&lt;span&gt; is an &lt;/span&gt;&lt;strong&gt;&lt;span&gt;abstract type&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;; only kernel rules construct it&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;thm&lt;/code&gt;&lt;span&gt; is an &lt;/span&gt;&lt;strong&gt;&lt;span&gt;abstract type&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; and only kernel rules construct it&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Classic tactics: &lt;/span&gt;&lt;code&gt;goal -&amp;gt; goal list * (thm list -&amp;gt; thm)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Tactics can produce multiple subgoals&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Three languages: &lt;/span&gt;&lt;strong&gt;&lt;span&gt;object&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (the logic), &lt;/span&gt;&lt;strong&gt;&lt;span&gt;meta&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (ML), &lt;/span&gt;&lt;strong&gt;&lt;span&gt;tactic&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (the proof DSL)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Tactic result carries justifications: &lt;/span&gt;&lt;code&gt;goal -&amp;gt; goal list * (thm list -&amp;gt; thm)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div pause&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span&gt;Three languages: &lt;/span&gt;&lt;strong&gt;&lt;span&gt;object&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (the logic), &lt;/span&gt;&lt;strong&gt;&lt;span&gt;meta&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (ML usually), &lt;/span&gt;&lt;strong&gt;&lt;span&gt;tactic&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (the proof DSL)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;comparison&quot; up-at-unpause=comparison pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#comparison&quot;&gt;&lt;/a&gt;&lt;span&gt;Where the languages live&lt;/span&gt;&lt;/h2&gt;
 &lt;div class=&quot;lang-table&quot;&gt;
@@ -1534,10 +1534,10 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/tr&gt;
 &lt;/table&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span&gt;PPX blurs object and meta. Effects unify the tactic layer.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;PPX blurs object and meta language syntactically. Effects make tactics more composable without a full DSL.&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&quot;kernel&quot; up-at-unpause=kernel pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#kernel&quot;&gt;&lt;/a&gt;&lt;span&gt;Design: the kernel&lt;/span&gt;&lt;/h1&gt;
 &lt;p pause&gt;&lt;span&gt;A port of John Harrison's HOL Light &lt;/span&gt;&lt;code&gt;fusion.ml&lt;/code&gt;&lt;span&gt; (&lt;/span&gt;&lt;strong&gt;&lt;span&gt;596 lines&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;)&lt;/span&gt;&lt;/p&gt;
-&lt;div style=&quot;height:28vh&quot;&gt;&lt;/div&gt;
+&lt;div style=&quot;height:20vh&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;kernel-rules&quot; class=&quot;slipshow__carousel small&quot; pause style=&quot;font-size: 50px&quot; change-page=~n:all carousel&gt;
 &lt;div class=&quot;slipshow__carousel_active slipshow__carousel_children&quot;&gt;
 &lt;p&gt;\[\dfrac{}{\vdash t = t}\;\mathsf{refl}\]&lt;/p&gt;
@@ -1555,10 +1555,10 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;p&gt;\[\dfrac{\Gamma \vdash f = g \quad \Delta \vdash x = y}{\Gamma \cup \Delta \vdash f\,x = g\,y}\;\mathsf{mk\_comb}\]&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;p&gt;\[\dfrac{\Gamma \vdash p \quad \Delta \vdash q}{(\Gamma - \{q\}) \cup (\Delta - \{p\}) \vdash p = q}\;\mathsf{deduct\_antisym}\]&lt;/p&gt;
+&lt;p&gt;\[\dfrac{\Gamma \vdash s = t}{\Gamma \vdash (\lambda x.\,s) = (\lambda x.\,t)}\;\mathsf{lam}\quad x \notin \mathrm{FV}(\Gamma)\]&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;p&gt;\[\dfrac{\Gamma \vdash s = t}{\Gamma \vdash (\lambda x.\,s) = (\lambda x.\,t)}\;\mathsf{lam}\quad x \notin \mathrm{FV}(\Gamma)\]&lt;/p&gt;
+&lt;p&gt;\[\dfrac{\Gamma \vdash p \quad \Delta \vdash q}{(\Gamma - \{q\}) \cup (\Delta - \{p\}) \vdash p = q}\;\mathsf{deduct\_antisym}\]&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
 &lt;p&gt;\[\dfrac{\Gamma \vdash p}{\Gamma[\theta] \vdash p[\theta]}\;\mathsf{inst\_type}\]&lt;/p&gt;
@@ -1571,8 +1571,8 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;div style=&quot;height:28vh&quot;&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span&gt;Plus about 80 derived rules and basic constructs needed to lay the ground work for tactics. I derived these differently from HOL Light in most cases for clarity.&lt;/span&gt;&lt;/p&gt;
+&lt;div style=&quot;height:20vh&quot;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span&gt;Plus about 80 derived rules and basic constructs needed to lay the ground work for tactics. I derived these differently from HOL Light in most cases, for clarity.&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;trust&quot; up-at-unpause=trust pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#trust&quot;&gt;&lt;/a&gt;&lt;span&gt;Trust&lt;/span&gt;&lt;/h2&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;block&quot; title=&quot;The LCF argument&quot;&gt;&lt;code&gt;thm&lt;/code&gt;&lt;span&gt; is abstract, so no tactic or handler can forge a theorem. A buggy handler can hurt &lt;/span&gt;&lt;strong&gt;&lt;span&gt;completeness&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: it can fail, loop, or pick badly. It can never hurt &lt;/span&gt;&lt;strong&gt;&lt;span&gt;soundness&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;
@@ -1580,7 +1580,7 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;p&gt;&lt;span&gt;What is trusted at this very moment:&lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span&gt;The kernel&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;Axioms: excluded middle, choice, eta&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;System wide axioms: excluded middle, choice, eta&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Datatype theorems &lt;/span&gt;&lt;strong&gt;&lt;span&gt;generated at runtime&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (strict positivity + base case checked), not derived as in HOL Light&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Anything calling &lt;/span&gt;&lt;code&gt;new_axiom&lt;/code&gt;&lt;span&gt; (e.g. &lt;/span&gt;&lt;code&gt;sorry&lt;/code&gt;&lt;span&gt;)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1604,7 +1604,7 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;div up-at-unpause=effects-title pause&gt;&lt;/div&gt;
 &lt;h2 id=&quot;effects-title&quot;&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#effects-title&quot;&gt;&lt;/a&gt;&lt;span&gt;What's so special about these effects?&lt;/span&gt;&lt;/h2&gt;
-&lt;div id=&quot;effects&quot; class=&quot;slipshow__carousel code-lg small&quot; carousel&gt;
+&lt;div id=&quot;effects&quot; class=&quot;slipshow__carousel&quot; carousel&gt;
 &lt;div class=&quot;slipshow__carousel_active slipshow__carousel_children&quot;&gt;
 &lt;div&gt;
 &lt;h3&gt;&lt;code&gt;Subgoal&lt;/code&gt;&lt;span&gt;: ask the context to prove something&lt;/span&gt;&lt;/h3&gt;
@@ -1654,19 +1654,21 @@ let with_term (t : term) : tactic_combinator = fun tac goal -&amp;gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
 &lt;div&gt;
 &lt;h3&gt;&lt;code&gt;Rules&lt;/code&gt;&lt;span&gt; and &lt;/span&gt;&lt;code&gt;Name&lt;/code&gt;&lt;span&gt;: context, not arguments&lt;/span&gt;&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let with_rules (rules : thm list) : tactic_combinator = fun tac goal -&amp;gt;
-  match tac goal with
-  | effect Rules, k -&amp;gt; continue k rules
-  | v -&amp;gt; v
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let with_rules (rules : thm list) : tactic_combinator = 
+  fun tac goal -&amp;gt;
+    match tac goal with
+    | effect Rules, k -&amp;gt; continue k rules
+    | v -&amp;gt; v
 
-let with_names (names : string list) : tactic_combinator = fun tac goal -&amp;gt;
-  let queue = ref names in
-  match tac goal with
-  | effect Name (tm, asms), k -&amp;gt;
-      (match !queue with
-       | n :: rest -&amp;gt; queue := rest; continue k (n, tm)
-       | [] -&amp;gt; continue k (Names.name_asm tm asms))
-  | v -&amp;gt; v
+let with_names (names : string list) : tactic_combinator = 
+  fun tac goal -&amp;gt;
+    let queue = ref names in
+    match tac goal with
+    | effect Name (tm, asms), k -&amp;gt;
+        (match !queue with
+         | n :: rest -&amp;gt; queue := rest; continue k (n, tm)
+         | [] -&amp;gt; continue k (Names.name_asm tm asms))
+    | v -&amp;gt; v
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1686,8 +1688,7 @@ let with_names (names : string list) : tactic_combinator = fun tac goal -&amp;gt
 &lt;div change-page=effects&gt;&lt;/div&gt;
 &lt;div change-page=effects&gt;&lt;/div&gt;
 &lt;h2 id=&quot;combinators&quot; up-at-unpause=combinators pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#combinators&quot;&gt;&lt;/a&gt;&lt;span&gt;Sequencing: LCF vs effects&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;small cols&quot;&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* HOL Light *)
+&lt;pre id=&quot;hol-light-impl&quot;&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* HOL Light *)
 let (THEN),(THENL),then1_ =
   let propagate_empty i [] = []
   and propagate_thm th i [] = INSTANTIATE_ALL i th in
@@ -1706,11 +1707,7 @@ let (THEN),(THENL),then1_ =
    | _,_ -&amp;gt; failwith &amp;quot;seqapply: Length mismatch&amp;quot; in
   (* ... tacsequence, then_, thenl_ ... *)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div&gt;
-&lt;div class=&quot;small cols&quot;&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* Heft *)
+&lt;pre id=&quot;heft-impl&quot; up-at-unpause pause&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* Heft *)
 let then_one (tac1 : tactic) : tactic_combinator =
  fun tac goal -&amp;gt;
   let handled_first = ref false in
@@ -1726,13 +1723,13 @@ let then_all (tac1 : tactic) : tactic_combinator =
   | effect Subgoal g, k -&amp;gt; continue k (tac g)
   | v -&amp;gt; v
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div focus-at-unpause=&quot;hol-light-impl heft-impl&quot;&gt;&lt;/div&gt;
+&lt;div unfocus-at-unpause&gt;&lt;/div&gt;
 &lt;div center-at-unpause pause&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span&gt;Unhandled subgoals move up to the enclosing handler: &lt;/span&gt;&lt;strong&gt;&lt;span&gt;the goal list lives in the handler stack.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;muted&quot;&gt;&lt;span&gt;Fairness: HOL Light also threads metavariable instantiations. Heft has no metavariables.&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;search&quot; up-at-unpause=search pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#search&quot;&gt;&lt;/a&gt;&lt;span&gt;Proof search is a handler&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;small cols&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let with_dfs' : tactic_combinator = fun tac goal -&amp;gt;
   let rec handler f =
     match f () with
@@ -1752,12 +1749,12 @@ let then_all (tac1 : tactic) : tactic_combinator =
   in
   handler (fun () -&amp;gt; tac goal)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;div center-at-unpause pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Multi-shot continuations (&lt;/span&gt;&lt;code&gt;multicont&lt;/code&gt;&lt;span&gt;): resume the same choice point for each alternative&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Multi-shot continuations allow reuse of continuations when trying multiple choices&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Swap the frontier and you get BFS / best-first (&lt;/span&gt;&lt;code&gt;make_search&lt;/code&gt;&lt;span&gt;)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Search distributes over &lt;/span&gt;&lt;strong&gt;&lt;span&gt;any&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; choice, including which tactic to run next&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let assumption_reasoning =
   with_best_first (pick [ 
@@ -1806,7 +1803,7 @@ and proof =
     end
 [@quiet]
 &lt;/code&gt;&lt;/pre&gt;
-&lt;div pause&gt;&lt;/div&gt;
+&lt;div center-at-unpause pause&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;let%thm … and proof&lt;/code&gt;&lt;span&gt; becomes a term + a tactic + attributes passed to &lt;/span&gt;&lt;code&gt;run_proof&lt;/code&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&quot;demo&quot; up-at-unpause=demo pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#demo&quot;&gt;&lt;/a&gt;&lt;span&gt;Demo&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
@@ -1850,7 +1847,7 @@ and proof =
 &lt;ul&gt;
 &lt;li&gt;&lt;span&gt;No metavariables&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Datatype theorems generated at runtime, not derived&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;The PPX gives a &lt;/span&gt;&lt;strong&gt;&lt;span&gt;correspondence&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;, not a verified embedding: proofs are about the HOL term, for a pure subset of OCaml&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;The PPX gives a &lt;/span&gt;&lt;strong&gt;&lt;span&gt;correspondence&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;, not a verified embedding, meaning proofs are about the HOL term rather than the OCaml to be executed&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Untyped effects&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
@@ -1858,16 +1855,15 @@ and proof =
 &lt;h1 id=&quot;next&quot; up-at-unpause=next pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#next&quot;&gt;&lt;/a&gt;&lt;span&gt;Next steps&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Typed effects, or a program logic for handlers (e.g. Hazel)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Typed effects&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;A more formal investigation into the rules of composition in Heft&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Derive the datatype theorems&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Desugar nested patterns in the PPX&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;Parallel subgoals&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;takeaway&quot;&gt;&lt;span&gt;HOL's usability problems are mostly engineering problems. Effects are one powerful, imperfect answer.&lt;/span&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;h1 class=&quot;center&quot;&gt;&lt;span&gt;Thanks!&lt;/span&gt;&lt;/h1&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
