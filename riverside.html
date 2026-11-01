@@ -1762,16 +1762,18 @@ let then_all (tac1 : tactic) : tactic_combinator =
   ])
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;parallel&quot; up-at-unpause=parallel pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#parallel&quot;&gt;&lt;/a&gt;&lt;span&gt;Parallel workers&lt;/span&gt;&lt;/h2&gt;
-&lt;pre class=&quot;small&quot;&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let run_tactic_in_worker (g : goal) (tac : tactic) : thm =
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let run_tactic_in_worker (g : goal) (tac : tactic) : thm =
   match tac g with
   | effect Register _, k -&amp;gt; continue k ()
   | effect Rules, k -&amp;gt; continue k []
   | effect Trace (_, _), k -&amp;gt; continue k ()
   | effect Quiet, k -&amp;gt; continue k true
-  | effect Name (tm, asms), k -&amp;gt; continue k (Names.name_asm tm asms)
-  | effect Choose choices, k -&amp;gt; (* take the first *) ...
+  | effect Name (tm, asms), k -&amp;gt; 
+        continue k (Names.name_asm tm asms)
+  | effect Choose choices, k -&amp;gt; (* take the first *)
   | effect Fail, _ -&amp;gt; failwith &amp;quot;worker fail&amp;quot;
-  | effect Subgoal _, _ -&amp;gt; failwith &amp;quot;unexpected subgoal in worker&amp;quot;
+  | effect Subgoal _, _ -&amp;gt; 
+        failwith &amp;quot;unexpected subgoal in worker&amp;quot;
   | thm -&amp;gt; thm
 &lt;/code&gt;&lt;/pre&gt;
 &lt;div pause&gt;&lt;/div&gt;
@@ -1785,59 +1787,89 @@ let then_all (tac1 : tactic) : tactic_combinator =
 &lt;li&gt;&lt;span&gt;HOL is syntactically a subset of OCaml, so let the code &lt;/span&gt;&lt;strong&gt;&lt;span&gt;drop in&lt;/span&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;[%%inductive type nat = Zero | Suc of nat]
-
-let%primrec plus (n : nat) (m : nat) : nat =
-  match n with
-  | Zero   -&amp;gt; m
-  | Suc n' -&amp;gt; Suc (plus n' m)
-
-let%thm plus_comm (x : nat) (y : nat) = 
-    plus x y = plus y x
-and proof = 
-    begin 
-        induct &amp;gt;&amp;gt;= [ 
-            auto_dfs; 
-            auto_dfs 
-        ] 
-    end
-[@quiet]
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%def nat_pair_sum (p : (nat, nat) pair) : nat =
+  match p with Pair (l, r) -&amp;gt; plus l r
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div pause&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%wfrec min_pair (p : (nat, nat) pair) : nat =
+  match p with
+  | Pair (l, r) -&amp;gt;
+      if l = 0n || r = 0n then 0n else 
+      Suc (min_pair (Pair (pred l, pred r)))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;div center-at-unpause pause&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%primrec dfs (depth : nat) (c : cube) : move list option =
+  match depth with
+  | Zero -&amp;gt; if c = solved_cube then Some [] else None
+  | Suc n -&amp;gt;
+      if c = solved_cube then Some [] else
+      try_each all_moves (fun (m : move) -&amp;gt;
+          match (dfs n (apply_move m c) : move list option) with
+          | None -&amp;gt; None
+          | Some ms -&amp;gt; Some (m :: ms))
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div center-at-unpause pause&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;let%def&lt;/code&gt;&lt;span&gt; becomes a basic kernel definition with &lt;/span&gt;&lt;code&gt;new_definition&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;let%primrec&lt;/code&gt;&lt;span&gt; becomes a primitive recursive function justified by generated recursion theorems&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;let%wfrec&lt;/code&gt;&lt;span&gt; becomes a well-founded recursive function justified by automation leveraging WF theorems&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;let%thm … and proof&lt;/code&gt;&lt;span&gt; becomes a term + a tactic + attributes passed to &lt;/span&gt;&lt;code&gt;run_proof&lt;/code&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&quot;demo&quot; up-at-unpause=demo pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#demo&quot;&gt;&lt;/a&gt;&lt;span&gt;Demo&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;plus_comm&lt;/code&gt;&lt;span&gt;: by hand, then with &lt;/span&gt;&lt;code&gt;auto_dfs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;plus_comm&lt;/code&gt;&lt;span&gt;: definitions, using lemmas, custom search&lt;/span&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div pause&gt;&lt;/div&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;&lt;code&gt;lt_implies_le&lt;/code&gt;&lt;span&gt;: override &lt;/span&gt;&lt;code&gt;induct&lt;/code&gt;&lt;span&gt;'s choice; search the base case; name hypotheses&lt;/span&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div pause&gt;&lt;/div&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;code&gt;lt_trans&lt;/code&gt;&lt;span&gt;: a one-line custom search, reused across a triple induction&lt;/span&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre id=&quot;demo-backup&quot; class=&quot;small&quot; up-at-unpause=demo-backup pause&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%thm lt_implies_le (a : nat) (b : nat) = nat_lt a b ==&amp;gt; nat_le a b
+&lt;pre id=&quot;demo-backup&quot; up-at-unpause=demo-backup pause&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let myauto = with_no_automation_trace (with_dfs' auto)
+
+[%%inductive type mynat = 
+  | Z 
+  | S of mynat]
+
+let%primrec myplus (m : mynat) (n : mynat) : mynat =
+  match m with 
+  | Z -&amp;gt; n 
+  | S m' -&amp;gt; S (myplus m' n)
+
+let%thm myplus_z_r (n : mynat) = 
+    n = myplus n Z
 and proof =
   begin
-    with_term [%term (a : nat)] induct
-    &amp;gt;&amp;gt; with_no_automation_trace auto_dfs
-    &amp;gt;&amp;gt; (intros @: [ &amp;quot;hIH&amp;quot;; &amp;quot;hlt&amp;quot; ]
-       &amp;gt;&amp;gt; simp
-       &amp;gt;&amp;gt; with_term [%term (b : nat)] destruct_elim @: [ &amp;quot;hzero&amp;quot;; &amp;quot;&amp;quot;; &amp;quot;hsuc&amp;quot; ]
-       &amp;gt;&amp;gt; (simp_asm &amp;gt;&amp;gt; false_elim)
-       &amp;gt;&amp;gt; (simp_all &amp;gt;&amp;gt; apply_at &amp;quot;hIH&amp;quot; ~target:&amp;quot;hlt&amp;quot; @! &amp;quot;hle&amp;quot; &amp;gt;&amp;gt; assumption))
+    induct &amp;gt;&amp;gt;=[
+      myauto;
+      intros @! &amp;quot;hn0&amp;quot; &amp;gt;&amp;gt; simp ~with_asms:false
+      &amp;gt;&amp;gt; rewrite_at &amp;quot;hn0&amp;quot; ~position:1
+      &amp;gt;&amp;gt; refl
+    ]
   end
+  [@quiet]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre id=&quot;demo-backup2&quot; up-at-unpause=demo-backup2 pause&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%thm myplus_s_r (m : mynat) (n : mynat) = 
+    myplus m (S n) = S (myplus m n)
+and proof =
+  begin
+    induct &amp;gt;&amp;gt;= [ 
+      intros &amp;gt;&amp;gt; simp; 
+      intros &amp;gt;&amp;gt; simp 
+    ]
+  end
+  [@quiet] [@simp]
+
+let%thm myplus_comm (m : mynat) (n : mynat) = 
+    myplus m n = myplus n m
+and proof =
+  begin
+    induct &amp;gt;&amp;gt;= [ 
+      intros &amp;gt;&amp;gt; simp &amp;gt;&amp;gt; apply_at &amp;quot;myplus_z_r&amp;quot;; 
+      myauto  
+    ]
+  end
+  [@quiet]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&quot;findings&quot; up-at-unpause=findings pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#findings&quot;&gt;&lt;/a&gt;&lt;span&gt;Findings&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;block&quot; title=&quot;What worked&quot;&gt;&lt;span&gt;Custom tactics and search in very little code. Search is general because it distributes over every choice.&lt;/span&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;block&quot; title=&quot;What hurt: debugging&quot;&gt;&lt;span&gt;Effects are untyped. You can't see which effects a tactic performs, or enforce the invariants handlers must respect at compile time. Small handler changes caused bugs that most proofs never surfaced.&lt;/span&gt;&lt;/p&gt;
-&lt;div pause&gt;&lt;/div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let queue = ref names in   (* shared, not copied, when a continuation is resumed twice *)
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;findings2&quot; up-at-unpause=findings2 pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#findings2&quot;&gt;&lt;/a&gt;&lt;span&gt;Findings, continued&lt;/span&gt;&lt;/h2&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;block&quot; title=&quot;Fuel vs well-founded recursion&quot;&gt;&lt;span&gt;I expected fuel-based definitions to automate better. Each sufficiency proof became its own project, while well-founded recursion was general. Now I know why everyone uses it.&lt;/span&gt;&lt;/p&gt;
