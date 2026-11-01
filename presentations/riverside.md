@@ -435,7 +435,6 @@ let assumption_reasoning =
 {#parallel}
 ## Parallel workers
 
-{.small}
 ```ocaml
 let run_tactic_in_worker (g : goal) (tac : tactic) : thm =
   match tac g with
@@ -443,10 +442,12 @@ let run_tactic_in_worker (g : goal) (tac : tactic) : thm =
   | effect Rules, k -> continue k []
   | effect Trace (_, _), k -> continue k ()
   | effect Quiet, k -> continue k true
-  | effect Name (tm, asms), k -> continue k (Names.name_asm tm asms)
-  | effect Choose choices, k -> (* take the first *) ...
+  | effect Name (tm, asms), k -> 
+        continue k (Names.name_asm tm asms)
+  | effect Choose choices, k -> (* take the first *)
   | effect Fail, _ -> failwith "worker fail"
-  | effect Subgoal _, _ -> failwith "unexpected subgoal in worker"
+  | effect Subgoal _, _ -> 
+        failwith "unexpected subgoal in worker"
   | thm -> thm
 ```
 
@@ -471,29 +472,44 @@ Parallelization in this manner is only useful when subsequent subgoals are cheap
 {pause}
 
 ```ocaml
-[%%inductive type nat = Zero | Suc of nat]
+let%def nat_pair_sum (p : (nat, nat) pair) : nat =
+  match p with Pair (l, r) -> plus l r
+```
 
-let%primrec plus (n : nat) (m : nat) : nat =
-  match n with
-  | Zero   -> m
-  | Suc n' -> Suc (plus n' m)
+{pause}
 
-let%thm plus_comm (x : nat) (y : nat) = 
-    plus x y = plus y x
-and proof = 
-    begin 
-        induct >>= [ 
-            auto_dfs; 
-            auto_dfs 
-        ] 
-    end
-[@quiet]
+```ocaml
+let%wfrec min_pair (p : (nat, nat) pair) : nat =
+  match p with
+  | Pair (l, r) ->
+      if l = 0n || r = 0n then 0n else 
+      Suc (min_pair (Pair (pred l, pred r)))
 ```
 
 {pause center}
 
-`let%thm … and proof` becomes a term + a tactic + attributes passed to `run_proof`.
+```ocaml
+let%primrec dfs (depth : nat) (c : cube) : move list option =
+  match depth with
+  | Zero -> if c = solved_cube then Some [] else None
+  | Suc n ->
+      if c = solved_cube then Some [] else
+      try_each all_moves (fun (m : move) ->
+          match (dfs n (apply_move m c) : move list option) with
+          | None -> None
+          | Some ms -> Some (m :: ms))
 
+```
+
+{pause center}
+
+`let%def` becomes a basic kernel definition with `new_definition`
+
+`let%primrec` becomes a primitive recursive function justified by generated recursion theorems
+
+`let%wfrec` becomes a well-founded recursive function justified by automation leveraging WF theorems
+
+`let%thm … and proof` becomes a term + a tactic + attributes passed to `run_proof`.
 
 {pause up=demo}
 {#demo}
@@ -501,31 +517,60 @@ and proof =
 
 {pause}
 
-1. `plus_comm`: by hand, then with `auto_dfs`
-
-{pause}
-
-2. `lt_implies_le`: override `induct`'s choice; search the base case; name hypotheses
-
-{pause}
-
-3. `lt_trans`: a one-line custom search, reused across a triple induction
-
+1. `plus_comm`: definitions, using lemmas, custom search 
 
 {pause up=demo-backup}
-{#demo-backup .small}
+{#demo-backup }
 ```ocaml
-let%thm lt_implies_le (a : nat) (b : nat) = nat_lt a b ==> nat_le a b
+let myauto = with_no_automation_trace (with_dfs' auto)
+
+[%%inductive type mynat = 
+  | Z 
+  | S of mynat]
+
+let%primrec myplus (m : mynat) (n : mynat) : mynat =
+  match m with 
+  | Z -> n 
+  | S m' -> S (myplus m' n)
+
+let%thm myplus_z_r (n : mynat) = 
+    n = myplus n Z
 and proof =
   begin
-    with_term [%term (a : nat)] induct
-    >> with_no_automation_trace auto_dfs
-    >> (intros @: [ "hIH"; "hlt" ]
-       >> simp
-       >> with_term [%term (b : nat)] destruct_elim @: [ "hzero"; ""; "hsuc" ]
-       >> (simp_asm >> false_elim)
-       >> (simp_all >> apply_at "hIH" ~target:"hlt" @! "hle" >> assumption))
+    induct >>=[
+      myauto;
+      intros @! "hn0" >> simp ~with_asms:false
+      >> rewrite_at "hn0" ~position:1
+      >> refl
+    ]
   end
+  [@quiet]
+```
+
+{pause up=demo-backup2}
+{#demo-backup2 }
+```ocaml
+let%thm myplus_s_r (m : mynat) (n : mynat) = 
+    myplus m (S n) = S (myplus m n)
+and proof =
+  begin
+    induct >>= [ 
+      intros >> simp; 
+      intros >> simp 
+    ]
+  end
+  [@quiet] [@simp]
+
+let%thm myplus_comm (m : mynat) (n : mynat) = 
+    myplus m n = myplus n m
+and proof =
+  begin
+    induct >>= [ 
+      intros >> simp >> apply_at "myplus_z_r"; 
+      myauto  
+    ]
+  end
+  [@quiet]
 ```
 
 {pause up=findings}
@@ -541,13 +586,6 @@ Custom tactics and search in very little code. Search is general because it dist
 
 {.block title="What hurt: debugging"}
 Effects are untyped. You can't see which effects a tactic performs, or enforce the invariants handlers must respect at compile time. Small handler changes caused bugs that most proofs never surfaced.
-
-{pause}
-
-```ocaml
-let queue = ref names in   (* shared, not copied, when a continuation is resumed twice *)
-```
-
 
 {pause up=findings2}
 {#findings2}
