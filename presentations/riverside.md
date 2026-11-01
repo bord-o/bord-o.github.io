@@ -23,9 +23,6 @@ theme: themes/modus-operandi.css
 .lang-table tbody tr:nth-child(6) {
   background: #f8f0d0;
 }
-.code-lg pre code { font-size: 1.15em !important; }
-
-
 </style>
 
 {#title center}
@@ -75,11 +72,11 @@ Most software is not formally verified in any capacity. Not even close.
 
 {pause}
 
-- **Lean 4:** one language, but dependent types up front: universes, `Prop` vs `Bool`, elaboration
+- **Lean 4:** one language, but a sharp learning curve. A basic understanding of dependent types, universes, `Prop` vs `Bool`, elaboration, and type classes up front
 
 {pause}
 
-- **Either way:** the code you prove things about is not the code you run
+- **Either way:** there is a distinction between writing code to run it and writing code to reason about it
 
 {pause}
 
@@ -108,7 +105,7 @@ HOL's usability problems are mostly **engineering** problems, not limits of the 
 > {.block title="Dependent type theory"}
 > > - Larger, more complex trusted base
 > > - The elaborator does a lot, so errors can be opaque
-> > - Universes, `Prop` vs `Bool`, type families: **front-loaded**
+> > - Need to learn a large amount of theory **up front** in order to be productive 
 >
 > {.block title="Higher-order logic"}
 > > - Tiny kernel, simple types
@@ -122,15 +119,19 @@ HOL's usability problems are mostly **engineering** problems, not limits of the 
 
 {pause}
 
-- `thm` is an **abstract type**; only kernel rules construct it
+- `thm` is an **abstract type** and only kernel rules construct it
 
 {pause}
 
-- Classic tactics: `goal -> goal list * (thm list -> thm)`
+- Tactics can produce multiple subgoals
 
 {pause}
 
-- Three languages: **object** (the logic), **meta** (ML), **tactic** (the proof DSL)
+- Tactic result carries justifications: `goal -> goal list * (thm list -> thm)`
+
+{pause}
+
+- Three languages: **object** (the logic), **meta** (ML usually), **tactic** (the proof DSL)
 
 {pause up=comparison}
 {#comparison}
@@ -147,7 +148,7 @@ HOL's usability problems are mostly **engineering** problems, not limits of the 
 
 {pause}
 
-PPX blurs object and meta. Effects unify the tactic layer.
+PPX blurs object and meta language syntactically. Effects make tactics more composable without a full DSL.
 
 
 {pause up=kernel}
@@ -157,7 +158,7 @@ PPX blurs object and meta. Effects unify the tactic layer.
 {pause}
 A port of John Harrison's HOL Light `fusion.ml` (**596 lines**)
 
-{style="height:28vh"}
+{style="height:20vh"}
 
 {pause}
 {carousel #kernel-rules .small change-page=~n:all style="font-size: 50px"}
@@ -171,9 +172,9 @@ A port of John Harrison's HOL Light `fusion.ml` (**596 lines**)
 > ---
 > > $$\dfrac{\Gamma \vdash f = g \quad \Delta \vdash x = y}{\Gamma \cup \Delta \vdash f\,x = g\,y}\;\mathsf{mk\_comb}$$
 > ---
-> > $$\dfrac{\Gamma \vdash p \quad \Delta \vdash q}{(\Gamma - \{q\}) \cup (\Delta - \{p\}) \vdash p = q}\;\mathsf{deduct\_antisym}$$
-> ---
 > > $$\dfrac{\Gamma \vdash s = t}{\Gamma \vdash (\lambda x.\,s) = (\lambda x.\,t)}\;\mathsf{lam}\quad x \notin \mathrm{FV}(\Gamma)$$
+> ---
+> > $$\dfrac{\Gamma \vdash p \quad \Delta \vdash q}{(\Gamma - \{q\}) \cup (\Delta - \{p\}) \vdash p = q}\;\mathsf{deduct\_antisym}$$
 > ---
 > > $$\dfrac{\Gamma \vdash p}{\Gamma[\theta] \vdash p[\theta]}\;\mathsf{inst\_type}$$
 > ---
@@ -183,9 +184,9 @@ A port of John Harrison's HOL Light `fusion.ml` (**596 lines**)
 
 {pause}
 
-{style="height:28vh"}
+{style="height:20vh"}
 
-Plus about 80 derived rules and basic constructs needed to lay the ground work for tactics. I derived these differently from HOL Light in most cases for clarity.
+Plus about 80 derived rules and basic constructs needed to lay the ground work for tactics. I derived these differently from HOL Light in most cases, for clarity.
 
 
 {pause up=trust}
@@ -202,7 +203,7 @@ Plus about 80 derived rules and basic constructs needed to lay the ground work f
 What is trusted at this very moment:
 
 - The kernel
-- Axioms: excluded middle, choice, eta
+- System wide axioms: excluded middle, choice, eta
 - Datatype theorems **generated at runtime** (strict positivity + base case checked), not derived as in HOL Light
 - Anything calling `new_axiom` (e.g. `sorry`)
 
@@ -243,7 +244,7 @@ type _ Effect.t +=
 {#effects-title}
 ## What's so special about these effects?
 
-{carousel #effects .small .code-lg}
+{carousel #effects }
 > ### `Subgoal`: ask the context to prove something
 >
 > ```ocaml
@@ -296,19 +297,21 @@ type _ Effect.t +=
 > ### `Rules` and `Name`: context, not arguments
 >
 > ```ocaml
-> let with_rules (rules : thm list) : tactic_combinator = fun tac goal ->
->   match tac goal with
->   | effect Rules, k -> continue k rules
->   | v -> v
+> let with_rules (rules : thm list) : tactic_combinator = 
+>   fun tac goal ->
+>     match tac goal with
+>     | effect Rules, k -> continue k rules
+>     | v -> v
 >
-> let with_names (names : string list) : tactic_combinator = fun tac goal ->
->   let queue = ref names in
->   match tac goal with
->   | effect Name (tm, asms), k ->
->       (match !queue with
->        | n :: rest -> queue := rest; continue k (n, tm)
->        | [] -> continue k (Names.name_asm tm asms))
->   | v -> v
+> let with_names (names : string list) : tactic_combinator = 
+>   fun tac goal ->
+>     let queue = ref names in
+>     match tac goal with
+>     | effect Name (tm, asms), k ->
+>         (match !queue with
+>          | n :: rest -> queue := rest; continue k (n, tm)
+>          | [] -> continue k (Names.name_asm tm asms))
+>     | v -> v
 > ```
 >
 > ---
@@ -332,46 +335,51 @@ type _ Effect.t +=
 {#combinators}
 ## Sequencing: LCF vs effects
 
-{.cols .small}
-> ```ocaml
-> (* HOL Light *)
-> let (THEN),(THENL),then1_ =
->   let propagate_empty i [] = []
->   and propagate_thm th i [] = INSTANTIATE_ALL i th in
->   let compose_justs n just1 just2 insts2 i ths =
->     let ths1,ths2 = chop_list n ths in
->     (just1 (compose_insts insts2 i) ths1)::(just2 i ths2) in
->   let rec seqapply l1 l2 = match (l1,l2) with
->      ([],[]) -> null_meta,[],propagate_empty
->    | ((tac:tactic)::tacs),((goal:goal)::goals) ->
->        let ((mvs1,insts1),gls1,just1) = tac goal in
->        let goals' = map (inst_goal insts1) goals in
->        let ((mvs2,insts2),gls2,just2) = seqapply tacs goals' in
->        ((union mvs1 mvs2,compose_insts insts1 insts2),
->         (map (inst_goal insts2) gls1)@gls2,
->         compose_justs (length gls1) just1 just2 insts2)
->    | _,_ -> failwith "seqapply: Length mismatch" in
->   (* ... tacsequence, then_, thenl_ ... *)
-> ```
----
-{.cols .small}
-> ```ocaml
-> (* Heft *)
-> let then_one (tac1 : tactic) : tactic_combinator =
->  fun tac goal ->
->   let handled_first = ref false in
->   match tac1 goal with
->   | effect Subgoal g, k when not !handled_first ->
->       handled_first := true;
->       continue k (tac g)
->   | (v : thm) -> v
->
-> let then_all (tac1 : tactic) : tactic_combinator =
->  fun tac goal ->
->   match tac1 goal with
->   | effect Subgoal g, k -> continue k (tac g)
->   | v -> v
-> ```
+{#hol-light-impl}
+```ocaml
+(* HOL Light *)
+let (THEN),(THENL),then1_ =
+  let propagate_empty i [] = []
+  and propagate_thm th i [] = INSTANTIATE_ALL i th in
+  let compose_justs n just1 just2 insts2 i ths =
+    let ths1,ths2 = chop_list n ths in
+    (just1 (compose_insts insts2 i) ths1)::(just2 i ths2) in
+  let rec seqapply l1 l2 = match (l1,l2) with
+     ([],[]) -> null_meta,[],propagate_empty
+   | ((tac:tactic)::tacs),((goal:goal)::goals) ->
+       let ((mvs1,insts1),gls1,just1) = tac goal in
+       let goals' = map (inst_goal insts1) goals in
+       let ((mvs2,insts2),gls2,just2) = seqapply tacs goals' in
+       ((union mvs1 mvs2,compose_insts insts1 insts2),
+        (map (inst_goal insts2) gls1)@gls2,
+        compose_justs (length gls1) just1 just2 insts2)
+   | _,_ -> failwith "seqapply: Length mismatch" in
+  (* ... tacsequence, then_, thenl_ ... *)
+```
+
+{pause up}
+{#heft-impl}
+```ocaml
+(* Heft *)
+let then_one (tac1 : tactic) : tactic_combinator =
+ fun tac goal ->
+  let handled_first = ref false in
+  match tac1 goal with
+  | effect Subgoal g, k when not !handled_first ->
+      handled_first := true;
+      continue k (tac g)
+  | (v : thm) -> v
+
+let then_all (tac1 : tactic) : tactic_combinator =
+ fun tac goal ->
+  match tac1 goal with
+  | effect Subgoal g, k -> continue k (tac g)
+  | v -> v
+```
+
+{focus="hol-light-impl heft-impl"}
+
+{unfocus}
 
 {pause center}
 
@@ -386,31 +394,32 @@ Fairness: HOL Light also threads metavariable instantiations. Heft has no metava
 {#search}
 ## Proof search is a handler
 
-{.cols .small}
-> ```ocaml
-> let with_dfs' : tactic_combinator = fun tac goal ->
->   let rec handler f =
->     match f () with
->     | effect Choose choices, k ->
->         let rec try_each r = function
->           | [] -> fail ()
->           | c :: cs ->
->             (match resume r c with
->              | effect Fail, k -> cleanup k; try_each r cs
->              | thm -> thm)
->         in
->         try_each (promote k) (as_chosen_list choices)
->     | effect Subgoal g, k ->
->         let thm : thm = handler (fun () -> tac g) in
->         handler (fun () -> continue k thm)
->     | v -> v
->   in
->   handler (fun () -> tac goal)
-> ```
->
-> - Multi-shot continuations (`multicont`): resume the same choice point for each alternative
-> - Swap the frontier and you get BFS / best-first (`make_search`)
-> - Search distributes over **any** choice, including which tactic to run next
+```ocaml
+let with_dfs' : tactic_combinator = fun tac goal ->
+  let rec handler f =
+    match f () with
+    | effect Choose choices, k ->
+        let rec try_each r = function
+          | [] -> fail ()
+          | c :: cs ->
+            (match resume r c with
+             | effect Fail, k -> cleanup k; try_each r cs
+             | thm -> thm)
+        in
+        try_each (promote k) (as_chosen_list choices)
+    | effect Subgoal g, k ->
+        let thm : thm = handler (fun () -> tac g) in
+        handler (fun () -> continue k thm)
+    | v -> v
+  in
+  handler (fun () -> tac goal)
+```
+
+{pause center}
+
+- Multi-shot continuations allow reuse of continuations when trying multiple choices 
+- Swap the frontier and you get BFS / best-first (`make_search`)
+- Search distributes over **any** choice, including which tactic to run next
 
 {pause}
 
@@ -481,7 +490,7 @@ and proof =
 [@quiet]
 ```
 
-{pause}
+{pause center}
 
 `let%thm … and proof` becomes a term + a tactic + attributes passed to `run_proof`.
 
@@ -560,7 +569,7 @@ I expected fuel-based definitions to automate better. Each sufficiency proof bec
 
 - No metavariables
 - Datatype theorems generated at runtime, not derived
-- The PPX gives a **correspondence**, not a verified embedding: proofs are about the HOL term, for a pure subset of OCaml
+- The PPX gives a **correspondence**, not a verified embedding, meaning proofs are about the HOL term rather than the OCaml to be executed
 - Untyped effects
 
 {pause}
@@ -574,10 +583,10 @@ Scale: 596-line kernel · ~5.9k lines of library · 1.9k-line PPX · ~1.5k lines
 
 {pause}
 
-- Typed effects, or a program logic for handlers (e.g. Hazel)
+- Typed effects 
+- A more formal investigation into the rules of composition in Heft
 - Derive the datatype theorems
 - Desugar nested patterns in the PPX
-- Parallel subgoals
 
 {pause}
 
