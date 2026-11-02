@@ -55,7 +55,7 @@ testing speaker notes
 
 {pause}
 
-- Software engineer, most recently at SEL
+- Software engineer, most recently at Schweitzer Engineering Laboratories (SEL)
 
 
 {pause up=question}
@@ -76,12 +76,12 @@ Most software is not formally verified in any capacity. Not even close.
 
 {pause}
 
-- **Either way:** there is a distinction between writing code to run it and writing code to reason about it
+- **Either way:** current proof assistants present many hurdles that dissuade would be practitioners outside of academia
 
 {pause}
 
 {#the-question .block title="The question"}
-Is the stratified, multi-language experience of HOL provers an inevitable consequence of the LCF architecture? Or can a HOL prover integrate cleanly into an existing language ecosystem?
+Is the stratified, multi-language experience of Higher Order Logic (HOL) based provers an inevitable consequence of the Logic for Computable Functions (LCF) architecture? Or can a HOL prover integrate cleanly into an existing language ecosystem?
 
 
 {pause up=claim}
@@ -99,7 +99,7 @@ HOL's usability problems are mostly **engineering** problems, not limits of the 
 
 {pause up=background}
 {#background}
-# Background: HOL vs DTT
+# Background: Dependent Type Theory (DTT) vs HOL
 
 {.cols}
 > {.block title="Dependent type theory"}
@@ -162,6 +162,8 @@ A port of John Harrison's HOL Light `fusion.ml` (**596 lines**)
 
 {pause}
 {carousel #kernel-rules .small change-page=~n:all style="font-size: 50px"}
+> > 
+> ---
 > > $$\dfrac{}{\vdash t = t}\;\mathsf{refl}$$
 > ---
 > > $$\dfrac{}{\{p\} \vdash p}\;\mathsf{assume}$$
@@ -210,7 +212,7 @@ What is trusted at this very moment:
 
 {pause up=effects-intro}
 {#effects-intro}
-# Design: tactics as effects
+# Design: refinement as effects
 
 {pause}
 
@@ -467,6 +469,9 @@ Parallelization in this manner is only useful when subsequent subgoals are cheap
 {pause}
 
 - Started with a term DSL, which got annoying fast
+
+{pause}
+
 - HOL is syntactically a subset of OCaml, so let the code **drop in**
 
 {pause}
@@ -479,16 +484,6 @@ let%def nat_pair_sum (p : (nat, nat) pair) : nat =
 {pause}
 
 ```ocaml
-let%wfrec min_pair (p : (nat, nat) pair) : nat =
-  match p with
-  | Pair (l, r) ->
-      if l = 0n || r = 0n then 0n else 
-      Suc (min_pair (Pair (pred l, pred r)))
-```
-
-{pause center}
-
-```ocaml
 let%primrec dfs (depth : nat) (c : cube) : move list option =
   match depth with
   | Zero -> if c = solved_cube then Some [] else None
@@ -499,6 +494,16 @@ let%primrec dfs (depth : nat) (c : cube) : move list option =
           | None -> None
           | Some ms -> Some (m :: ms))
 
+```
+
+{pause center}
+
+```ocaml
+let%wfrec min_pair (p : (nat, nat) pair) : nat =
+  match p with
+  | Pair (l, r) ->
+      if l = 0n || r = 0n then 0n else 
+      Suc (min_pair (Pair (pred l, pred r)))
 ```
 
 {pause center}
@@ -594,7 +599,7 @@ Effects are untyped. You can't see which effects a tactic performs, or enforce t
 {pause}
 
 {.block title="Fuel vs well-founded recursion"}
-I expected fuel-based definitions to automate better. Each sufficiency proof became its own project, while well-founded recursion was general. Now I know why everyone uses it.
+I expected fuel-based definitions to automate better. Each sufficiency proof became its own project, while well-founded recursion was general.
 
 {pause}
 

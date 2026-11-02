@@ -1429,7 +1429,7 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Software engineer, most recently at SEL&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span&gt;Software engineer, most recently at Schweitzer Engineering Laboratories (SEL)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&quot;question&quot; up-at-unpause=question pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#question&quot;&gt;&lt;/a&gt;&lt;span&gt;Why this project?&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
@@ -1444,16 +1444,16 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;span&gt;Either way:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; there is a distinction between writing code to run it and writing code to reason about it&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;span&gt;Either way:&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; current proof assistants present many hurdles that dissuade would be practitioners outside of academia&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;p id=&quot;the-question&quot; class=&quot;block&quot; title=&quot;The question&quot;&gt;&lt;span&gt;Is the stratified, multi-language experience of HOL provers an inevitable consequence of the LCF architecture? Or can a HOL prover integrate cleanly into an existing language ecosystem?&lt;/span&gt;&lt;/p&gt;
+&lt;p id=&quot;the-question&quot; class=&quot;block&quot; title=&quot;The question&quot;&gt;&lt;span&gt;Is the stratified, multi-language experience of Higher Order Logic (HOL) based provers an inevitable consequence of the Logic for Computable Functions (LCF) architecture? Or can a HOL prover integrate cleanly into an existing language ecosystem?&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&quot;claim&quot; up-at-unpause=claim pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#claim&quot;&gt;&lt;/a&gt;&lt;span&gt;The claim&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p id=&quot;thesis&quot; class=&quot;takeaway&quot;&gt;&lt;span&gt;HOL's usability problems are mostly &lt;/span&gt;&lt;strong&gt;&lt;span&gt;engineering&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; problems, not limits of the theory.&lt;/span&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p&gt;&lt;em&gt;&lt;span&gt;Heft is one experiment in that engineering.&lt;/span&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;h1 id=&quot;background&quot; up-at-unpause=background pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#background&quot;&gt;&lt;/a&gt;&lt;span&gt;Background: HOL vs DTT&lt;/span&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;background&quot; up-at-unpause=background pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#background&quot;&gt;&lt;/a&gt;&lt;span&gt;Background: Dependent Type Theory (DTT) vs HOL&lt;/span&gt;&lt;/h1&gt;
 &lt;div class=&quot;cols&quot;&gt;
 &lt;div class=&quot;block&quot; title=&quot;Dependent type theory&quot;&gt;
 &lt;ul&gt;
@@ -1540,6 +1540,8 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;div style=&quot;height:20vh&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;kernel-rules&quot; class=&quot;slipshow__carousel small&quot; pause style=&quot;font-size: 50px&quot; change-page=~n:all carousel&gt;
 &lt;div class=&quot;slipshow__carousel_active slipshow__carousel_children&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
 &lt;p&gt;\[\dfrac{}{\vdash t = t}\;\mathsf{refl}\]&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
@@ -1584,7 +1586,7 @@ relevance:0},{begin:/-&gt;/}]})})();hljs.registerLanguage(&quot;ocaml&quot;,e)})
 &lt;li&gt;&lt;span&gt;Datatype theorems &lt;/span&gt;&lt;strong&gt;&lt;span&gt;generated at runtime&lt;/span&gt;&lt;/strong&gt;&lt;span&gt; (strict positivity + base case checked), not derived as in HOL Light&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span&gt;Anything calling &lt;/span&gt;&lt;code&gt;new_axiom&lt;/code&gt;&lt;span&gt; (e.g. &lt;/span&gt;&lt;code&gt;sorry&lt;/code&gt;&lt;span&gt;)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&quot;effects-intro&quot; up-at-unpause=effects-intro pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#effects-intro&quot;&gt;&lt;/a&gt;&lt;span&gt;Design: tactics as effects&lt;/span&gt;&lt;/h1&gt;
+&lt;h1 id=&quot;effects-intro&quot; up-at-unpause=effects-intro pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#effects-intro&quot;&gt;&lt;/a&gt;&lt;span&gt;Design: refinement as effects&lt;/span&gt;&lt;/h1&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;type tactic = goal -&amp;gt; thm
 &lt;/code&gt;&lt;/pre&gt;
@@ -1784,6 +1786,9 @@ let then_all (tac1 : tactic) : tactic_combinator =
 &lt;div pause&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span&gt;Started with a term DSL, which got annoying fast&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div pause&gt;&lt;/div&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;span&gt;HOL is syntactically a subset of OCaml, so let the code &lt;/span&gt;&lt;strong&gt;&lt;span&gt;drop in&lt;/span&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
@@ -1791,13 +1796,6 @@ let then_all (tac1 : tactic) : tactic_combinator =
   match p with Pair (l, r) -&amp;gt; plus l r
 &lt;/code&gt;&lt;/pre&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%wfrec min_pair (p : (nat, nat) pair) : nat =
-  match p with
-  | Pair (l, r) -&amp;gt;
-      if l = 0n || r = 0n then 0n else 
-      Suc (min_pair (Pair (pred l, pred r)))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div center-at-unpause pause&gt;&lt;/div&gt;
 &lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%primrec dfs (depth : nat) (c : cube) : move list option =
   match depth with
   | Zero -&amp;gt; if c = solved_cube then Some [] else None
@@ -1808,6 +1806,13 @@ let then_all (tac1 : tactic) : tactic_combinator =
           | None -&amp;gt; None
           | Some ms -&amp;gt; Some (m :: ms))
 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div center-at-unpause pause&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;let%wfrec min_pair (p : (nat, nat) pair) : nat =
+  match p with
+  | Pair (l, r) -&amp;gt;
+      if l = 0n || r = 0n then 0n else 
+      Suc (min_pair (Pair (pred l, pred r)))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;div center-at-unpause pause&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;let%def&lt;/code&gt;&lt;span&gt; becomes a basic kernel definition with &lt;/span&gt;&lt;code&gt;new_definition&lt;/code&gt;&lt;/p&gt;
@@ -1872,7 +1877,7 @@ and proof =
 &lt;p class=&quot;block&quot; title=&quot;What hurt: debugging&quot;&gt;&lt;span&gt;Effects are untyped. You can't see which effects a tactic performs, or enforce the invariants handlers must respect at compile time. Small handler changes caused bugs that most proofs never surfaced.&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&quot;findings2&quot; up-at-unpause=findings2 pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#findings2&quot;&gt;&lt;/a&gt;&lt;span&gt;Findings, continued&lt;/span&gt;&lt;/h2&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;p class=&quot;block&quot; title=&quot;Fuel vs well-founded recursion&quot;&gt;&lt;span&gt;I expected fuel-based definitions to automate better. Each sufficiency proof became its own project, while well-founded recursion was general. Now I know why everyone uses it.&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&quot;block&quot; title=&quot;Fuel vs well-founded recursion&quot;&gt;&lt;span&gt;I expected fuel-based definitions to automate better. Each sufficiency proof became its own project, while well-founded recursion was general.&lt;/span&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p class=&quot;block&quot; title=&quot;Borrowing host syntax has costs&quot;&gt;&lt;code&gt;a ==&amp;gt; b ==&amp;gt; c&lt;/code&gt;&lt;span&gt; parses as &lt;/span&gt;&lt;code&gt;(a ==&amp;gt; b) ==&amp;gt; c&lt;/code&gt;&lt;span&gt;. OCaml fixes precedence and associativity by an operator's first character.&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&quot;limits&quot; up-at-unpause=limits pause&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#limits&quot;&gt;&lt;/a&gt;&lt;span&gt;Limitations&lt;/span&gt;&lt;/h1&gt;
